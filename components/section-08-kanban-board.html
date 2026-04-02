@@ -1,0 +1,143 @@
+<div class="section-08-kanban-board">
+    <!-- Section 8: Kanban Board -->
+    <section>
+      <h2 class="font-display text-2xl font-semibold mb-6 flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-creator-coral/20 flex items-center justify-center text-creator-coral">8</span>
+        Kanban Board
+      </h2>
+
+      <p class="text-sm text-creator-muted uppercase tracking-wider mb-4">Content Pipeline Board with Video Cards</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        <!-- Column: Ideas -->
+        <div class="relative shine-effect backdrop-blur-xl bg-gradient-to-br from-creator-cyan/20 via-creator-cyan/10 to-creator-surface/50 border border-creator-cyan/20 shadow-lg shadow-creator-cyan/5 rounded-xl overflow-hidden">
+          <div class="p-3 border-b border-creator-border flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="text-creator-cyan">💡</span>
+              <span class="font-medium text-sm">Ideas</span>
+            </div>
+            <span class="w-6 h-6 rounded-full bg-creator-cyan/20 text-creator-cyan text-xs font-bold flex items-center justify-center">3</span>
+          </div>
+          <div class="p-3 space-y-3">
+            <!-- Kanban Card 1 -->
+            <div class="kanban-card bg-creator-card rounded-lg border border-creator-border overflow-hidden cursor-grab hover:border-creator-cyan/50 transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-creator-cyan/10">
+              <div class="aspect-video bg-gradient-to-br from-creator-cyan/30 to-creator-coral/20 relative">
+                <div class="absolute bottom-2 right-2 px-1.5 py-0.5 rounded bg-black/60 text-[10px]">Draft</div>
+              </div>
+              <div class="p-2.5">
+                <p class="text-sm font-medium line-clamp-2">How I Edit Videos 10x Faster</p>
+                <p class="text-xs text-creator-muted mt-1">2 days ago</p>
+              </div>
+            </div>
+            <!-- Kanban Card 2 -->
+            <div class="kanban-card bg-creator-card rounded-lg border border-creator-border overflow-hidden cursor-grab hover:border-creator-cyan/50 transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-creator-cyan/10">
+              <div class="p-2.5">
+                <p class="text-sm font-medium">Camera gear review</p>
+                <p class="text-xs text-creator-muted mt-1">Quick idea</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column: Scripting -->
+        <div class="relative shine-effect backdrop-blur-xl bg-gradient-to-br from-creator-cyan/20 via-creator-cyan/10 to-creator-surface/50 border border-creator-cyan/20 shadow-lg shadow-creator-cyan/5 rounded-xl overflow-hidden">
+          <div class="p-3 border-b border-creator-border flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="text-creator-amber">📝</span>
+              <span class="font-medium text-sm">Scripting</span>
+            </div>
+            <div class="flex items-center gap-1">
+              <span class="w-6 h-6 rounded-full bg-creator-amber/20 text-creator-amber text-xs font-bold flex items-center justify-center">2</span>
+              <span class="text-xs text-creator-muted">/3</span>
+            </div>
+          </div>
+          <div class="p-3 space-y-3">
+            <!-- WIP Progress Bar -->
+            <div class="h-1 bg-creator-border rounded-full overflow-hidden">
+              <div class="h-full bg-creator-amber w-2/3 rounded-full"></div>
+            </div>
+            <!-- Card with thumbnail -->
+            <div class="kanban-card bg-creator-card rounded-lg border border-creator-border overflow-hidden cursor-grab hover:border-creator-amber/50 transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-creator-amber/10">
+              <div class="aspect-video bg-gradient-to-br from-creator-amber/30 to-creator-coral/20 relative">
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <div class="w-8 h-8 rounded-full bg-white/20 backdrop-blur flex items-center justify-center">
+                    <svg class="w-4 h-4 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                  </div>
+                </div>
+                <div class="absolute bottom-2 right-2 px-1.5 py-0.5 rounded bg-black/60 text-[10px]">8:45</div>
+              </div>
+              <div class="p-2.5">
+                <p class="text-sm font-medium line-clamp-2">My Morning Routine 2024</p>
+                <div class="flex items-center gap-2 mt-1.5">
+                  <div class="flex-1 h-1 bg-creator-border rounded-full overflow-hidden">
+                    <div class="h-full bg-creator-amber w-3/4 rounded-full"></div>
+                  </div>
+                  <span class="text-[10px] text-creator-muted">75%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column: Filming -->
+        <div class="relative shine-effect backdrop-blur-xl bg-gradient-to-br from-creator-cyan/20 via-creator-cyan/10 to-creator-surface/50 border border-creator-cyan/20 shadow-lg shadow-creator-cyan/5 rounded-xl overflow-hidden">
+          <div class="p-3 border-b border-creator-border flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="text-creator-coral">🎬</span>
+              <span class="font-medium text-sm">Filming</span>
+            </div>
+            <span class="w-6 h-6 rounded-full bg-creator-coral/20 text-creator-coral text-xs font-bold flex items-center justify-center">1</span>
+          </div>
+          <div class="p-3 space-y-3">
+            <!-- Dragging state preview -->
+            <div class="kanban-card bg-creator-card rounded-lg border-2 border-dashed border-creator-coral/50 overflow-hidden opacity-60">
+              <div class="aspect-video bg-gradient-to-br from-creator-coral/20 to-creator-amber/10"></div>
+              <div class="p-2.5">
+                <p class="text-sm font-medium text-creator-muted">Dragging...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column: Published -->
+        <div class="relative shine-effect backdrop-blur-xl bg-gradient-to-br from-creator-cyan/20 via-creator-cyan/10 to-creator-surface/50 border border-creator-cyan/20 shadow-lg shadow-creator-cyan/5 rounded-xl overflow-hidden">
+          <div class="p-3 border-b border-creator-border flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="text-creator-mint">✓</span>
+              <span class="font-medium text-sm">Published</span>
+            </div>
+            <span class="w-6 h-6 rounded-full bg-creator-mint/20 text-creator-mint text-xs font-bold flex items-center justify-center">5</span>
+          </div>
+          <div class="p-3 space-y-3">
+            <!-- Published card with stats -->
+            <div class="kanban-card bg-creator-card rounded-lg border border-creator-border overflow-hidden cursor-pointer hover:border-creator-mint/50 transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-creator-mint/10">
+              <div class="aspect-video bg-gradient-to-br from-creator-mint/30 to-creator-sky/20 relative">
+                <div class="absolute top-2 left-2 px-1.5 py-0.5 rounded bg-creator-mint text-creator-bg text-[10px] font-medium">LIVE</div>
+                <div class="absolute bottom-2 right-2 px-1.5 py-0.5 rounded bg-black/60 text-[10px]">12:34</div>
+              </div>
+              <div class="p-2.5">
+                <p class="text-sm font-medium line-clamp-1">10 Tips for Better Thumbnails</p>
+                <div class="flex items-center gap-3 mt-1.5 text-[10px] text-creator-muted">
+                  <span class="flex items-center gap-1">👁 24.5K</span>
+                  <span class="flex items-center gap-1">👍 1.2K</span>
+                  <span class="flex items-center gap-1">💬 89</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative rounded-xl p-4 overflow-hidden shine-effect backdrop-blur-xl bg-gradient-to-br from-creator-cyan/20 via-creator-cyan/10 to-creator-surface/50 border border-creator-cyan/20 shadow-lg shadow-creator-cyan/5">
+        <p class="text-sm text-creator-muted mb-2">Interaction Patterns</p>
+        <div class="flex flex-wrap gap-3 text-xs">
+          <span class="px-2 py-1 rounded bg-creator-surface border border-creator-border">Drag & Drop</span>
+          <span class="px-2 py-1 rounded bg-creator-surface border border-creator-border">WIP Limits</span>
+          <span class="px-2 py-1 rounded bg-creator-surface border border-creator-border">Progress Bars</span>
+          <span class="px-2 py-1 rounded bg-creator-surface border border-creator-border">Video Thumbnails</span>
+          <span class="px-2 py-1 rounded bg-creator-surface border border-creator-border">Quick Stats</span>
+        </div>
+      </div>
+    </section>
+
+</div>

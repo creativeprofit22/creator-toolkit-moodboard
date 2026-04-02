@@ -1,0 +1,1361 @@
+<div class="section-24-date-pickers">
+  <section>
+    <h2 class="font-display text-2xl font-semibold mb-6 flex items-center gap-3">
+      <span class="w-8 h-8 rounded-lg bg-creator-amber/20 flex items-center justify-center text-creator-amber">24</span>
+      Date Pickers
+    </h2>
+
+    <style>
+      /* ===== Section 24: Date Picker Component Variants ===== */
+
+      .datepicker-showcase {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(24px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 32px;
+      }
+
+      .datepicker-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+        align-items: flex-start;
+        margin-bottom: 32px;
+        min-height: 60px;
+      }
+
+      .datepicker-row:last-child {
+        margin-bottom: 0;
+      }
+
+      .datepicker-label {
+        min-width: 120px;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #71717a;
+        padding-top: 12px;
+      }
+
+      /* ========================================
+         BASE DATE PICKER STYLES
+         Glassmorphism + Dark Theme
+         ======================================== */
+
+      .datepicker {
+        position: relative;
+        display: inline-block;
+      }
+
+      /* Date Picker Input/Trigger */
+      .datepicker-trigger {
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        min-width: 200px;
+        padding: 12px 16px;
+        background: rgba(26, 26, 34, 0.7);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        color: #e4e4eb;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow:
+          0 2px 8px rgba(0, 0, 0, 0.2),
+          inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      }
+
+      .datepicker-trigger:hover {
+        background: rgba(34, 34, 46, 0.8);
+        border-color: rgba(255, 255, 255, 0.15);
+        box-shadow:
+          0 4px 12px rgba(0, 0, 0, 0.25),
+          inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      }
+
+      .datepicker-trigger:focus {
+        outline: none;
+        border-color: rgba(251, 191, 36, 0.5);
+        box-shadow:
+          0 4px 12px rgba(0, 0, 0, 0.25),
+          0 0 0 3px rgba(251, 191, 36, 0.15);
+      }
+
+      .datepicker-trigger .datepicker-icon {
+        width: 18px;
+        height: 18px;
+        color: #71717a;
+        flex-shrink: 0;
+        transition: color 0.2s ease;
+      }
+
+      .datepicker-trigger:hover .datepicker-icon,
+      .datepicker-trigger:focus .datepicker-icon {
+        color: #fbbf24;
+      }
+
+      .datepicker-trigger .placeholder {
+        color: #52525b;
+      }
+
+      /* Calendar Popup */
+      .datepicker-popup {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 0;
+        min-width: 300px;
+        background: rgba(26, 26, 34, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 16px;
+        z-index: 100;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-8px);
+        transition: all 0.2s ease;
+        box-shadow:
+          0 8px 32px rgba(0, 0, 0, 0.4),
+          0 0 0 1px rgba(255, 255, 255, 0.05);
+      }
+
+      .datepicker.open .datepicker-popup {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      /* Calendar Header */
+      .calendar-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .calendar-nav-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        color: #a1a1aa;
+        cursor: pointer;
+        transition: all 0.15s ease;
+      }
+
+      .calendar-nav-btn:hover {
+        background: rgba(251, 191, 36, 0.15);
+        border-color: rgba(251, 191, 36, 0.3);
+        color: #fbbf24;
+      }
+
+      .calendar-nav-btn:active {
+        transform: scale(0.95);
+      }
+
+      .calendar-nav-btn svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      .calendar-title {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 15px;
+        font-weight: 600;
+        color: #e4e4eb;
+      }
+
+      .calendar-title-btn {
+        padding: 4px 8px;
+        background: transparent;
+        border: none;
+        border-radius: 6px;
+        color: #e4e4eb;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.15s ease;
+      }
+
+      .calendar-title-btn:hover {
+        background: rgba(251, 191, 36, 0.15);
+        color: #fbbf24;
+      }
+
+      /* Weekday Headers */
+      .calendar-weekdays {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 4px;
+        margin-bottom: 8px;
+      }
+
+      .calendar-weekday {
+        text-align: center;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #52525b;
+        padding: 8px 0;
+      }
+
+      /* Calendar Grid */
+      .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 4px;
+      }
+
+      .calendar-day {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        font-size: 14px;
+        color: #a1a1aa;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        background: transparent;
+        border: none;
+      }
+
+      .calendar-day:hover:not(.disabled):not(.selected) {
+        background: rgba(251, 191, 36, 0.15);
+        color: #e4e4eb;
+      }
+
+      .calendar-day.other-month {
+        color: #3f3f46;
+      }
+
+      .calendar-day.today {
+        color: #fbbf24;
+        font-weight: 600;
+        position: relative;
+      }
+
+      .calendar-day.today::after {
+        content: '';
+        position: absolute;
+        bottom: 4px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 4px;
+        height: 4px;
+        background: #fbbf24;
+        border-radius: 50%;
+      }
+
+      .calendar-day.selected {
+        background: linear-gradient(
+          135deg,
+          rgba(251, 191, 36, 0.6) 0%,
+          rgba(245, 158, 11, 0.5) 100%
+        );
+        color: #fff;
+        font-weight: 600;
+        box-shadow:
+          0 2px 8px rgba(251, 191, 36, 0.3),
+          inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      }
+
+      .calendar-day.selected.today::after {
+        background: #fff;
+      }
+
+      .calendar-day.disabled {
+        color: #27272a;
+        cursor: not-allowed;
+      }
+
+      /* Range Selection Styles */
+      .calendar-day.in-range {
+        background: rgba(251, 191, 36, 0.15);
+        border-radius: 0;
+      }
+
+      .calendar-day.range-start {
+        background: linear-gradient(
+          135deg,
+          rgba(251, 191, 36, 0.6) 0%,
+          rgba(245, 158, 11, 0.5) 100%
+        );
+        color: #fff;
+        font-weight: 600;
+        border-radius: 8px 0 0 8px;
+      }
+
+      .calendar-day.range-end {
+        background: linear-gradient(
+          135deg,
+          rgba(251, 191, 36, 0.6) 0%,
+          rgba(245, 158, 11, 0.5) 100%
+        );
+        color: #fff;
+        font-weight: 600;
+        border-radius: 0 8px 8px 0;
+      }
+
+      .calendar-day.range-start.range-end {
+        border-radius: 8px;
+      }
+
+      /* ========================================
+         DATE RANGE PICKER
+         Two-month calendar view
+         ======================================== */
+
+      .datepicker-range .datepicker-trigger {
+        min-width: 280px;
+      }
+
+      .datepicker-range .datepicker-popup {
+        min-width: 620px;
+        padding: 20px;
+      }
+
+      .range-calendars {
+        display: flex;
+        gap: 24px;
+      }
+
+      .range-calendar {
+        flex: 1;
+      }
+
+      .range-divider {
+        width: 1px;
+        background: rgba(255, 255, 255, 0.08);
+        margin: 0 12px;
+      }
+
+      .range-presets {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .range-preset-btn {
+        padding: 6px 12px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 6px;
+        color: #a1a1aa;
+        font-size: 12px;
+        cursor: pointer;
+        transition: all 0.15s ease;
+      }
+
+      .range-preset-btn:hover {
+        background: rgba(251, 191, 36, 0.15);
+        border-color: rgba(251, 191, 36, 0.3);
+        color: #fbbf24;
+      }
+
+      .range-preset-btn.active {
+        background: rgba(251, 191, 36, 0.2);
+        border-color: rgba(251, 191, 36, 0.4);
+        color: #fbbf24;
+      }
+
+      /* Clear button */
+      .datepicker-clear {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        border: none;
+        border-radius: 50%;
+        color: #71717a;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .datepicker.has-value .datepicker-clear {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .datepicker-clear:hover {
+        background: rgba(255, 107, 107, 0.2);
+        color: #ff6b6b;
+      }
+
+      .datepicker-clear svg {
+        width: 12px;
+        height: 12px;
+      }
+
+      /* ========================================
+         MONTH/YEAR SELECTOR
+         Grid-based month and year selection
+         ======================================== */
+
+      .month-year-grid {
+        display: none;
+      }
+
+      .datepicker.view-months .calendar-grid,
+      .datepicker.view-months .calendar-weekdays {
+        display: none;
+      }
+
+      .datepicker.view-months .month-year-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+
+      .datepicker.view-years .calendar-grid,
+      .datepicker.view-years .calendar-weekdays {
+        display: none;
+      }
+
+      .datepicker.view-years .month-year-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+      }
+
+      .month-year-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 8px;
+        border-radius: 8px;
+        font-size: 14px;
+        color: #a1a1aa;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        background: transparent;
+        border: none;
+      }
+
+      .month-year-item:hover {
+        background: rgba(251, 191, 36, 0.15);
+        color: #e4e4eb;
+      }
+
+      .month-year-item.selected {
+        background: linear-gradient(
+          135deg,
+          rgba(251, 191, 36, 0.6) 0%,
+          rgba(245, 158, 11, 0.5) 100%
+        );
+        color: #fff;
+        font-weight: 600;
+      }
+
+      .month-year-item.current {
+        color: #fbbf24;
+        font-weight: 600;
+      }
+
+      /* ========================================
+         INLINE CALENDAR
+         Always visible, no popup
+         ======================================== */
+
+      .datepicker-inline {
+        position: relative;
+        display: inline-block;
+      }
+
+      .datepicker-inline .calendar-container {
+        min-width: 300px;
+        background: rgba(26, 26, 34, 0.7);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 16px;
+        box-shadow:
+          0 4px 16px rgba(0, 0, 0, 0.2),
+          inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      }
+
+      /* ========================================
+         COLOR VARIANTS
+         ======================================== */
+
+      /* Violet accent */
+      .datepicker-violet .datepicker-trigger:focus {
+        border-color: rgba(167, 139, 250, 0.5);
+        box-shadow:
+          0 4px 12px rgba(0, 0, 0, 0.25),
+          0 0 0 3px rgba(167, 139, 250, 0.15);
+      }
+
+      .datepicker-violet .datepicker-trigger:hover .datepicker-icon,
+      .datepicker-violet .datepicker-trigger:focus .datepicker-icon {
+        color: #00d4d4;
+      }
+
+      .datepicker-violet .calendar-nav-btn:hover {
+        background: rgba(167, 139, 250, 0.15);
+        border-color: rgba(167, 139, 250, 0.3);
+        color: #00d4d4;
+      }
+
+      .datepicker-violet .calendar-title-btn:hover {
+        background: rgba(167, 139, 250, 0.15);
+        color: #00d4d4;
+      }
+
+      .datepicker-violet .calendar-day.today {
+        color: #00d4d4;
+      }
+
+      .datepicker-violet .calendar-day.today::after {
+        background: #00d4d4;
+      }
+
+      .datepicker-violet .calendar-day:hover:not(.disabled):not(.selected) {
+        background: rgba(167, 139, 250, 0.15);
+      }
+
+      .datepicker-violet .calendar-day.selected {
+        background: linear-gradient(
+          135deg,
+          rgba(167, 139, 250, 0.6) 0%,
+          rgba(139, 92, 246, 0.5) 100%
+        );
+        box-shadow:
+          0 2px 8px rgba(167, 139, 250, 0.3),
+          inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      }
+
+      .datepicker-violet .calendar-day.in-range {
+        background: rgba(167, 139, 250, 0.15);
+      }
+
+      .datepicker-violet .calendar-day.range-start,
+      .datepicker-violet .calendar-day.range-end {
+        background: linear-gradient(
+          135deg,
+          rgba(167, 139, 250, 0.6) 0%,
+          rgba(139, 92, 246, 0.5) 100%
+        );
+      }
+
+      .datepicker-violet .month-year-item:hover {
+        background: rgba(167, 139, 250, 0.15);
+      }
+
+      .datepicker-violet .month-year-item.selected {
+        background: linear-gradient(
+          135deg,
+          rgba(167, 139, 250, 0.6) 0%,
+          rgba(139, 92, 246, 0.5) 100%
+        );
+      }
+
+      .datepicker-violet .month-year-item.current {
+        color: #00d4d4;
+      }
+
+      .datepicker-violet .range-preset-btn:hover,
+      .datepicker-violet .range-preset-btn.active {
+        background: rgba(167, 139, 250, 0.15);
+        border-color: rgba(167, 139, 250, 0.3);
+        color: #00d4d4;
+      }
+
+      /* Mint accent */
+      .datepicker-mint .datepicker-trigger:focus {
+        border-color: rgba(52, 211, 153, 0.5);
+        box-shadow:
+          0 4px 12px rgba(0, 0, 0, 0.25),
+          0 0 0 3px rgba(52, 211, 153, 0.15);
+      }
+
+      .datepicker-mint .datepicker-trigger:hover .datepicker-icon,
+      .datepicker-mint .datepicker-trigger:focus .datepicker-icon {
+        color: #34d399;
+      }
+
+      .datepicker-mint .calendar-nav-btn:hover {
+        background: rgba(52, 211, 153, 0.15);
+        border-color: rgba(52, 211, 153, 0.3);
+        color: #34d399;
+      }
+
+      .datepicker-mint .calendar-title-btn:hover {
+        background: rgba(52, 211, 153, 0.15);
+        color: #34d399;
+      }
+
+      .datepicker-mint .calendar-day.today {
+        color: #34d399;
+      }
+
+      .datepicker-mint .calendar-day.today::after {
+        background: #34d399;
+      }
+
+      .datepicker-mint .calendar-day:hover:not(.disabled):not(.selected) {
+        background: rgba(52, 211, 153, 0.15);
+      }
+
+      .datepicker-mint .calendar-day.selected {
+        background: linear-gradient(
+          135deg,
+          rgba(52, 211, 153, 0.6) 0%,
+          rgba(16, 185, 129, 0.5) 100%
+        );
+        box-shadow:
+          0 2px 8px rgba(52, 211, 153, 0.3),
+          inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      }
+
+      .datepicker-mint .month-year-item:hover {
+        background: rgba(52, 211, 153, 0.15);
+      }
+
+      .datepicker-mint .month-year-item.selected {
+        background: linear-gradient(
+          135deg,
+          rgba(52, 211, 153, 0.6) 0%,
+          rgba(16, 185, 129, 0.5) 100%
+        );
+      }
+
+      .datepicker-mint .month-year-item.current {
+        color: #34d399;
+      }
+
+      /* Sky accent */
+      .datepicker-sky .datepicker-trigger:focus {
+        border-color: rgba(56, 189, 248, 0.5);
+        box-shadow:
+          0 4px 12px rgba(0, 0, 0, 0.25),
+          0 0 0 3px rgba(56, 189, 248, 0.15);
+      }
+
+      .datepicker-sky .datepicker-trigger:hover .datepicker-icon,
+      .datepicker-sky .datepicker-trigger:focus .datepicker-icon {
+        color: #38bdf8;
+      }
+
+      .datepicker-sky .calendar-nav-btn:hover {
+        background: rgba(56, 189, 248, 0.15);
+        border-color: rgba(56, 189, 248, 0.3);
+        color: #38bdf8;
+      }
+
+      .datepicker-sky .calendar-title-btn:hover {
+        background: rgba(56, 189, 248, 0.15);
+        color: #38bdf8;
+      }
+
+      .datepicker-sky .calendar-day.today {
+        color: #38bdf8;
+      }
+
+      .datepicker-sky .calendar-day.today::after {
+        background: #38bdf8;
+      }
+
+      .datepicker-sky .calendar-day:hover:not(.disabled):not(.selected) {
+        background: rgba(56, 189, 248, 0.15);
+      }
+
+      .datepicker-sky .calendar-day.selected {
+        background: linear-gradient(
+          135deg,
+          rgba(56, 189, 248, 0.6) 0%,
+          rgba(14, 165, 233, 0.5) 100%
+        );
+        box-shadow:
+          0 2px 8px rgba(56, 189, 248, 0.3),
+          inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      }
+
+      .datepicker-sky .month-year-item:hover {
+        background: rgba(56, 189, 248, 0.15);
+      }
+
+      .datepicker-sky .month-year-item.selected {
+        background: linear-gradient(
+          135deg,
+          rgba(56, 189, 248, 0.6) 0%,
+          rgba(14, 165, 233, 0.5) 100%
+        );
+      }
+
+      .datepicker-sky .month-year-item.current {
+        color: #38bdf8;
+      }
+
+      /* ========================================
+         SIZE VARIANTS
+         ======================================== */
+
+      .datepicker-sm .datepicker-trigger {
+        min-width: 160px;
+        padding: 8px 12px;
+        font-size: 13px;
+        border-radius: 8px;
+      }
+
+      .datepicker-sm .datepicker-popup {
+        min-width: 260px;
+        padding: 12px;
+        border-radius: 10px;
+      }
+
+      .datepicker-sm .calendar-day {
+        width: 30px;
+        height: 30px;
+        font-size: 12px;
+      }
+
+      .datepicker-lg .datepicker-trigger {
+        min-width: 240px;
+        padding: 14px 18px;
+        font-size: 15px;
+        border-radius: 12px;
+      }
+
+      .datepicker-lg .datepicker-popup {
+        min-width: 340px;
+        padding: 20px;
+        border-radius: 14px;
+      }
+
+      .datepicker-lg .calendar-day {
+        width: 42px;
+        height: 42px;
+        font-size: 15px;
+      }
+
+      /* ========================================
+         DISABLED STATE
+         ======================================== */
+
+      .datepicker-disabled .datepicker-trigger {
+        opacity: 0.5;
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+
+      /* ========================================
+         CALENDAR FOOTER
+         Action buttons
+         ======================================== */
+
+      .calendar-footer {
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        margin-top: 16px;
+        padding-top: 12px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .calendar-footer-btn {
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.15s ease;
+      }
+
+      .calendar-footer-btn.cancel {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: #a1a1aa;
+      }
+
+      .calendar-footer-btn.cancel:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #e4e4eb;
+      }
+
+      .calendar-footer-btn.apply {
+        background: linear-gradient(
+          135deg,
+          rgba(251, 191, 36, 0.6) 0%,
+          rgba(245, 158, 11, 0.5) 100%
+        );
+        border: 1px solid rgba(251, 191, 36, 0.3);
+        color: #fff;
+      }
+
+      .calendar-footer-btn.apply:hover {
+        background: linear-gradient(
+          135deg,
+          rgba(251, 191, 36, 0.75) 0%,
+          rgba(245, 158, 11, 0.65) 100%
+        );
+        box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+      }
+
+      /* Time Picker Extension */
+      .time-picker-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 16px;
+        padding-top: 12px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .time-input {
+        width: 50px;
+        padding: 8px;
+        text-align: center;
+        background: rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 6px;
+        color: #e4e4eb;
+        font-size: 14px;
+        font-family: monospace;
+      }
+
+      .time-input:focus {
+        outline: none;
+        border-color: rgba(251, 191, 36, 0.5);
+        box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.15);
+      }
+
+      .time-separator {
+        color: #52525b;
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      .time-period-toggle {
+        display: flex;
+        background: rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 6px;
+        overflow: hidden;
+      }
+
+      .time-period-btn {
+        padding: 8px 10px;
+        background: transparent;
+        border: none;
+        color: #71717a;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.15s ease;
+      }
+
+      .time-period-btn.active {
+        background: rgba(251, 191, 36, 0.2);
+        color: #fbbf24;
+      }
+
+      .time-period-btn:hover:not(.active) {
+        background: rgba(255, 255, 255, 0.05);
+        color: #a1a1aa;
+      }
+    </style>
+
+    <p class="text-sm text-creator-muted uppercase tracking-wider mb-4">Date Picker Component Library</p>
+    <p class="text-creator-muted mb-6">Interactive date pickers with glassmorphism styling, calendar navigation, range selection, and keyboard accessibility. Click to open calendars.</p>
+
+    <div class="datepicker-showcase">
+      <!-- Basic Date Picker -->
+      <div class="datepicker-row">
+        <span class="datepicker-label">Basic</span>
+        <div class="datepicker" id="datepicker-basic" role="group" aria-label="Date picker">
+          <button class="datepicker-trigger" aria-haspopup="dialog" aria-expanded="false">
+            <span class="datepicker-value placeholder">Select a date</span>
+            <svg class="datepicker-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+          </button>
+          <div class="datepicker-popup" role="dialog" aria-modal="true" aria-label="Choose date">
+            <div class="calendar-header">
+              <button class="calendar-nav-btn" data-action="prev-month" aria-label="Previous month">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                </svg>
+              </button>
+              <div class="calendar-title">
+                <button class="calendar-title-btn" data-action="show-months" aria-label="Select month"></button>
+                <button class="calendar-title-btn" data-action="show-years" aria-label="Select year"></button>
+              </div>
+              <button class="calendar-nav-btn" data-action="next-month" aria-label="Next month">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </button>
+            </div>
+            <div class="calendar-weekdays" role="row">
+              <div class="calendar-weekday" role="columnheader">Sun</div>
+              <div class="calendar-weekday" role="columnheader">Mon</div>
+              <div class="calendar-weekday" role="columnheader">Tue</div>
+              <div class="calendar-weekday" role="columnheader">Wed</div>
+              <div class="calendar-weekday" role="columnheader">Thu</div>
+              <div class="calendar-weekday" role="columnheader">Fri</div>
+              <div class="calendar-weekday" role="columnheader">Sat</div>
+            </div>
+            <div class="calendar-grid" role="grid" aria-label="Calendar"></div>
+            <div class="month-year-grid" role="grid" aria-label="Month selection"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Date Range Picker -->
+      <div class="datepicker-row">
+        <span class="datepicker-label">Date Range</span>
+        <div class="datepicker datepicker-range" id="datepicker-range" role="group" aria-label="Date range picker">
+          <button class="datepicker-trigger" aria-haspopup="dialog" aria-expanded="false">
+            <span class="datepicker-value placeholder">Select date range</span>
+            <button class="datepicker-clear" aria-label="Clear selection">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+            </button>
+            <svg class="datepicker-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+          </button>
+          <div class="datepicker-popup" role="dialog" aria-modal="true" aria-label="Choose date range">
+            <div class="range-calendars">
+              <div class="range-calendar" data-calendar="start">
+                <div class="calendar-header">
+                  <button class="calendar-nav-btn" data-action="prev-month" aria-label="Previous month">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                  </button>
+                  <div class="calendar-title">
+                    <span class="calendar-title-text"></span>
+                  </div>
+                  <div style="width: 32px;"></div>
+                </div>
+                <div class="calendar-weekdays" role="row">
+                  <div class="calendar-weekday">Sun</div>
+                  <div class="calendar-weekday">Mon</div>
+                  <div class="calendar-weekday">Tue</div>
+                  <div class="calendar-weekday">Wed</div>
+                  <div class="calendar-weekday">Thu</div>
+                  <div class="calendar-weekday">Fri</div>
+                  <div class="calendar-weekday">Sat</div>
+                </div>
+                <div class="calendar-grid" role="grid"></div>
+              </div>
+              <div class="range-divider"></div>
+              <div class="range-calendar" data-calendar="end">
+                <div class="calendar-header">
+                  <div style="width: 32px;"></div>
+                  <div class="calendar-title">
+                    <span class="calendar-title-text"></span>
+                  </div>
+                  <button class="calendar-nav-btn" data-action="next-month" aria-label="Next month">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                  </button>
+                </div>
+                <div class="calendar-weekdays" role="row">
+                  <div class="calendar-weekday">Sun</div>
+                  <div class="calendar-weekday">Mon</div>
+                  <div class="calendar-weekday">Tue</div>
+                  <div class="calendar-weekday">Wed</div>
+                  <div class="calendar-weekday">Thu</div>
+                  <div class="calendar-weekday">Fri</div>
+                  <div class="calendar-weekday">Sat</div>
+                </div>
+                <div class="calendar-grid" role="grid"></div>
+              </div>
+            </div>
+            <div class="range-presets">
+              <button class="range-preset-btn" data-preset="today">Today</button>
+              <button class="range-preset-btn" data-preset="yesterday">Yesterday</button>
+              <button class="range-preset-btn" data-preset="last7">Last 7 days</button>
+              <button class="range-preset-btn" data-preset="last30">Last 30 days</button>
+              <button class="range-preset-btn" data-preset="thisMonth">This month</button>
+              <button class="range-preset-btn" data-preset="lastMonth">Last month</button>
+            </div>
+            <div class="calendar-footer">
+              <button class="calendar-footer-btn cancel" data-action="cancel">Cancel</button>
+              <button class="calendar-footer-btn apply" data-action="apply">Apply</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Date Picker with Time -->
+      <div class="datepicker-row">
+        <span class="datepicker-label">With Time</span>
+        <div class="datepicker datepicker-datetime" id="datepicker-datetime" role="group" aria-label="Date and time picker">
+          <button class="datepicker-trigger" aria-haspopup="dialog" aria-expanded="false">
+            <span class="datepicker-value placeholder">Select date & time</span>
+            <svg class="datepicker-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </button>
+          <div class="datepicker-popup" role="dialog" aria-modal="true" aria-label="Choose date and time">
+            <div class="calendar-header">
+              <button class="calendar-nav-btn" data-action="prev-month" aria-label="Previous month">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                </svg>
+              </button>
+              <div class="calendar-title">
+                <button class="calendar-title-btn" data-action="show-months"></button>
+                <button class="calendar-title-btn" data-action="show-years"></button>
+              </div>
+              <button class="calendar-nav-btn" data-action="next-month" aria-label="Next month">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </button>
+            </div>
+            <div class="calendar-weekdays" role="row">
+              <div class="calendar-weekday">Sun</div>
+              <div class="calendar-weekday">Mon</div>
+              <div class="calendar-weekday">Tue</div>
+              <div class="calendar-weekday">Wed</div>
+              <div class="calendar-weekday">Thu</div>
+              <div class="calendar-weekday">Fri</div>
+              <div class="calendar-weekday">Sat</div>
+            </div>
+            <div class="calendar-grid" role="grid"></div>
+            <div class="month-year-grid" role="grid"></div>
+            <div class="time-picker-row">
+              <input type="text" class="time-input" data-time="hours" value="12" maxlength="2" aria-label="Hours">
+              <span class="time-separator">:</span>
+              <input type="text" class="time-input" data-time="minutes" value="00" maxlength="2" aria-label="Minutes">
+              <div class="time-period-toggle">
+                <button class="time-period-btn active" data-period="AM">AM</button>
+                <button class="time-period-btn" data-period="PM">PM</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inline Calendar -->
+      <div class="datepicker-row" style="align-items: flex-start;">
+        <span class="datepicker-label">Inline</span>
+        <div class="datepicker-inline" id="datepicker-inline" role="group" aria-label="Inline calendar">
+          <div class="calendar-container">
+            <div class="calendar-header">
+              <button class="calendar-nav-btn" data-action="prev-month" aria-label="Previous month">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                </svg>
+              </button>
+              <div class="calendar-title">
+                <button class="calendar-title-btn" data-action="show-months"></button>
+                <button class="calendar-title-btn" data-action="show-years"></button>
+              </div>
+              <button class="calendar-nav-btn" data-action="next-month" aria-label="Next month">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </button>
+            </div>
+            <div class="calendar-weekdays" role="row">
+              <div class="calendar-weekday">Sun</div>
+              <div class="calendar-weekday">Mon</div>
+              <div class="calendar-weekday">Tue</div>
+              <div class="calendar-weekday">Wed</div>
+              <div class="calendar-weekday">Thu</div>
+              <div class="calendar-weekday">Fri</div>
+              <div class="calendar-weekday">Sat</div>
+            </div>
+            <div class="calendar-grid" role="grid"></div>
+            <div class="month-year-grid" role="grid"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Color Variants -->
+      <div class="datepicker-row">
+        <span class="datepicker-label">Colors</span>
+        <div class="datepicker datepicker-violet" id="datepicker-violet" role="group" aria-label="Violet date picker">
+          <button class="datepicker-trigger" aria-haspopup="dialog" aria-expanded="false">
+            <span class="datepicker-value placeholder">Violet</span>
+            <svg class="datepicker-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+          </button>
+          <div class="datepicker-popup" role="dialog" aria-modal="true">
+            <div class="calendar-header">
+              <button class="calendar-nav-btn" data-action="prev-month" aria-label="Previous month">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                </svg>
+              </button>
+              <div class="calendar-title">
+                <button class="calendar-title-btn" data-action="show-months"></button>
+                <button class="calendar-title-btn" data-action="show-years"></button>
+              </div>
+              <button class="calendar-nav-btn" data-action="next-month" aria-label="Next month">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </button>
+            </div>
+            <div class="calendar-weekdays" role="row">
+              <div class="calendar-weekday">Sun</div>
+              <div class="calendar-weekday">Mon</div>
+              <div class="calendar-weekday">Tue</div>
+              <div class="calendar-weekday">Wed</div>
+              <div class="calendar-weekday">Thu</div>
+              <div class="calendar-weekday">Fri</div>
+              <div class="calendar-weekday">Sat</div>
+            </div>
+            <div class="calendar-grid" role="grid"></div>
+            <div class="month-year-grid" role="grid"></div>
+          </div>
+        </div>
+
+        <div class="datepicker datepicker-mint" id="datepicker-mint" role="group" aria-label="Mint date picker">
+          <button class="datepicker-trigger" aria-haspopup="dialog" aria-expanded="false">
+            <span class="datepicker-value placeholder">Mint</span>
+            <svg class="datepicker-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+          </button>
+          <div class="datepicker-popup" role="dialog" aria-modal="true">
+            <div class="calendar-header">
+              <button class="calendar-nav-btn" data-action="prev-month" aria-label="Previous month">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                </svg>
+              </button>
+              <div class="calendar-title">
+                <button class="calendar-title-btn" data-action="show-months"></button>
+                <button class="calendar-title-btn" data-action="show-years"></button>
+              </div>
+              <button class="calendar-nav-btn" data-action="next-month" aria-label="Next month">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </button>
+            </div>
+            <div class="calendar-weekdays" role="row">
+              <div class="calendar-weekday">Sun</div>
+              <div class="calendar-weekday">Mon</div>
+              <div class="calendar-weekday">Tue</div>
+              <div class="calendar-weekday">Wed</div>
+              <div class="calendar-weekday">Thu</div>
+              <div class="calendar-weekday">Fri</div>
+              <div class="calendar-weekday">Sat</div>
+            </div>
+            <div class="calendar-grid" role="grid"></div>
+            <div class="month-year-grid" role="grid"></div>
+          </div>
+        </div>
+
+        <div class="datepicker datepicker-sky" id="datepicker-sky" role="group" aria-label="Sky date picker">
+          <button class="datepicker-trigger" aria-haspopup="dialog" aria-expanded="false">
+            <span class="datepicker-value placeholder">Sky</span>
+            <svg class="datepicker-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+          </button>
+          <div class="datepicker-popup" role="dialog" aria-modal="true">
+            <div class="calendar-header">
+              <button class="calendar-nav-btn" data-action="prev-month" aria-label="Previous month">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                </svg>
+              </button>
+              <div class="calendar-title">
+                <button class="calendar-title-btn" data-action="show-months"></button>
+                <button class="calendar-title-btn" data-action="show-years"></button>
+              </div>
+              <button class="calendar-nav-btn" data-action="next-month" aria-label="Next month">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </button>
+            </div>
+            <div class="calendar-weekdays" role="row">
+              <div class="calendar-weekday">Sun</div>
+              <div class="calendar-weekday">Mon</div>
+              <div class="calendar-weekday">Tue</div>
+              <div class="calendar-weekday">Wed</div>
+              <div class="calendar-weekday">Thu</div>
+              <div class="calendar-weekday">Fri</div>
+              <div class="calendar-weekday">Sat</div>
+            </div>
+            <div class="calendar-grid" role="grid"></div>
+            <div class="month-year-grid" role="grid"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Size Variants -->
+      <div class="datepicker-row">
+        <span class="datepicker-label">Sizes</span>
+        <div class="datepicker datepicker-sm" id="datepicker-sm" role="group" aria-label="Small date picker">
+          <button class="datepicker-trigger" aria-haspopup="dialog" aria-expanded="false">
+            <span class="datepicker-value placeholder">Small</span>
+            <svg class="datepicker-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+          </button>
+          <div class="datepicker-popup" role="dialog" aria-modal="true">
+            <div class="calendar-header">
+              <button class="calendar-nav-btn" data-action="prev-month" aria-label="Previous month">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                </svg>
+              </button>
+              <div class="calendar-title">
+                <button class="calendar-title-btn" data-action="show-months"></button>
+                <button class="calendar-title-btn" data-action="show-years"></button>
+              </div>
+              <button class="calendar-nav-btn" data-action="next-month" aria-label="Next month">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </button>
+            </div>
+            <div class="calendar-weekdays" role="row">
+              <div class="calendar-weekday">Sun</div>
+              <div class="calendar-weekday">Mon</div>
+              <div class="calendar-weekday">Tue</div>
+              <div class="calendar-weekday">Wed</div>
+              <div class="calendar-weekday">Thu</div>
+              <div class="calendar-weekday">Fri</div>
+              <div class="calendar-weekday">Sat</div>
+            </div>
+            <div class="calendar-grid" role="grid"></div>
+            <div class="month-year-grid" role="grid"></div>
+          </div>
+        </div>
+
+        <div class="datepicker" id="datepicker-default-size" role="group" aria-label="Default date picker">
+          <button class="datepicker-trigger" aria-haspopup="dialog" aria-expanded="false">
+            <span class="datepicker-value placeholder">Default</span>
+            <svg class="datepicker-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+          </button>
+          <div class="datepicker-popup" role="dialog" aria-modal="true">
+            <div class="calendar-header">
+              <button class="calendar-nav-btn" data-action="prev-month" aria-label="Previous month">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                </svg>
+              </button>
+              <div class="calendar-title">
+                <button class="calendar-title-btn" data-action="show-months"></button>
+                <button class="calendar-title-btn" data-action="show-years"></button>
+              </div>
+              <button class="calendar-nav-btn" data-action="next-month" aria-label="Next month">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </button>
+            </div>
+            <div class="calendar-weekdays" role="row">
+              <div class="calendar-weekday">Sun</div>
+              <div class="calendar-weekday">Mon</div>
+              <div class="calendar-weekday">Tue</div>
+              <div class="calendar-weekday">Wed</div>
+              <div class="calendar-weekday">Thu</div>
+              <div class="calendar-weekday">Fri</div>
+              <div class="calendar-weekday">Sat</div>
+            </div>
+            <div class="calendar-grid" role="grid"></div>
+            <div class="month-year-grid" role="grid"></div>
+          </div>
+        </div>
+
+        <div class="datepicker datepicker-lg" id="datepicker-lg" role="group" aria-label="Large date picker">
+          <button class="datepicker-trigger" aria-haspopup="dialog" aria-expanded="false">
+            <span class="datepicker-value placeholder">Large</span>
+            <svg class="datepicker-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+          </button>
+          <div class="datepicker-popup" role="dialog" aria-modal="true">
+            <div class="calendar-header">
+              <button class="calendar-nav-btn" data-action="prev-month" aria-label="Previous month">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                </svg>
+              </button>
+              <div class="calendar-title">
+                <button class="calendar-title-btn" data-action="show-months"></button>
+                <button class="calendar-title-btn" data-action="show-years"></button>
+              </div>
+              <button class="calendar-nav-btn" data-action="next-month" aria-label="Next month">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </button>
+            </div>
+            <div class="calendar-weekdays" role="row">
+              <div class="calendar-weekday">Sun</div>
+              <div class="calendar-weekday">Mon</div>
+              <div class="calendar-weekday">Tue</div>
+              <div class="calendar-weekday">Wed</div>
+              <div class="calendar-weekday">Thu</div>
+              <div class="calendar-weekday">Fri</div>
+              <div class="calendar-weekday">Sat</div>
+            </div>
+            <div class="calendar-grid" role="grid"></div>
+            <div class="month-year-grid" role="grid"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Disabled State -->
+      <div class="datepicker-row">
+        <span class="datepicker-label">Disabled</span>
+        <div class="datepicker datepicker-disabled" role="group" aria-label="Disabled date picker">
+          <button class="datepicker-trigger" disabled aria-haspopup="dialog" aria-expanded="false">
+            <span class="datepicker-value placeholder">Disabled</span>
+            <svg class="datepicker-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Technical Notes -->
+    <div class="bg-creator-card rounded-xl p-4 border border-creator-border mt-6">
+      <p class="text-sm text-creator-muted mb-2">Implementation Stack</p>
+      <div class="flex flex-wrap gap-3 text-xs">
+        <span class="px-2 py-1 rounded bg-creator-amber/20 text-creator-amber border border-creator-amber/30">ARIA Roles</span>
+        <span class="px-2 py-1 rounded bg-creator-cyan/20 text-creator-cyan border border-creator-cyan/30">CSS Grid</span>
+        <span class="px-2 py-1 rounded bg-creator-coral/20 text-creator-coral border border-creator-coral/30">Backdrop Blur</span>
+        <span class="px-2 py-1 rounded bg-creator-sky/20 text-creator-sky border border-creator-sky/30">Keyboard Nav</span>
+        <span class="px-2 py-1 rounded bg-creator-mint/20 text-creator-mint border border-creator-mint/30">Date API</span>
+      </div>
+      <p class="text-xs text-creator-muted mt-3">Includes: Basic date picker, date range selection, date-time picker, inline calendar, month/year selectors, color variants, and sizes.</p>
+    </div>
+  </section>
+</div>

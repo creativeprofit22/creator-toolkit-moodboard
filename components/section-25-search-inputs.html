@@ -1,0 +1,1223 @@
+<div class="section-25-search-inputs">
+  <section>
+    <h2 class="font-display text-2xl font-semibold mb-6 flex items-center gap-3">
+      <span class="w-8 h-8 rounded-lg bg-creator-sky/20 flex items-center justify-center text-creator-sky">25</span>
+      Search &amp; Input Fields
+    </h2>
+
+    <style>
+      /* ===== Section 25: Search & Input Components ===== */
+
+      .input-showcase {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(24px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 32px;
+      }
+
+      .input-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+        align-items: flex-start;
+        margin-bottom: 32px;
+        min-height: 60px;
+      }
+
+      .input-row:last-child {
+        margin-bottom: 0;
+      }
+
+      .input-label {
+        min-width: 120px;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #71717a;
+        padding-top: 12px;
+      }
+
+      .input-group-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        flex: 1;
+        align-items: flex-start;
+      }
+
+      /* ========================================
+         BASE INPUT STYLES
+         Glassmorphism + Dark Theme
+         ======================================== */
+
+      .input-wrapper {
+        position: relative;
+        display: inline-flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .input-field {
+        display: flex;
+        align-items: center;
+        background: rgba(26, 26, 34, 0.7);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        transition: all 0.2s ease;
+        box-shadow:
+          0 2px 8px rgba(0, 0, 0, 0.2),
+          inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      }
+
+      .input-field:hover {
+        background: rgba(34, 34, 46, 0.8);
+        border-color: rgba(255, 255, 255, 0.15);
+      }
+
+      .input-field:focus-within {
+        border-color: rgba(167, 139, 250, 0.5);
+        box-shadow:
+          0 4px 12px rgba(0, 0, 0, 0.25),
+          0 0 0 3px rgba(167, 139, 250, 0.15);
+      }
+
+      .input-field input {
+        flex: 1;
+        background: transparent;
+        border: none;
+        outline: none;
+        color: #e4e4eb;
+        font-size: 14px;
+        padding: 12px 14px;
+        min-width: 0;
+      }
+
+      .input-field input::placeholder {
+        color: #71717a;
+      }
+
+      .input-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 100%;
+        color: #71717a;
+        flex-shrink: 0;
+      }
+
+      .input-icon svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      .input-icon-left {
+        padding-left: 12px;
+      }
+
+      .input-icon-right {
+        padding-right: 12px;
+      }
+
+      /* ========================================
+         BASIC SEARCH BOX
+         ======================================== */
+
+      .search-box .input-field {
+        min-width: 240px;
+      }
+
+      .search-box .input-icon-left {
+        color: #71717a;
+      }
+
+      .search-box:focus-within .input-icon-left {
+        color: #00d4d4;
+      }
+
+      /* Size variants */
+      .search-box.input-sm .input-field {
+        min-width: 180px;
+        border-radius: 8px;
+      }
+
+      .search-box.input-sm .input-field input {
+        padding: 8px 12px;
+        font-size: 13px;
+      }
+
+      .search-box.input-sm .input-icon {
+        width: 32px;
+      }
+
+      .search-box.input-sm .input-icon svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      .search-box.input-lg .input-field {
+        min-width: 300px;
+        border-radius: 12px;
+      }
+
+      .search-box.input-lg .input-field input {
+        padding: 14px 16px;
+        font-size: 15px;
+      }
+
+      .search-box.input-lg .input-icon {
+        width: 48px;
+      }
+
+      .search-box.input-lg .input-icon svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      /* ========================================
+         SEARCH WITH AUTOCOMPLETE
+         ======================================== */
+
+      .search-autocomplete {
+        position: relative;
+      }
+
+      .search-autocomplete .input-field {
+        min-width: 280px;
+      }
+
+      .autocomplete-dropdown {
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 0;
+        right: 0;
+        background: rgba(26, 26, 34, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 6px;
+        z-index: 100;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-8px);
+        transition: all 0.2s ease;
+        box-shadow:
+          0 8px 32px rgba(0, 0, 0, 0.4),
+          0 0 0 1px rgba(255, 255, 255, 0.05);
+        max-height: 280px;
+        overflow-y: auto;
+      }
+
+      .autocomplete-dropdown::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .autocomplete-dropdown::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      .autocomplete-dropdown::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 3px;
+      }
+
+      .search-autocomplete.open .autocomplete-dropdown {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      .autocomplete-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        border-radius: 8px;
+        color: #a1a1aa;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.15s ease;
+      }
+
+      .autocomplete-item:hover,
+      .autocomplete-item.active {
+        background: rgba(167, 139, 250, 0.15);
+        color: #e4e4eb;
+      }
+
+      .autocomplete-item .item-icon {
+        width: 16px;
+        height: 16px;
+        color: #52525b;
+        flex-shrink: 0;
+      }
+
+      .autocomplete-item:hover .item-icon,
+      .autocomplete-item.active .item-icon {
+        color: #00d4d4;
+      }
+
+      .autocomplete-item mark {
+        background: transparent;
+        color: #00d4d4;
+        font-weight: 600;
+      }
+
+      .autocomplete-no-results {
+        padding: 16px 12px;
+        text-align: center;
+        color: #52525b;
+        font-size: 13px;
+      }
+
+      .autocomplete-hint {
+        padding: 8px 12px;
+        font-size: 11px;
+        color: #52525b;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        margin-top: 4px;
+      }
+
+      .autocomplete-hint kbd {
+        display: inline-block;
+        padding: 2px 6px;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 4px;
+        font-family: monospace;
+        font-size: 10px;
+        margin: 0 2px;
+      }
+
+      /* ========================================
+         CLEARABLE INPUT
+         ======================================== */
+
+      .clearable-input .clear-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        margin-right: 8px;
+        background: rgba(255, 255, 255, 0.08);
+        border: none;
+        border-radius: 6px;
+        color: #71717a;
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        transform: scale(0.8);
+        transition: all 0.15s ease;
+      }
+
+      .clearable-input .clear-btn svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      .clearable-input.has-value .clear-btn {
+        opacity: 1;
+        visibility: visible;
+        transform: scale(1);
+      }
+
+      .clearable-input .clear-btn:hover {
+        background: rgba(255, 107, 107, 0.2);
+        color: #ff6b6b;
+      }
+
+      .clearable-input .clear-btn:active {
+        transform: scale(0.9);
+      }
+
+      /* ========================================
+         INPUT WITH VALIDATION STATES
+         ======================================== */
+
+      .validated-input .input-field {
+        min-width: 240px;
+      }
+
+      .validated-input .helper-text {
+        font-size: 12px;
+        color: #71717a;
+        padding-left: 2px;
+      }
+
+      .validated-input .validation-icon {
+        display: none;
+        width: 32px;
+        padding-right: 12px;
+      }
+
+      .validated-input .validation-icon svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      /* Error state */
+      .validated-input.input-error .input-field {
+        border-color: rgba(251, 113, 133, 0.5);
+        box-shadow:
+          0 2px 8px rgba(0, 0, 0, 0.2),
+          0 0 0 3px rgba(251, 113, 133, 0.1);
+      }
+
+      .validated-input.input-error .input-field:focus-within {
+        border-color: rgba(251, 113, 133, 0.6);
+        box-shadow:
+          0 4px 12px rgba(0, 0, 0, 0.25),
+          0 0 0 3px rgba(251, 113, 133, 0.15);
+      }
+
+      .validated-input.input-error .helper-text {
+        color: #fb7185;
+      }
+
+      .validated-input.input-error .validation-icon {
+        display: flex;
+        color: #fb7185;
+      }
+
+      /* Success state */
+      .validated-input.input-success .input-field {
+        border-color: rgba(52, 211, 153, 0.5);
+        box-shadow:
+          0 2px 8px rgba(0, 0, 0, 0.2),
+          0 0 0 3px rgba(52, 211, 153, 0.1);
+      }
+
+      .validated-input.input-success .input-field:focus-within {
+        border-color: rgba(52, 211, 153, 0.6);
+        box-shadow:
+          0 4px 12px rgba(0, 0, 0, 0.25),
+          0 0 0 3px rgba(52, 211, 153, 0.15);
+      }
+
+      .validated-input.input-success .helper-text {
+        color: #34d399;
+      }
+
+      .validated-input.input-success .validation-icon {
+        display: flex;
+        color: #34d399;
+      }
+
+      /* Screen reader announcement */
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      /* ========================================
+         PASSWORD INPUT WITH TOGGLE
+         ======================================== */
+
+      .password-input .input-field {
+        min-width: 240px;
+      }
+
+      .password-input .toggle-visibility {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        margin-right: 4px;
+        background: transparent;
+        border: none;
+        border-radius: 8px;
+        color: #71717a;
+        cursor: pointer;
+        transition: all 0.15s ease;
+      }
+
+      .password-input .toggle-visibility svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      .password-input .toggle-visibility:hover {
+        background: rgba(255, 255, 255, 0.08);
+        color: #00d4d4;
+      }
+
+      .password-input .toggle-visibility:active {
+        transform: scale(0.95);
+      }
+
+      /* Password strength indicator */
+      .password-strength {
+        display: flex;
+        gap: 4px;
+        margin-top: 8px;
+      }
+
+      .strength-bar {
+        flex: 1;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 2px;
+        transition: background 0.3s ease;
+      }
+
+      .password-input[data-strength="weak"] .strength-bar:nth-child(1) {
+        background: #fb7185;
+      }
+
+      .password-input[data-strength="medium"] .strength-bar:nth-child(1),
+      .password-input[data-strength="medium"] .strength-bar:nth-child(2) {
+        background: #fbbf24;
+      }
+
+      .password-input[data-strength="strong"] .strength-bar:nth-child(1),
+      .password-input[data-strength="strong"] .strength-bar:nth-child(2),
+      .password-input[data-strength="strong"] .strength-bar:nth-child(3) {
+        background: #34d399;
+      }
+
+      .password-input[data-strength="very-strong"] .strength-bar {
+        background: #34d399;
+      }
+
+      .strength-label {
+        font-size: 11px;
+        color: #71717a;
+        text-align: right;
+        margin-top: 4px;
+      }
+
+      .password-input[data-strength="weak"] .strength-label {
+        color: #fb7185;
+      }
+
+      .password-input[data-strength="medium"] .strength-label {
+        color: #fbbf24;
+      }
+
+      .password-input[data-strength="strong"] .strength-label,
+      .password-input[data-strength="very-strong"] .strength-label {
+        color: #34d399;
+      }
+
+      /* ========================================
+         INPUT GROUPS
+         ======================================== */
+
+      .input-group .input-field {
+        min-width: 240px;
+      }
+
+      .input-group .input-prefix,
+      .input-group .input-suffix {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 14px;
+        background: rgba(0, 0, 0, 0.2);
+        color: #71717a;
+        font-size: 14px;
+        white-space: nowrap;
+      }
+
+      .input-group .input-prefix {
+        border-right: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 10px 0 0 10px;
+      }
+
+      .input-group .input-suffix {
+        border-left: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 0 10px 10px 0;
+      }
+
+      .input-group .input-prefix + input {
+        padding-left: 12px;
+      }
+
+      .input-group .input-suffix-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 16px;
+        height: 100%;
+        background: linear-gradient(
+          180deg,
+          rgba(167, 139, 250, 0.6) 0%,
+          rgba(139, 92, 246, 0.5) 100%
+        );
+        border: none;
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0 10px 10px 0;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.15s ease;
+      }
+
+      .input-group .input-suffix-btn:hover {
+        background: linear-gradient(
+          180deg,
+          rgba(167, 139, 250, 0.75) 0%,
+          rgba(139, 92, 246, 0.65) 100%
+        );
+      }
+
+      .input-group .input-suffix-btn:active {
+        transform: scale(0.98);
+      }
+
+      .input-group .input-suffix-btn svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      /* Combined: icon + input + button */
+      .input-group.input-combined .input-icon-left {
+        padding-left: 14px;
+      }
+
+      /* ========================================
+         COLOR VARIANTS
+         ======================================== */
+
+      /* Coral accent */
+      .input-coral .input-field:focus-within {
+        border-color: rgba(255, 107, 107, 0.5);
+        box-shadow:
+          0 4px 12px rgba(0, 0, 0, 0.25),
+          0 0 0 3px rgba(255, 107, 107, 0.15);
+      }
+
+      .input-coral:focus-within .input-icon-left {
+        color: #ff6b6b;
+      }
+
+      /* Mint accent */
+      .input-mint .input-field:focus-within {
+        border-color: rgba(52, 211, 153, 0.5);
+        box-shadow:
+          0 4px 12px rgba(0, 0, 0, 0.25),
+          0 0 0 3px rgba(52, 211, 153, 0.15);
+      }
+
+      .input-mint:focus-within .input-icon-left {
+        color: #34d399;
+      }
+
+      /* Sky accent */
+      .input-sky .input-field:focus-within {
+        border-color: rgba(56, 189, 248, 0.5);
+        box-shadow:
+          0 4px 12px rgba(0, 0, 0, 0.25),
+          0 0 0 3px rgba(56, 189, 248, 0.15);
+      }
+
+      .input-sky:focus-within .input-icon-left {
+        color: #38bdf8;
+      }
+
+      /* Amber accent */
+      .input-amber .input-field:focus-within {
+        border-color: rgba(251, 191, 36, 0.5);
+        box-shadow:
+          0 4px 12px rgba(0, 0, 0, 0.25),
+          0 0 0 3px rgba(251, 191, 36, 0.15);
+      }
+
+      .input-amber:focus-within .input-icon-left {
+        color: #fbbf24;
+      }
+
+      /* ========================================
+         DISABLED STATE
+         ======================================== */
+
+      .input-disabled .input-field {
+        opacity: 0.5;
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+
+      .input-disabled .input-field input {
+        cursor: not-allowed;
+      }
+
+      /* ========================================
+         TEXT ANIMATION / PARTICLE EFFECTS
+         Vanish on Enter, deletion particles
+         ======================================== */
+
+      /* Wrapper for inputs with particle effects */
+      .input-vanish-wrapper {
+        position: relative;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        min-width: 0;
+      }
+
+      .input-vanish-wrapper input {
+        width: 100%;
+      }
+
+      /* Hide placeholder during vanish animation */
+      .input-vanish-wrapper.animating input::placeholder {
+        opacity: 0;
+        transition: opacity 0.15s ease;
+      }
+
+      .input-vanish-wrapper input::placeholder {
+        transition: opacity 0.3s ease 0.1s;
+      }
+
+      /* Ghost container for particle overlay */
+      .input-ghost-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        pointer-events: none;
+        overflow: visible;
+        z-index: 10;
+      }
+
+      /* Character ghost (floats up on deletion) */
+      .char-ghost {
+        position: absolute;
+        font-size: 14px;
+        color: #00d4d4;
+        opacity: 1;
+        pointer-events: none;
+        animation: charGhostFloat 0.3s ease-out forwards;
+        text-shadow: 0 0 8px rgba(167, 139, 250, 0.6);
+      }
+
+      @keyframes charGhostFloat {
+        0% {
+          opacity: 1;
+          transform: translateY(-50%) translateX(0);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-50%) translateX(-15px) translateY(-12px);
+        }
+      }
+
+      /* Character vanish (fades out on Enter) */
+      .char-vanish {
+        position: absolute;
+        font-size: 14px;
+        color: #e4e4eb;
+        opacity: 1;
+        pointer-events: none;
+        animation: charVanishFade var(--fade-duration, 180ms) ease-out var(--fade-delay, 0ms) forwards;
+      }
+
+      @keyframes charVanishFade {
+        0% {
+          opacity: 1;
+          transform: translateY(-50%);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-50%) translateX(-8px);
+        }
+      }
+
+      /* Particle effects */
+      .vanish-particle {
+        position: absolute;
+        width: var(--particle-size, 3px);
+        height: var(--particle-size, 3px);
+        background: linear-gradient(135deg, #00d4d4, #ff6b6b);
+        border-radius: 50%;
+        pointer-events: none;
+        opacity: 1;
+        animation: particleFlow var(--particle-duration, 700ms) ease-out var(--particle-delay, 0ms) forwards;
+        box-shadow: 0 0 6px rgba(167, 139, 250, 0.8);
+      }
+
+      @keyframes particleFlow {
+        0% {
+          opacity: 1;
+          transform: translateY(-50%) translate(0, var(--flow-y-start, 0px));
+        }
+        60% {
+          opacity: 0.8;
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-50%) translate(var(--flow-x, -50px), var(--flow-y-end, 0px));
+        }
+      }
+
+      /* Color variants for particles */
+      .input-coral .vanish-particle {
+        background: linear-gradient(135deg, #ff6b6b, #fb7185);
+        box-shadow: 0 0 6px rgba(255, 107, 107, 0.8);
+      }
+
+      .input-coral .char-ghost {
+        color: #ff6b6b;
+        text-shadow: 0 0 8px rgba(255, 107, 107, 0.6);
+      }
+
+      .input-mint .vanish-particle {
+        background: linear-gradient(135deg, #34d399, #10b981);
+        box-shadow: 0 0 6px rgba(52, 211, 153, 0.8);
+      }
+
+      .input-mint .char-ghost {
+        color: #34d399;
+        text-shadow: 0 0 8px rgba(52, 211, 153, 0.6);
+      }
+
+      .input-sky .vanish-particle {
+        background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+        box-shadow: 0 0 6px rgba(56, 189, 248, 0.8);
+      }
+
+      .input-sky .char-ghost {
+        color: #38bdf8;
+        text-shadow: 0 0 8px rgba(56, 189, 248, 0.6);
+      }
+
+      .input-amber .vanish-particle {
+        background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        box-shadow: 0 0 6px rgba(251, 191, 36, 0.8);
+      }
+
+      .input-amber .char-ghost {
+        color: #fbbf24;
+        text-shadow: 0 0 8px rgba(251, 191, 36, 0.6);
+      }
+    </style>
+
+    <p class="text-sm text-creator-muted uppercase tracking-wider mb-4">Input Component Library</p>
+    <p class="text-creator-muted mb-6">Interactive search boxes and input fields with glassmorphism styling, validation states, and keyboard navigation. Type to see interactions.</p>
+
+    <div class="input-showcase">
+      <!-- Basic Search Box -->
+      <div class="input-row">
+        <span class="input-label">Basic Search</span>
+        <div class="input-group-container">
+          <div class="input-wrapper search-box input-sm" data-vanish-input>
+            <div class="input-field">
+              <span class="input-icon input-icon-left">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+              </span>
+              <div class="input-vanish-wrapper">
+                <div class="input-ghost-container"></div>
+                <input type="text" placeholder="Small search..." aria-label="Small search">
+              </div>
+            </div>
+          </div>
+
+          <div class="input-wrapper search-box" data-vanish-input>
+            <div class="input-field">
+              <span class="input-icon input-icon-left">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+              </span>
+              <div class="input-vanish-wrapper">
+                <div class="input-ghost-container"></div>
+                <input type="text" placeholder="Search videos..." aria-label="Search videos">
+              </div>
+            </div>
+          </div>
+
+          <div class="input-wrapper search-box input-lg" data-vanish-input>
+            <div class="input-field">
+              <span class="input-icon input-icon-left">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+              </span>
+              <div class="input-vanish-wrapper">
+                <div class="input-ghost-container"></div>
+                <input type="text" placeholder="Large search..." aria-label="Large search">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search with Autocomplete -->
+      <div class="input-row">
+        <span class="input-label">Autocomplete</span>
+        <div class="input-group-container">
+          <div class="input-wrapper search-autocomplete" id="search-autocomplete" data-vanish-input>
+            <div class="input-field">
+              <span class="input-icon input-icon-left">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+              </span>
+              <div class="input-vanish-wrapper">
+                <div class="input-ghost-container"></div>
+                <input
+                  type="text"
+                  placeholder="Search channels..."
+                  aria-label="Search channels"
+                  aria-autocomplete="list"
+                  aria-controls="autocomplete-listbox"
+                  aria-expanded="false"
+                  data-autocomplete-input
+                >
+              </div>
+            </div>
+            <div
+              class="autocomplete-dropdown"
+              id="autocomplete-listbox"
+              role="listbox"
+              aria-label="Channel suggestions"
+            >
+              <div class="autocomplete-item" role="option" data-value="MrBeast">
+                <svg class="item-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span class="item-text">MrBeast</span>
+              </div>
+              <div class="autocomplete-item" role="option" data-value="Marques Brownlee">
+                <svg class="item-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span class="item-text">Marques Brownlee</span>
+              </div>
+              <div class="autocomplete-item" role="option" data-value="Mark Rober">
+                <svg class="item-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span class="item-text">Mark Rober</span>
+              </div>
+              <div class="autocomplete-item" role="option" data-value="Veritasium">
+                <svg class="item-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span class="item-text">Veritasium</span>
+              </div>
+              <div class="autocomplete-item" role="option" data-value="MKBHD">
+                <svg class="item-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span class="item-text">MKBHD</span>
+              </div>
+              <div class="autocomplete-item" role="option" data-value="Linus Tech Tips">
+                <svg class="item-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span class="item-text">Linus Tech Tips</span>
+              </div>
+              <div class="autocomplete-item" role="option" data-value="Casey Neistat">
+                <svg class="item-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span class="item-text">Casey Neistat</span>
+              </div>
+              <div class="autocomplete-item" role="option" data-value="PewDiePie">
+                <svg class="item-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span class="item-text">PewDiePie</span>
+              </div>
+              <div class="autocomplete-no-results" style="display: none;">No channels found</div>
+              <div class="autocomplete-hint">
+                <kbd>↑</kbd><kbd>↓</kbd> to navigate, <kbd>Enter</kbd> to select, <kbd>Esc</kbd> to close
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Clearable Input -->
+      <div class="input-row">
+        <span class="input-label">Clearable</span>
+        <div class="input-group-container">
+          <div class="input-wrapper search-box clearable-input" id="clearable-input" data-vanish-input>
+            <div class="input-field">
+              <span class="input-icon input-icon-left">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+              </span>
+              <div class="input-vanish-wrapper">
+                <div class="input-ghost-container"></div>
+                <input type="text" placeholder="Type something to clear..." aria-label="Clearable search" data-clearable-input>
+              </div>
+              <button type="button" class="clear-btn" aria-label="Clear search" data-clear-btn>
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Input with Validation States -->
+      <div class="input-row">
+        <span class="input-label">Validation</span>
+        <div class="input-group-container">
+          <div class="input-wrapper validated-input" id="validation-default">
+            <div class="input-field">
+              <input
+                type="email"
+                placeholder="Enter email..."
+                aria-label="Email input"
+                aria-describedby="default-helper"
+              >
+              <span class="validation-icon">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                </svg>
+              </span>
+            </div>
+            <span class="helper-text" id="default-helper">Enter your email address</span>
+          </div>
+
+          <div class="input-wrapper validated-input input-error" id="validation-error">
+            <div class="input-field">
+              <input
+                type="email"
+                value="invalid-email"
+                aria-label="Invalid email"
+                aria-invalid="true"
+                aria-describedby="error-helper"
+              >
+              <span class="validation-icon">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                </svg>
+              </span>
+            </div>
+            <span class="helper-text" id="error-helper" role="alert">Please enter a valid email address</span>
+            <span class="sr-only" aria-live="polite">Error: Please enter a valid email address</span>
+          </div>
+
+          <div class="input-wrapper validated-input input-success" id="validation-success">
+            <div class="input-field">
+              <input
+                type="email"
+                value="valid@email.com"
+                aria-label="Valid email"
+                aria-describedby="success-helper"
+              >
+              <span class="validation-icon">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+              </span>
+            </div>
+            <span class="helper-text" id="success-helper">Email verified successfully</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Password Input with Toggle -->
+      <div class="input-row">
+        <span class="input-label">Password</span>
+        <div class="input-group-container">
+          <div class="input-wrapper password-input" id="password-input" data-strength="">
+            <div class="input-field">
+              <span class="input-icon input-icon-left">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                </svg>
+              </span>
+              <input
+                type="password"
+                placeholder="Enter password..."
+                aria-label="Password"
+                data-password-input
+              >
+              <button type="button" class="toggle-visibility" aria-label="Show password" data-toggle-visibility>
+                <svg class="icon-show" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                </svg>
+                <svg class="icon-hide" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display: none;">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>
+                </svg>
+              </button>
+            </div>
+            <div class="password-strength">
+              <div class="strength-bar"></div>
+              <div class="strength-bar"></div>
+              <div class="strength-bar"></div>
+              <div class="strength-bar"></div>
+            </div>
+            <span class="strength-label" data-strength-label></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Input Groups -->
+      <div class="input-row">
+        <span class="input-label">Input Groups</span>
+        <div class="input-group-container">
+          <!-- Icon prefix -->
+          <div class="input-wrapper input-group">
+            <div class="input-field">
+              <span class="input-prefix">@</span>
+              <input type="text" placeholder="username" aria-label="Username">
+            </div>
+          </div>
+
+          <!-- URL prefix -->
+          <div class="input-wrapper input-group">
+            <div class="input-field">
+              <span class="input-prefix">https://</span>
+              <input type="text" placeholder="yoursite.com" aria-label="Website URL">
+            </div>
+          </div>
+
+          <!-- Price suffix -->
+          <div class="input-wrapper input-group">
+            <div class="input-field">
+              <input type="number" placeholder="0.00" aria-label="Price" style="text-align: right;">
+              <span class="input-suffix">USD</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Input with Button -->
+      <div class="input-row">
+        <span class="input-label">With Button</span>
+        <div class="input-group-container">
+          <div class="input-wrapper input-group">
+            <div class="input-field">
+              <input type="email" placeholder="Enter your email..." aria-label="Newsletter email">
+              <button type="button" class="input-suffix-btn">Subscribe</button>
+            </div>
+          </div>
+
+          <!-- Combined: icon + input + button -->
+          <div class="input-wrapper input-group input-combined">
+            <div class="input-field">
+              <span class="input-icon input-icon-left">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+              </span>
+              <input type="text" placeholder="Search and go..." aria-label="Search with action">
+              <button type="button" class="input-suffix-btn" aria-label="Go">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Color Variants -->
+      <div class="input-row">
+        <span class="input-label">Color Variants</span>
+        <div class="input-group-container">
+          <div class="input-wrapper search-box input-coral" data-vanish-input>
+            <div class="input-field">
+              <span class="input-icon input-icon-left">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+              </span>
+              <div class="input-vanish-wrapper">
+                <div class="input-ghost-container"></div>
+                <input type="text" placeholder="Coral accent..." aria-label="Coral search">
+              </div>
+            </div>
+          </div>
+
+          <div class="input-wrapper search-box input-mint" data-vanish-input>
+            <div class="input-field">
+              <span class="input-icon input-icon-left">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+              </span>
+              <div class="input-vanish-wrapper">
+                <div class="input-ghost-container"></div>
+                <input type="text" placeholder="Mint accent..." aria-label="Mint search">
+              </div>
+            </div>
+          </div>
+
+          <div class="input-wrapper search-box input-sky" data-vanish-input>
+            <div class="input-field">
+              <span class="input-icon input-icon-left">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+              </span>
+              <div class="input-vanish-wrapper">
+                <div class="input-ghost-container"></div>
+                <input type="text" placeholder="Sky accent..." aria-label="Sky search">
+              </div>
+            </div>
+          </div>
+
+          <div class="input-wrapper search-box input-amber" data-vanish-input>
+            <div class="input-field">
+              <span class="input-icon input-icon-left">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+              </span>
+              <div class="input-vanish-wrapper">
+                <div class="input-ghost-container"></div>
+                <input type="text" placeholder="Amber accent..." aria-label="Amber search">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Disabled State -->
+      <div class="input-row">
+        <span class="input-label">Disabled</span>
+        <div class="input-group-container">
+          <div class="input-wrapper search-box input-disabled">
+            <div class="input-field">
+              <span class="input-icon input-icon-left">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+              </span>
+              <input type="text" placeholder="Disabled input..." aria-label="Disabled search" disabled>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Technical Notes -->
+    <div class="bg-creator-card rounded-xl p-4 border border-creator-border mt-6">
+      <p class="text-sm text-creator-muted mb-2">Implementation Stack</p>
+      <div class="flex flex-wrap gap-3 text-xs">
+        <span class="px-2 py-1 rounded bg-creator-sky/20 text-creator-sky border border-creator-sky/30">ARIA Labels</span>
+        <span class="px-2 py-1 rounded bg-creator-cyan/20 text-creator-cyan border border-creator-cyan/30">Keyboard Nav</span>
+        <span class="px-2 py-1 rounded bg-creator-coral/20 text-creator-coral border border-creator-coral/30">Debounce</span>
+        <span class="px-2 py-1 rounded bg-creator-mint/20 text-creator-mint border border-creator-mint/30">Validation</span>
+        <span class="px-2 py-1 rounded bg-creator-amber/20 text-creator-amber border border-creator-amber/30">Backdrop Blur</span>
+      </div>
+      <p class="text-xs text-creator-muted mt-3">Includes: Search boxes with size variants, autocomplete with suggestions, clearable inputs, validation states, password toggle with strength indicator, and input groups with prefixes/suffixes.</p>
+    </div>
+  </section>
+</div>

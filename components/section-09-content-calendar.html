@@ -1,0 +1,170 @@
+<div class="section-09-content-calendar">
+    <!-- Section 9: Content Calendar -->
+    <section>
+      <h2 class="font-display text-2xl font-semibold mb-6 flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-creator-sky/20 flex items-center justify-center text-creator-sky">9</span>
+        Content Calendar
+      </h2>
+
+      <p class="text-sm text-creator-muted uppercase tracking-wider mb-4">Week View with Video Thumbnails</p>
+
+      <div class="relative rounded-xl overflow-hidden mb-6 shine-effect backdrop-blur-xl bg-gradient-to-br from-creator-cyan/20 via-creator-cyan/10 to-creator-surface/50 border border-creator-cyan/20 shadow-lg shadow-creator-cyan/5">
+        <!-- Calendar Header -->
+        <div class="bg-gradient-to-r from-creator-card/80 via-creator-card/60 to-transparent px-5 py-4 border-b border-creator-border/50 flex items-center justify-between backdrop-blur-sm">
+          <div class="flex items-center gap-4">
+            <button class="w-9 h-9 rounded-lg bg-creator-surface/80 border border-creator-border flex items-center justify-center hover:bg-creator-cyan/10 hover:border-creator-cyan/40 hover:shadow-lg hover:shadow-creator-cyan/20 transition-all duration-200 group">
+              <svg class="w-4 h-4 group-hover:text-creator-cyan transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+            <span class="font-display font-semibold text-lg bg-gradient-to-r from-creator-text to-creator-cyan bg-clip-text text-transparent">January 2024</span>
+            <button class="w-9 h-9 rounded-lg bg-creator-surface/80 border border-creator-border flex items-center justify-center hover:bg-creator-cyan/10 hover:border-creator-cyan/40 hover:shadow-lg hover:shadow-creator-cyan/20 transition-all duration-200 group">
+              <svg class="w-4 h-4 group-hover:text-creator-cyan transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+          <div class="flex items-center gap-3">
+            <button class="px-4 py-2 rounded-lg bg-creator-cyan text-white text-sm font-medium hover:bg-creator-cyan/90 hover:shadow-lg hover:shadow-creator-cyan/30 transition-all duration-200 shine-effect">+ Schedule</button>
+          </div>
+        </div>
+
+        <!-- Week Grid -->
+        <div class="grid grid-cols-7">
+          <!-- Day Headers -->
+          <div class="p-3 text-center text-xs font-semibold uppercase tracking-wide text-creator-muted border-b border-r border-creator-border/50 bg-creator-card/40 backdrop-blur-sm">Sun</div>
+          <div class="p-3 text-center text-xs font-semibold uppercase tracking-wide text-creator-muted border-b border-r border-creator-border/50 bg-creator-card/40 backdrop-blur-sm">Mon</div>
+          <div class="p-3 text-center text-xs font-semibold uppercase tracking-wide text-creator-muted border-b border-r border-creator-border/50 bg-creator-card/40 backdrop-blur-sm">Tue</div>
+          <div class="p-3 text-center text-xs font-semibold uppercase tracking-wide text-creator-muted border-b border-r border-creator-border/50 bg-creator-card/40 backdrop-blur-sm">Wed</div>
+          <div class="p-3 text-center text-xs font-semibold uppercase tracking-wide text-creator-muted border-b border-r border-creator-border/50 bg-creator-card/40 backdrop-blur-sm">Thu</div>
+          <div class="p-3 text-center text-xs font-semibold uppercase tracking-wide text-creator-muted border-b border-r border-creator-border/50 bg-creator-card/40 backdrop-blur-sm">Fri</div>
+          <div class="p-3 text-center text-xs font-semibold uppercase tracking-wide text-creator-muted border-b border-creator-border/50 bg-creator-card/40 backdrop-blur-sm">Sat</div>
+
+          <!-- Day Cells -->
+          <div class="p-3 min-h-[140px] border-r border-creator-border/30 hover:bg-creator-cyan/[0.03] transition-colors">
+            <span class="inline-flex items-center justify-center w-7 h-7 rounded-full text-sm text-creator-muted hover:bg-creator-surface hover:text-creator-text transition-colors cursor-default">7</span>
+          </div>
+          <div class="p-3 min-h-[140px] border-r border-creator-border/30 hover:bg-creator-cyan/[0.03] transition-colors">
+            <span class="inline-flex items-center justify-center w-7 h-7 rounded-full text-sm text-creator-muted">8</span>
+            <!-- Scheduled video -->
+            <div class="mt-2 calendar-event rounded-lg overflow-hidden border border-creator-cyan/30 bg-creator-cyan/10 backdrop-blur-sm cursor-pointer hover:bg-creator-cyan/20 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-creator-cyan/20 transition-all duration-200 group">
+              <div class="aspect-video bg-gradient-to-br from-creator-cyan/30 to-creator-sky/20 relative overflow-hidden">
+                <!-- Play icon overlay -->
+                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div class="w-6 h-6 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center">
+                    <svg class="w-3 h-3 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                  </div>
+                </div>
+                <div class="absolute bottom-1 right-1 px-1.5 py-0.5 rounded bg-black/70 backdrop-blur-sm text-[9px] font-medium">5:00 PM</div>
+              </div>
+              <div class="p-2 bg-creator-surface/50">
+                <p class="text-[11px] font-medium line-clamp-1">Tech Setup Tour</p>
+              </div>
+            </div>
+          </div>
+          <div class="p-3 min-h-[140px] border-r border-creator-border/30 bg-gradient-to-b from-creator-cyan/10 to-creator-cyan/5 relative">
+            <!-- Today glow effect -->
+            <div class="absolute inset-0 bg-creator-cyan/5 animate-pulse pointer-events-none" style="animation-duration: 3s"></div>
+            <div class="relative">
+              <span class="inline-flex items-center justify-center w-7 h-7 rounded-full text-sm font-bold bg-creator-cyan text-creator-bg shadow-lg shadow-creator-cyan/40">9</span>
+              <span class="ml-2 text-[10px] font-medium text-creator-cyan uppercase tracking-wide">Today</span>
+            </div>
+          </div>
+          <div class="p-3 min-h-[140px] border-r border-creator-border/30 hover:bg-creator-cyan/[0.03] transition-colors">
+            <span class="inline-flex items-center justify-center w-7 h-7 rounded-full text-sm text-creator-muted">10</span>
+            <!-- Multiple scheduled -->
+            <div class="mt-2 space-y-1.5">
+              <div class="calendar-event rounded-lg bg-creator-coral/15 border border-creator-coral/30 p-2 cursor-pointer hover:bg-creator-coral/25 hover:-translate-y-0.5 hover:shadow-md hover:shadow-creator-coral/20 transition-all duration-200">
+                <p class="text-[11px] font-medium text-creator-coral flex items-center gap-1.5">
+                  <span class="text-xs">🎬</span> Filming Day
+                </p>
+              </div>
+              <div class="calendar-event rounded-lg bg-creator-amber/15 border border-creator-amber/30 p-2 cursor-pointer hover:bg-creator-amber/25 hover:-translate-y-0.5 hover:shadow-md hover:shadow-creator-amber/20 transition-all duration-200">
+                <p class="text-[11px] font-medium text-creator-amber flex items-center gap-1.5">
+                  <span class="text-xs">📝</span> Script Review
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="p-3 min-h-[140px] border-r border-creator-border/30 hover:bg-creator-cyan/[0.03] transition-colors">
+            <span class="inline-flex items-center justify-center w-7 h-7 rounded-full text-sm text-creator-muted hover:bg-creator-surface hover:text-creator-text transition-colors cursor-default">11</span>
+          </div>
+          <div class="p-3 min-h-[140px] border-r border-creator-border/30 hover:bg-creator-cyan/[0.03] transition-colors">
+            <span class="inline-flex items-center justify-center w-7 h-7 rounded-full text-sm text-creator-muted">12</span>
+            <!-- Scheduled upload -->
+            <div class="mt-2 calendar-event rounded-lg overflow-hidden border border-creator-mint/30 bg-creator-mint/10 backdrop-blur-sm cursor-pointer hover:bg-creator-mint/20 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-creator-mint/20 transition-all duration-200 group">
+              <div class="aspect-video bg-gradient-to-br from-creator-mint/40 to-creator-cyan/20 relative overflow-hidden">
+                <!-- Live/Scheduled indicator -->
+                <div class="absolute top-1.5 left-1.5 flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-creator-mint/90 text-white">
+                  <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+                  <span class="text-[8px] font-bold uppercase">Scheduled</span>
+                </div>
+                <!-- Play icon overlay -->
+                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div class="w-6 h-6 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center">
+                    <svg class="w-3 h-3 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                  </div>
+                </div>
+                <div class="absolute bottom-1 right-1 px-1.5 py-0.5 rounded bg-black/70 backdrop-blur-sm text-[9px] font-medium">10:00 AM</div>
+              </div>
+              <div class="p-2 bg-creator-surface/50">
+                <p class="text-[11px] font-medium line-clamp-1">Weekly Vlog #45</p>
+              </div>
+            </div>
+          </div>
+          <div class="p-3 min-h-[140px] hover:bg-creator-cyan/[0.03] transition-colors">
+            <span class="inline-flex items-center justify-center w-7 h-7 rounded-full text-sm text-creator-muted hover:bg-creator-surface hover:text-creator-text transition-colors cursor-default">13</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Platform Indicators -->
+      <div class="flex flex-wrap gap-3">
+        <div class="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-creator-card border border-creator-border hover:border-red-500/30 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-red-500/10 transition-all duration-200 cursor-pointer group">
+          <div class="w-6 h-6 rounded-lg bg-red-500 flex items-center justify-center text-white shadow-md shadow-red-500/30 group-hover:scale-110 transition-transform">
+            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a2.994 2.994 0 0 0-2.107-2.117C19.545 3.5 12 3.5 12 3.5s-7.545 0-9.391.569A2.994 2.994 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a2.994 2.994 0 0 0 2.107 2.117c1.846.569 9.391.569 9.391.569s7.545 0 9.391-.569a2.994 2.994 0 0 0 2.107-2.117C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.75 15.568V8.432L15.818 12 9.75 15.568z"/></svg>
+          </div>
+          <span class="text-sm font-medium">YouTube</span>
+        </div>
+        <div class="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-creator-card border border-creator-border hover:border-pink-500/30 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-pink-500/10 transition-all duration-200 cursor-pointer group">
+          <div class="w-6 h-6 rounded-lg bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 flex items-center justify-center text-white shadow-md shadow-pink-500/30 group-hover:scale-110 transition-transform">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </div>
+          <span class="text-sm font-medium">Instagram</span>
+        </div>
+        <div class="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-creator-card border border-creator-border hover:border-blue-500/30 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-200 cursor-pointer group">
+          <div class="w-6 h-6 rounded-lg bg-blue-600 flex items-center justify-center text-white shadow-md shadow-blue-600/30 group-hover:scale-110 transition-transform">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </div>
+          <span class="text-sm font-medium">Facebook</span>
+        </div>
+        <div class="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-creator-card border border-creator-border hover:border-creator-text/30 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-creator-text/10 transition-all duration-200 cursor-pointer group">
+          <div class="w-6 h-6 rounded-lg bg-black flex items-center justify-center text-white shadow-md shadow-black/30 group-hover:scale-110 transition-transform border border-creator-border">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+          </div>
+          <span class="text-sm font-medium">TikTok</span>
+        </div>
+        <div class="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-creator-card border border-creator-border hover:border-creator-text/30 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-creator-text/10 transition-all duration-200 cursor-pointer group">
+          <div class="w-6 h-6 rounded-lg bg-black flex items-center justify-center text-white shadow-md shadow-black/30 group-hover:scale-110 transition-transform border border-creator-border">
+            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </div>
+          <span class="text-sm font-medium">X</span>
+        </div>
+        <div class="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-creator-card border border-creator-border hover:border-orange-500/30 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-orange-500/10 transition-all duration-200 cursor-pointer group">
+          <div class="w-6 h-6 rounded-lg bg-orange-500 flex items-center justify-center text-white shadow-md shadow-orange-500/30 group-hover:scale-110 transition-transform">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
+          </div>
+          <span class="text-sm font-medium">Reddit</span>
+        </div>
+        <div class="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-creator-card border border-creator-border hover:border-red-600/30 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-red-600/10 transition-all duration-200 cursor-pointer group">
+          <div class="w-6 h-6 rounded-lg bg-red-600 flex items-center justify-center text-white shadow-md shadow-red-600/30 group-hover:scale-110 transition-transform">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg>
+          </div>
+          <span class="text-sm font-medium">Pinterest</span>
+        </div>
+        <div class="flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-creator-card border border-creator-border hover:border-orange-600/30 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-orange-600/10 transition-all duration-200 cursor-pointer group">
+          <div class="w-6 h-6 rounded-lg bg-orange-600 flex items-center justify-center text-white shadow-md shadow-orange-600/30 group-hover:scale-110 transition-transform">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z"/></svg>
+          </div>
+          <span class="text-sm font-medium">Substack</span>
+        </div>
+      </div>
+    </section>
+
+</div>

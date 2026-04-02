@@ -1,0 +1,102 @@
+<div class="section-03-component-patterns">
+    <!-- Section 3: Component Patterns -->
+    <section>
+      <h2 class="font-display text-2xl font-semibold mb-6 flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-creator-mint/20 flex items-center justify-center text-creator-mint">3</span>
+        Component Patterns
+      </h2>
+
+      <!-- Cards with Status Borders -->
+      <p class="text-sm text-creator-muted uppercase tracking-wider mb-4">Pipeline Stage Cards (from colored-border pattern)</p>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+        <div class="relative shine-effect backdrop-blur-xl bg-gradient-to-br from-creator-cyan/20 via-creator-cyan/10 to-creator-surface/50 rounded-xl p-4 border-l-4 border-creator-cyan shadow-lg shadow-creator-cyan/5 pipeline-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-creator-cyan">●</span>
+            <span class="font-medium">Ideation</span>
+          </div>
+          <p class="text-sm text-creator-muted">3 ideas brewing</p>
+        </div>
+        <div class="relative shine-effect backdrop-blur-xl bg-gradient-to-br from-creator-cyan/20 via-creator-cyan/10 to-creator-surface/50 rounded-xl p-4 border-l-4 border-creator-amber shadow-lg shadow-creator-cyan/5 pipeline-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-creator-amber">●</span>
+            <span class="font-medium">Scripting</span>
+          </div>
+          <p class="text-sm text-creator-muted">1 in progress</p>
+        </div>
+        <div class="relative shine-effect backdrop-blur-xl bg-gradient-to-br from-creator-cyan/20 via-creator-cyan/10 to-creator-surface/50 rounded-xl p-4 border-l-4 border-creator-coral shadow-lg shadow-creator-cyan/5 pipeline-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-creator-coral">●</span>
+            <span class="font-medium">Filming</span>
+          </div>
+          <p class="text-sm text-creator-muted">2 scheduled</p>
+        </div>
+        <div class="relative shine-effect backdrop-blur-xl bg-gradient-to-br from-creator-cyan/20 via-creator-cyan/10 to-creator-surface/50 rounded-xl p-4 border-l-4 border-creator-mint shadow-lg shadow-creator-cyan/5 pipeline-card">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-creator-mint">●</span>
+            <span class="font-medium">Published</span>
+          </div>
+          <p class="text-sm text-creator-muted">12 this month</p>
+        </div>
+      </div>
+
+      <!-- Status Badges -->
+      <p class="text-sm text-creator-muted uppercase tracking-wider mb-4">Status Badges</p>
+      <div class="flex flex-wrap gap-3 mb-8">
+        <span class="px-3 py-1 rounded-full bg-creator-mint/20 text-creator-mint text-sm font-medium status-badge">Published</span>
+        <span class="px-3 py-1 rounded-full bg-creator-amber/20 text-creator-amber text-sm font-medium status-badge" style="animation-delay: 0.5s">In Progress</span>
+        <span class="px-3 py-1 rounded-full bg-creator-cyan/20 text-creator-cyan text-sm font-medium status-badge" style="animation-delay: 1s">Draft</span>
+        <span class="px-3 py-1 rounded-full bg-creator-sky/20 text-creator-sky text-sm font-medium status-badge" style="animation-delay: 1.5s">Scheduled</span>
+        <span class="px-3 py-1 rounded-full bg-creator-rose/20 text-creator-rose text-sm font-medium status-badge" style="animation-delay: 2s">Needs Review</span>
+      </div>
+
+      <!-- 3D Tilt Card Preview -->
+      <p class="text-sm text-creator-muted uppercase tracking-wider mb-4">3D Tilt Video Card (from perspective pattern)</p>
+      <div class="flex gap-6 mb-8">
+        <div class="perspective-[1000px]">
+          <div id="tilt-card" class="w-72 relative shine-effect backdrop-blur-xl bg-gradient-to-br from-creator-cyan/20 via-creator-cyan/10 to-creator-surface/50 border border-creator-cyan/20 shadow-lg shadow-creator-cyan/5 rounded-xl overflow-hidden transition-all duration-200 ease-out transform-gpu cursor-pointer" style="transform-style: preserve-3d;">
+            <div class="aspect-video bg-gradient-to-br from-creator-cyan/30 to-creator-coral/30 relative">
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="w-14 h-14 rounded-full bg-white/20 backdrop-blur flex items-center justify-center">
+                  <svg class="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+              </div>
+              <div class="absolute top-3 right-3 px-2 py-1 rounded bg-black/60 text-xs font-medium">12:34</div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-medium mb-1 line-clamp-2">10 Tips for Better YouTube Thumbnails</h3>
+              <p class="text-sm text-creator-muted">24.5K views • 2 days ago</p>
+            </div>
+          </div>
+        </div>
+        <div class="flex-1 relative shine-effect backdrop-blur-xl bg-gradient-to-br from-creator-cyan/20 via-creator-cyan/10 to-creator-surface/50 border border-creator-cyan/20 shadow-lg shadow-creator-cyan/5 rounded-xl p-4">
+          <p class="text-sm text-creator-muted mb-2">Dynamic tilt via mouse tracking</p>
+          <pre class="text-xs text-creator-cyan bg-creator-bg rounded p-3 overflow-x-auto">// Calculate rotation from cursor position
+const rotateY = ((x - centerX) / halfWidth) * maxTilt;
+const rotateX = ((centerY - y) / halfHeight) * maxTilt;
+
+// Apply transform with dynamic shadow
+transform: rotateX(${rotateX}deg) rotateY(${rotateY}deg);</pre>
+          <p class="text-sm text-creator-muted mt-3">Move cursor over the card to see the 3D tilt effect in action.</p>
+        </div>
+      </div>
+
+      <!-- Activity/Status Bar -->
+      <p class="text-sm text-creator-muted uppercase tracking-wider mb-4">Activity Status Bar (from terminal footer pattern)</p>
+      <div class="relative shine-effect backdrop-blur-xl bg-gradient-to-br from-creator-cyan/20 via-creator-cyan/10 to-creator-surface/50 border border-creator-cyan/20 shadow-lg shadow-creator-cyan/5 rounded-xl overflow-hidden">
+        <div class="p-4">
+          <p class="text-creator-muted text-sm">Content preview area...</p>
+        </div>
+        <div class="bg-creator-card px-4 py-2 flex justify-between items-center text-sm border-t border-creator-border">
+          <div class="flex items-center gap-4">
+            <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-creator-mint"></span> Connected</span>
+            <span class="text-creator-muted">•</span>
+            <span class="text-creator-amber">3 uploads queued</span>
+            <span class="text-creator-muted">•</span>
+            <span class="text-creator-cyan">Pro Plan</span>
+          </div>
+          <div class="text-creator-muted">Last sync: 2 min ago</div>
+        </div>
+      </div>
+    </section>
+
+</div>

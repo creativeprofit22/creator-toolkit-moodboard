@@ -1,0 +1,305 @@
+<div class="section-06-pipeline-flow">
+    <!-- Section 6: Content Pipeline Flow -->
+    <section>
+      <h2 class="font-display text-2xl font-semibold mb-6 flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-creator-cyan/20 flex items-center justify-center text-creator-cyan">6</span>
+        Content Pipeline Flow
+      </h2>
+
+      <p class="text-sm text-creator-muted uppercase tracking-wider mb-4">Animated Flow Visualization (from dev-tool flow lines pattern)</p>
+
+      <style>
+        /* Pipeline flow animations */
+        @keyframes flowParticle {
+          0% { offset-distance: 0%; opacity: 0; }
+          5% { opacity: 1; }
+          95% { opacity: 1; }
+          100% { offset-distance: 100%; opacity: 0; }
+        }
+
+        /* Node pop-in animation - appears when phase completes */
+        @keyframes nodePopIn {
+          0%, 85% {
+            transform: scale(0);
+            opacity: 0;
+          }
+          90% {
+            transform: scale(1.15);
+            opacity: 1;
+          }
+          100% {
+            transform: scale(1);
+            opacity: 1;
+          }
+        }
+
+        .flow-particle {
+          offset-rotate: 0deg;
+          animation: flowParticle 3s linear infinite;
+        }
+
+        .flow-particle-1 { animation-delay: 0s; }
+        .flow-particle-2 { animation-delay: 0.6s; }
+        .flow-particle-3 { animation-delay: 1.2s; }
+        .flow-particle-4 { animation-delay: 1.8s; }
+        .flow-particle-5 { animation-delay: 2.4s; }
+
+        /* Sequential node reveal - each appears after previous phase flow */
+        .pipeline-node-content {
+          transform-origin: center;
+          animation: nodePopIn 3s ease-out forwards;
+        }
+
+        /* Stagger: each node appears after ~3s of particle flow */
+        .pipeline-node-1 .pipeline-node-content { animation-delay: 0s; }
+        .pipeline-node-2 .pipeline-node-content { animation-delay: 3s; }
+        .pipeline-node-3 .pipeline-node-content { animation-delay: 6s; }
+        .pipeline-node-4 .pipeline-node-content { animation-delay: 9s; }
+        .pipeline-node-5 .pipeline-node-content { animation-delay: 12s; }
+      </style>
+
+      <div class="relative shine-effect backdrop-blur-xl bg-gradient-to-br from-creator-cyan/20 via-creator-cyan/10 to-creator-surface/50 border border-creator-cyan/20 shadow-lg shadow-creator-cyan/5 rounded-xl p-8 overflow-hidden">
+        <svg viewBox="0 0 960 180" class="w-full h-auto" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <!-- Gradient for flow paths -->
+            <linearGradient id="flowGradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#00d4d4" />
+              <stop offset="100%" stop-color="#fbbf24" />
+            </linearGradient>
+            <linearGradient id="flowGradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#fbbf24" />
+              <stop offset="100%" stop-color="#ff6b6b" />
+            </linearGradient>
+            <linearGradient id="flowGradient3" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#ff6b6b" />
+              <stop offset="100%" stop-color="#34d399" />
+            </linearGradient>
+            <linearGradient id="flowGradient4" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#34d399" />
+              <stop offset="100%" stop-color="#38bdf8" />
+            </linearGradient>
+
+            <!-- Glass sheen gradient for frosted glass effect -->
+            <linearGradient id="glassSheen" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="white" stop-opacity="0.15" />
+              <stop offset="50%" stop-color="white" stop-opacity="0.05" />
+              <stop offset="100%" stop-color="white" stop-opacity="0" />
+            </linearGradient>
+
+            <!-- Subtle glow filters for particles (glass-friendly) -->
+            <filter id="glowCyan" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="2" result="blur" />
+              <feFlood flood-color="#00d4d4" flood-opacity="0.3" />
+              <feComposite in2="blur" operator="in" />
+              <feMerge>
+                <feMergeNode />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+            <filter id="glowAmber" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="2" result="blur" />
+              <feFlood flood-color="#fbbf24" flood-opacity="0.3" />
+              <feComposite in2="blur" operator="in" />
+              <feMerge>
+                <feMergeNode />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+            <filter id="glowCoral" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="2" result="blur" />
+              <feFlood flood-color="#ff6b6b" flood-opacity="0.3" />
+              <feComposite in2="blur" operator="in" />
+              <feMerge>
+                <feMergeNode />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+            <filter id="glowMint" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="2" result="blur" />
+              <feFlood flood-color="#34d399" flood-opacity="0.3" />
+              <feComposite in2="blur" operator="in" />
+              <feMerge>
+                <feMergeNode />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+            <filter id="glowSky" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="2" result="blur" />
+              <feFlood flood-color="#38bdf8" flood-opacity="0.3" />
+              <feComposite in2="blur" operator="in" />
+              <feMerge>
+                <feMergeNode />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+
+          <!-- Flow paths (background) -->
+          <path id="path1" d="M 130 90 C 180 90, 220 90, 270 90" stroke="#2d2d3a" stroke-width="3" fill="none" />
+          <path id="path2" d="M 330 90 C 380 90, 420 90, 470 90" stroke="#2d2d3a" stroke-width="3" fill="none" />
+          <path id="path3" d="M 530 90 C 580 90, 620 90, 670 90" stroke="#2d2d3a" stroke-width="3" fill="none" />
+          <path id="path4" d="M 740 90 C 780 90, 800 90, 830 90" stroke="#2d2d3a" stroke-width="3" fill="none" />
+
+          <!-- Animated flow paths (foreground glow) -->
+          <path d="M 130 90 C 180 90, 220 90, 270 90" stroke="url(#flowGradient1)" stroke-width="2" fill="none" opacity="0.6" />
+          <path d="M 330 90 C 380 90, 420 90, 470 90" stroke="url(#flowGradient2)" stroke-width="2" fill="none" opacity="0.6" />
+          <path d="M 530 90 C 580 90, 620 90, 670 90" stroke="url(#flowGradient3)" stroke-width="2" fill="none" opacity="0.6" />
+          <path d="M 740 90 C 780 90, 800 90, 830 90" stroke="url(#flowGradient4)" stroke-width="2" fill="none" opacity="0.6" />
+
+          <!-- Animated particles on path 1 -->
+          <circle r="4" fill="#00d4d4" class="flow-particle flow-particle-1" style="offset-path: path('M 130 90 C 180 90, 220 90, 270 90');" filter="url(#glowCyan)" />
+          <circle r="4" fill="#00d4d4" class="flow-particle flow-particle-3" style="offset-path: path('M 130 90 C 180 90, 220 90, 270 90');" filter="url(#glowCyan)" />
+
+          <!-- Animated particles on path 2 -->
+          <circle r="4" fill="#fbbf24" class="flow-particle flow-particle-2" style="offset-path: path('M 330 90 C 380 90, 420 90, 470 90');" filter="url(#glowAmber)" />
+          <circle r="4" fill="#fbbf24" class="flow-particle flow-particle-4" style="offset-path: path('M 330 90 C 380 90, 420 90, 470 90');" filter="url(#glowAmber)" />
+
+          <!-- Animated particles on path 3 -->
+          <circle r="4" fill="#ff6b6b" class="flow-particle flow-particle-1" style="offset-path: path('M 530 90 C 580 90, 620 90, 670 90');" filter="url(#glowCoral)" />
+          <circle r="4" fill="#ff6b6b" class="flow-particle flow-particle-3" style="offset-path: path('M 530 90 C 580 90, 620 90, 670 90');" filter="url(#glowCoral)" />
+
+          <!-- Animated particles on path 4 -->
+          <circle r="4" fill="#34d399" class="flow-particle flow-particle-2" style="offset-path: path('M 740 90 C 780 90, 800 90, 830 90');" filter="url(#glowMint)" />
+          <circle r="4" fill="#34d399" class="flow-particle flow-particle-4" style="offset-path: path('M 740 90 C 780 90, 800 90, 830 90');" filter="url(#glowMint)" />
+
+          <!-- Node 1: Idea (Cyan) - Glass style -->
+          <g class="pipeline-node-1" transform="translate(90, 90)">
+            <g class="pipeline-node-content">
+              <circle r="40" fill="rgba(26, 26, 36, 0.6)" stroke="rgba(0, 212, 212, 0.4)" stroke-width="1.5" />
+              <circle r="36" fill="rgba(34, 34, 46, 0.5)" />
+              <circle r="36" fill="url(#glassSheen)" opacity="0.3" />
+              <!-- Lightbulb icon -->
+              <g transform="translate(-12, -14)" fill="none" stroke="#00d4d4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2v1M12 21v2M4.22 4.22l.71.71M19.07 4.93l-.71.71M1 12h2M21 12h2M4.22 19.78l.71-.71M19.07 19.07l-.71-.71" opacity="0.5" />
+                <path d="M9 18h6M10 22h4" />
+                <path d="M12 6a6 6 0 0 0-3 11.18V18a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-.82A6 6 0 0 0 12 6z" />
+              </g>
+              <text y="60" text-anchor="middle" fill="#e4e4eb" font-family="Space Grotesk, sans-serif" font-size="14" font-weight="600">Idea</text>
+            </g>
+          </g>
+
+          <!-- Node 2: Script (Amber) - Glass style -->
+          <g class="pipeline-node-2" transform="translate(300, 90)">
+            <g class="pipeline-node-content">
+              <circle r="40" fill="rgba(26, 26, 36, 0.6)" stroke="rgba(251, 191, 36, 0.4)" stroke-width="1.5" />
+              <circle r="36" fill="rgba(34, 34, 46, 0.5)" />
+              <circle r="36" fill="url(#glassSheen)" opacity="0.3" />
+              <!-- Document icon -->
+              <g transform="translate(-12, -14)" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="16" y1="13" x2="8" y2="13" />
+                <line x1="16" y1="17" x2="8" y2="17" />
+                <polyline points="10 9 9 9 8 9" />
+              </g>
+              <text y="60" text-anchor="middle" fill="#e4e4eb" font-family="Space Grotesk, sans-serif" font-size="14" font-weight="600">Script</text>
+            </g>
+          </g>
+
+          <!-- Node 3: Film (Coral) - Glass style -->
+          <g class="pipeline-node-3" transform="translate(500, 90)">
+            <g class="pipeline-node-content">
+              <circle r="40" fill="rgba(26, 26, 36, 0.6)" stroke="rgba(255, 107, 107, 0.4)" stroke-width="1.5" />
+              <circle r="36" fill="rgba(34, 34, 46, 0.5)" />
+              <circle r="36" fill="url(#glassSheen)" opacity="0.3" />
+              <!-- Camera/Film icon -->
+              <g transform="translate(-12, -12)" fill="none" stroke="#ff6b6b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2" />
+                <circle cx="12" cy="12" r="4" />
+                <line x1="2" y1="8" x2="4" y2="8" />
+                <line x1="20" y1="8" x2="22" y2="8" />
+                <rect x="15" y="2" width="4" height="4" rx="1" />
+              </g>
+              <text y="60" text-anchor="middle" fill="#e4e4eb" font-family="Space Grotesk, sans-serif" font-size="14" font-weight="600">Film</text>
+            </g>
+          </g>
+
+          <!-- Node 4: Edit (Mint) - Glass style -->
+          <g class="pipeline-node-4" transform="translate(700, 90)">
+            <g class="pipeline-node-content">
+              <circle r="40" fill="rgba(26, 26, 36, 0.6)" stroke="rgba(52, 211, 153, 0.4)" stroke-width="1.5" />
+              <circle r="36" fill="rgba(34, 34, 46, 0.5)" />
+              <circle r="36" fill="url(#glassSheen)" opacity="0.3" />
+              <!-- Scissors/Edit icon -->
+              <g transform="translate(-12, -12)" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="6" cy="6" r="3" />
+                <circle cx="6" cy="18" r="3" />
+                <line x1="20" y1="4" x2="8.12" y2="15.88" />
+                <line x1="14.47" y1="14.48" x2="20" y2="20" />
+                <line x1="8.12" y1="8.12" x2="12" y2="12" />
+              </g>
+              <text y="60" text-anchor="middle" fill="#e4e4eb" font-family="Space Grotesk, sans-serif" font-size="14" font-weight="600">Edit</text>
+            </g>
+          </g>
+
+          <!-- Node 5: Publish (Sky) - Glass style -->
+          <g class="pipeline-node-5" transform="translate(870, 90)">
+            <g class="pipeline-node-content">
+              <circle r="40" fill="rgba(26, 26, 36, 0.6)" stroke="rgba(56, 189, 248, 0.4)" stroke-width="1.5" />
+              <circle r="36" fill="rgba(34, 34, 46, 0.5)" />
+              <circle r="36" fill="url(#glassSheen)" opacity="0.3" />
+              <!-- Upload/Share icon -->
+              <g transform="translate(-12, -12)" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+                <polyline points="16 6 12 2 8 6" />
+                <line x1="12" y1="2" x2="12" y2="15" />
+              </g>
+              <text y="60" text-anchor="middle" fill="#e4e4eb" font-family="Space Grotesk, sans-serif" font-size="14" font-weight="600">Publish</text>
+            </g>
+          </g>
+        </svg>
+
+        <div class="mt-6 flex flex-wrap justify-center gap-6 text-sm">
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-creator-cyan"></span>
+            <span class="text-creator-muted">Ideation</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-creator-amber"></span>
+            <span class="text-creator-muted">Scripting</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-creator-coral"></span>
+            <span class="text-creator-muted">Filming</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-creator-mint"></span>
+            <span class="text-creator-muted">Editing</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-creator-sky"></span>
+            <span class="text-creator-muted">Publishing</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative mt-4 shine-effect backdrop-blur-xl bg-gradient-to-br from-creator-cyan/20 via-creator-cyan/10 to-creator-surface/50 border border-creator-cyan/20 shadow-lg shadow-creator-cyan/5 rounded-xl p-4">
+        <p class="text-sm text-creator-muted mb-2">CSS Animation Technique</p>
+        <pre class="text-xs text-creator-cyan bg-creator-bg rounded p-3 overflow-x-auto">/* Particles follow SVG path using offset-path */
+.flow-particle {
+  offset-path: path('M 130 90 C 180 90, 220 90, 270 90');
+  offset-rotate: 0deg;
+  animation: flowParticle 3s linear infinite;
+}
+
+@keyframes flowParticle {
+  0% { offset-distance: 0%; opacity: 0; }
+  5% { opacity: 1; }
+  95% { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; }
+}</pre>
+        <p class="text-sm text-creator-muted mt-3">Uses CSS <code class="text-creator-amber">offset-path</code> for particle motion along bezier curves. Staggered <code class="text-creator-amber">animation-delay</code> creates continuous flow effect.</p>
+      </div>
+
+      <div class="mt-4 bg-creator-amber/10 border border-creator-amber/30 rounded-xl p-4">
+        <p class="text-sm font-medium text-creator-amber mb-2">Implementation Note</p>
+        <p class="text-sm text-creator-muted">This is a <strong class="text-creator-text">demo loop</strong> showing the sequential reveal animation. In the actual app, the animation will be driven by <strong class="text-creator-text">user workflow state</strong>:</p>
+        <ul class="text-sm text-creator-muted mt-2 space-y-1 list-disc list-inside">
+          <li>Completed phases show their icon (static, with gentle pulse)</li>
+          <li>Current phase shows animated particles (work in progress)</li>
+          <li>Future phases remain hidden until reached</li>
+        </ul>
+      </div>
+    </section>
+
+</div>

@@ -1,0 +1,253 @@
+<div class="section-21-text-animation">
+    <!-- Section 21: Text Animation (Vanish + Deletion Effects) -->
+    <section>
+      <h2 class="font-display text-2xl font-semibold mb-6 flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-creator-coral/20 flex items-center justify-center text-creator-coral">21</span>
+        Text Animation
+      </h2>
+
+      <style>
+        /* ===== Section 21: Text Animation Showcase ===== */
+
+        .text-anim-demo {
+          background: rgba(255, 255, 255, 0.03);
+          backdrop-filter: blur(24px);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 16px;
+          padding: 32px;
+          position: relative;
+          overflow: visible;
+        }
+
+        .text-anim-demo::before {
+          content: '';
+          position: absolute;
+          inset: -2px;
+          border-radius: 18px;
+          background: linear-gradient(135deg, #00d4d4, #ff6b6b, #fbbf24, #00d4d4);
+          background-size: 300% 300%;
+          animation: text-anim-glow 6s ease infinite;
+          z-index: -1;
+          opacity: 0.4;
+          filter: blur(10px);
+        }
+
+        @keyframes text-anim-glow {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+        }
+
+        .text-anim-input-area {
+          position: relative;
+          margin-bottom: 24px;
+        }
+
+        .text-anim-input-wrapper {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          background: rgba(0, 0, 0, 0.4);
+          border-radius: 12px;
+          padding: 12px 16px;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .text-anim-input-wrapper:focus-within {
+          border-color: rgba(0, 212, 212, 0.5);
+          box-shadow: 0 0 0 3px rgba(0, 212, 212, 0.15);
+        }
+
+        .text-anim-vanish-wrapper {
+          position: relative;
+          flex: 1;
+          display: flex;
+          align-items: center;
+        }
+
+        .text-anim-input {
+          flex: 1;
+          background: transparent;
+          border: none;
+          outline: none;
+          font-size: 15px;
+          color: #e4e4eb;
+          caret-color: #00d4d4;
+        }
+
+        .text-anim-input::placeholder {
+          color: rgba(255, 255, 255, 0.35);
+        }
+
+        .text-anim-ghost-container {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          pointer-events: none;
+          overflow: visible;
+          z-index: 10;
+        }
+
+        .text-anim-send-btn {
+          width: 40px;
+          height: 40px;
+          border-radius: 10px;
+          background: linear-gradient(135deg, #00d4d4, #ff6b6b);
+          border: none;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .text-anim-send-btn:hover {
+          transform: scale(1.05);
+          box-shadow: 0 4px 20px rgba(0, 212, 212, 0.4);
+        }
+
+        .text-anim-send-btn:active {
+          transform: scale(0.95);
+        }
+
+        /* Rotating placeholder for demo */
+        .placeholder-container {
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          pointer-events: none;
+          color: rgba(255, 255, 255, 0.35);
+          font-size: 15px;
+          overflow: hidden;
+        }
+
+        .placeholder-text-rotate {
+          display: inline-block;
+        }
+
+        .placeholder-typing {
+          overflow: hidden;
+          white-space: nowrap;
+          border-right: 2px solid rgba(0, 212, 212, 0.6);
+          animation: typing 3s steps(40) infinite, blink 0.7s step-end infinite;
+        }
+
+        @keyframes typing {
+          0%, 10% { width: 0; }
+          40%, 60% { width: 100%; }
+          90%, 100% { width: 0; }
+        }
+
+        @keyframes blink {
+          50% { border-color: transparent; }
+        }
+
+        /* Feature cards */
+        .text-anim-features {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 16px;
+        }
+
+        @media (max-width: 768px) {
+          .text-anim-features {
+            grid-template-columns: 1fr;
+          }
+        }
+
+        .text-anim-feature-card {
+          background: rgba(0, 0, 0, 0.3);
+          border-radius: 12px;
+          padding: 20px;
+          border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .text-anim-feature-icon {
+          width: 40px;
+          height: 40px;
+          border-radius: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 12px;
+        }
+      </style>
+
+      <p class="text-sm text-creator-muted uppercase tracking-wider mb-4">Animated Input with Vanish + Deletion Effects</p>
+      <p class="text-creator-muted mb-6">Type text and press <kbd class="px-2 py-0.5 bg-creator-card rounded text-creator-cyan">Enter</kbd> to see the vanish effect. Use <kbd class="px-2 py-0.5 bg-creator-card rounded text-creator-cyan">Backspace</kbd> to see single-letter deletion animation.</p>
+
+      <div class="text-anim-demo">
+        <!-- Interactive Demo Input -->
+        <div class="text-anim-input-area">
+          <div class="text-anim-input-wrapper">
+            <svg class="w-5 h-5 text-creator-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+            <div class="text-anim-vanish-wrapper" id="text-anim-vanish-wrapper">
+              <div class="text-anim-ghost-container" id="text-anim-ghost"></div>
+              <div class="placeholder-container" id="text-anim-placeholder">
+                <span class="placeholder-typing" id="placeholder-typing"></span>
+              </div>
+              <input type="text" class="text-anim-input" id="text-anim-input" autocomplete="off">
+            </div>
+            <button class="text-anim-send-btn" id="text-anim-send" title="Send (triggers vanish effect)">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Feature Cards -->
+        <div class="text-anim-features">
+          <div class="text-anim-feature-card">
+            <div class="text-anim-feature-icon bg-creator-cyan/20 text-creator-cyan">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+              </svg>
+            </div>
+            <p class="font-medium text-sm mb-1">Deletion Effect</p>
+            <p class="text-xs text-creator-muted">Single letter floats up and fades when deleted. Quick 200ms animation that doesn't interrupt typing.</p>
+          </div>
+
+          <div class="text-anim-feature-card">
+            <div class="text-anim-feature-icon bg-creator-coral/20 text-creator-coral">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+              </svg>
+            </div>
+            <p class="font-medium text-sm mb-1">Vanish on Submit</p>
+            <p class="text-xs text-creator-muted">Characters scatter outward with random rotation and staggered timing when Enter is pressed.</p>
+          </div>
+
+          <div class="text-anim-feature-card">
+            <div class="text-anim-feature-icon bg-creator-amber/20 text-creator-amber">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+              </svg>
+            </div>
+            <p class="font-medium text-sm mb-1">Rotating Placeholder</p>
+            <p class="text-xs text-creator-muted">Typewriter effect cycles through placeholder suggestions with blinking cursor.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Technical Notes -->
+      <div class="relative shine-effect backdrop-blur-xl bg-gradient-to-br from-creator-cyan/20 via-creator-cyan/10 to-creator-surface/50 border border-creator-cyan/20 shadow-lg shadow-creator-cyan/5 rounded-xl p-4 mt-6">
+        <p class="text-sm text-creator-muted mb-2">Implementation Stack</p>
+        <div class="flex flex-wrap gap-3 text-xs">
+          <span class="px-2 py-1 rounded bg-creator-cyan/20 text-creator-cyan border border-creator-cyan/30">CSS Keyframes</span>
+          <span class="px-2 py-1 rounded bg-creator-coral/20 text-creator-coral border border-creator-coral/30">CSS Variables</span>
+          <span class="px-2 py-1 rounded bg-creator-amber/20 text-creator-amber border border-creator-amber/30">DOM Measurement</span>
+          <span class="px-2 py-1 rounded bg-creator-sky/20 text-creator-sky border border-creator-sky/30">Input Events</span>
+          <span class="px-2 py-1 rounded bg-creator-mint/20 text-creator-mint border border-creator-mint/30">Ghost Elements</span>
+        </div>
+        <p class="text-xs text-creator-muted mt-3">Inspired by: <code class="text-creator-cyan">PlaceholdersAndVanishInput</code> from Aceternity UI. Enhanced with single-letter deletion animation.</p>
+      </div>
+    </section>
+
+</div>

@@ -1,0 +1,127 @@
+<div class="section-15-cursor-effects">
+    <!-- Section 15: Interactive Cursor Effects -->
+    <section>
+      <h2 class="font-display text-2xl font-semibold mb-6 flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-creator-coral/20 flex items-center justify-center text-creator-coral">15</span>
+        Interactive Cursor Effects
+      </h2>
+
+      <p class="text-sm text-creator-muted uppercase tracking-wider mb-4">WebGL Fluid Simulation</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <!-- Preview Card -->
+        <div class="relative shine-effect backdrop-blur-xl bg-gradient-to-br from-creator-cyan/20 via-creator-cyan/10 to-creator-surface/50 border border-creator-cyan/20 shadow-lg shadow-creator-cyan/5 rounded-xl overflow-hidden">
+          <div class="aspect-video bg-black relative overflow-hidden">
+            <!-- Static preview visualization -->
+            <svg viewBox="0 0 400 225" class="w-full h-full" preserveAspectRatio="xMidYMid slice">
+              <defs>
+                <radialGradient id="splash1" cx="30%" cy="40%" r="35%">
+                  <stop offset="0%" stop-color="#00d4d4" stop-opacity="0.8"/>
+                  <stop offset="50%" stop-color="#ff6b6b" stop-opacity="0.4"/>
+                  <stop offset="100%" stop-color="transparent"/>
+                </radialGradient>
+                <radialGradient id="splash2" cx="70%" cy="60%" r="30%">
+                  <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.7"/>
+                  <stop offset="50%" stop-color="#34d399" stop-opacity="0.3"/>
+                  <stop offset="100%" stop-color="transparent"/>
+                </radialGradient>
+                <radialGradient id="splash3" cx="50%" cy="30%" r="25%">
+                  <stop offset="0%" stop-color="#fbbf24" stop-opacity="0.6"/>
+                  <stop offset="50%" stop-color="#ff6b6b" stop-opacity="0.2"/>
+                  <stop offset="100%" stop-color="transparent"/>
+                </radialGradient>
+                <filter id="blur1" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur in="SourceGraphic" stdDeviation="8"/>
+                </filter>
+              </defs>
+              <rect width="100%" height="100%" fill="black"/>
+              <ellipse cx="120" cy="90" rx="100" ry="80" fill="url(#splash1)" filter="url(#blur1)"/>
+              <ellipse cx="280" cy="135" rx="90" ry="70" fill="url(#splash2)" filter="url(#blur1)"/>
+              <ellipse cx="200" cy="70" rx="70" ry="55" fill="url(#splash3)" filter="url(#blur1)"/>
+              <!-- Cursor trail hint -->
+              <path d="M50 180 Q100 120, 150 140 T250 100 T350 130" stroke="url(#waveGrad1)" stroke-width="3" fill="none" opacity="0.5" stroke-linecap="round"/>
+            </svg>
+            <!-- Overlay text -->
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="text-center">
+                <p class="text-white/60 text-sm mb-2">Move cursor to create fluid splashes</p>
+                <p class="text-white/40 text-xs">Click for bigger effects</p>
+              </div>
+            </div>
+          </div>
+          <div class="p-4">
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="font-medium">Splash Cursor</h3>
+              <span class="px-2 py-1 rounded bg-creator-coral/20 text-creator-coral text-xs">WebGL</span>
+            </div>
+            <p class="text-sm text-creator-muted mb-4">GPU-accelerated fluid dynamics simulation. Colors flow and swirl following your cursor movement.</p>
+            <a href="moodboard-splash-demo.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-creator-coral text-white text-sm font-medium hover:bg-creator-coral/90 transition-colors">
+              <span>Launch Demo</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Parameters Card -->
+        <div class="relative shine-effect backdrop-blur-xl bg-gradient-to-br from-creator-cyan/20 via-creator-cyan/10 to-creator-surface/50 border border-creator-cyan/20 shadow-lg shadow-creator-cyan/5 rounded-xl p-6">
+          <h3 class="font-medium mb-4">Configurable Parameters</h3>
+          <div class="space-y-4">
+            <div class="flex items-center justify-between py-2 border-b border-creator-border">
+              <div>
+                <p class="text-sm font-medium">SPLAT_RADIUS</p>
+                <p class="text-xs text-creator-muted">Size of splash circles</p>
+              </div>
+              <code class="text-creator-cyan text-sm">0.2</code>
+            </div>
+            <div class="flex items-center justify-between py-2 border-b border-creator-border">
+              <div>
+                <p class="text-sm font-medium">SPLAT_FORCE</p>
+                <p class="text-xs text-creator-muted">How much fluid moves</p>
+              </div>
+              <code class="text-creator-cyan text-sm">6000</code>
+            </div>
+            <div class="flex items-center justify-between py-2 border-b border-creator-border">
+              <div>
+                <p class="text-sm font-medium">CURL</p>
+                <p class="text-xs text-creator-muted">Swirl/turbulence amount</p>
+              </div>
+              <code class="text-creator-cyan text-sm">3</code>
+            </div>
+            <div class="flex items-center justify-between py-2">
+              <div>
+                <p class="text-sm font-medium">DENSITY_DISSIPATION</p>
+                <p class="text-xs text-creator-muted">How fast colors fade</p>
+              </div>
+              <code class="text-creator-cyan text-sm">3.5</code>
+            </div>
+          </div>
+          <div class="mt-6 p-3 rounded-lg bg-creator-card border border-creator-border">
+            <p class="text-xs text-creator-muted">
+              <span class="text-creator-amber">Note:</span> Resource-intensive effect. Best used on landing pages, onboarding, or as an opt-in feature.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Use Cases -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div class="bg-creator-card rounded-lg p-3 border border-creator-border text-center">
+          <span class="text-lg mb-1 block">🎬</span>
+          <p class="text-xs text-creator-muted">Landing Pages</p>
+        </div>
+        <div class="bg-creator-card rounded-lg p-3 border border-creator-border text-center">
+          <span class="text-lg mb-1 block">🚀</span>
+          <p class="text-xs text-creator-muted">Onboarding</p>
+        </div>
+        <div class="bg-creator-card rounded-lg p-3 border border-creator-border text-center">
+          <span class="text-lg mb-1 block">🎉</span>
+          <p class="text-xs text-creator-muted">Celebrations</p>
+        </div>
+        <div class="bg-creator-card rounded-lg p-3 border border-creator-border text-center">
+          <span class="text-lg mb-1 block">⏳</span>
+          <p class="text-xs text-creator-muted">Loading States</p>
+        </div>
+      </div>
+    </section>
+
+</div>

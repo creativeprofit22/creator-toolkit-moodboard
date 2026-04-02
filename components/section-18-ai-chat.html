@@ -1,0 +1,904 @@
+<div class="section-18-ai-chat">
+    <!-- Section 18: AI Chat Component -->
+    <section>
+      <h2 class="font-display text-2xl font-semibold mb-6 flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-creator-sky/20 flex items-center justify-center text-creator-sky">18</span>
+        AI Chat Component
+      </h2>
+
+      <style>
+        /* ===== Section 18: AI Chat Component ===== */
+
+        /* Chat container glassmorphism */
+        .ai-chat-container {
+          background: rgba(255, 255, 255, 0.03);
+          backdrop-filter: blur(24px) saturate(180%);
+          -webkit-backdrop-filter: blur(24px) saturate(180%);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 16px;
+          position: relative;
+          overflow: hidden;
+          max-height: 600px;
+          display: flex;
+          flex-direction: column;
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .ai-chat-container.minimized {
+          max-height: 56px;
+          overflow: hidden;
+        }
+
+        /* Gradient border glow effect */
+        .ai-chat-container::before {
+          content: '';
+          position: absolute;
+          inset: -2px;
+          border-radius: 18px;
+          background: linear-gradient(135deg, #38bdf8, #00d4d4, #ff6b6b, #38bdf8);
+          background-size: 300% 300%;
+          animation: chat-border-glow 6s ease infinite;
+          z-index: -1;
+          opacity: 0.5;
+          filter: blur(8px);
+        }
+
+        @keyframes chat-border-glow {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+        }
+
+        /* Mode switcher tabs */
+        .chat-mode-tabs {
+          display: flex;
+          gap: 4px;
+          padding: 4px;
+          background: rgba(0, 0, 0, 0.3);
+          border-radius: 10px;
+        }
+
+        .chat-mode-tab {
+          padding: 8px 16px;
+          border-radius: 8px;
+          font-size: 13px;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.25s ease;
+          border: none;
+          background: transparent;
+          color: rgba(255, 255, 255, 0.5);
+        }
+
+        .chat-mode-tab:hover {
+          color: rgba(255, 255, 255, 0.8);
+          background: rgba(255, 255, 255, 0.05);
+        }
+
+        .chat-mode-tab.active-general {
+          background: rgba(56, 189, 248, 0.2);
+          color: #38bdf8;
+          box-shadow: 0 0 12px rgba(56, 189, 248, 0.3);
+        }
+
+        .chat-mode-tab.active-social {
+          background: linear-gradient(135deg, rgba(251, 113, 133, 0.2), rgba(251, 191, 36, 0.2));
+          color: #fb7185;
+          box-shadow: 0 0 12px rgba(251, 113, 133, 0.3);
+        }
+
+        /* AI Avatar geometric shape */
+        .ai-avatar {
+          width: 36px;
+          height: 36px;
+          position: relative;
+          flex-shrink: 0;
+        }
+
+        .ai-avatar-cube {
+          width: 100%;
+          height: 100%;
+          position: relative;
+          transform-style: preserve-3d;
+          animation: avatar-float 3s ease-in-out infinite;
+        }
+
+        .ai-avatar-cube::before,
+        .ai-avatar-cube::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: 8px;
+        }
+
+        .ai-avatar-cube::before {
+          background: linear-gradient(135deg, var(--avatar-color-1), var(--avatar-color-2));
+          animation: avatar-pulse 2s ease-in-out infinite;
+        }
+
+        .ai-avatar-cube::after {
+          background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4), transparent 60%);
+        }
+
+        .ai-avatar.general-mode {
+          --avatar-color-1: #38bdf8;
+          --avatar-color-2: #00d4d4;
+        }
+
+        .ai-avatar.social-mode {
+          --avatar-color-1: #fb7185;
+          --avatar-color-2: #fbbf24;
+        }
+
+        @keyframes avatar-float {
+          0%, 100% { transform: translateY(0) rotateZ(0deg); }
+          50% { transform: translateY(-4px) rotateZ(2deg); }
+        }
+
+        @keyframes avatar-pulse {
+          0%, 100% { box-shadow: 0 0 15px var(--avatar-color-1); opacity: 1; }
+          50% { box-shadow: 0 0 25px var(--avatar-color-2); opacity: 0.9; }
+        }
+
+        /* Chat messages area */
+        .chat-messages {
+          flex: 1;
+          overflow-y: auto;
+          padding: 16px;
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+          min-height: 300px;
+        }
+
+        /* AI Messages - left aligned with neon border */
+        .ai-message {
+          display: flex;
+          gap: 12px;
+          align-items: flex-start;
+          max-width: 85%;
+          animation: message-appear 0.3s ease-out;
+        }
+
+        .ai-message-bubble {
+          background: rgba(0, 0, 0, 0.4);
+          border-radius: 12px;
+          border-top-left-radius: 4px;
+          padding: 12px 16px;
+          position: relative;
+          border: 1px solid transparent;
+          background-clip: padding-box;
+        }
+
+        .ai-message-bubble::before {
+          content: '';
+          position: absolute;
+          inset: -1px;
+          border-radius: 12px;
+          border-top-left-radius: 4px;
+          padding: 1px;
+          background: linear-gradient(135deg, rgba(56, 189, 248, 0.6), rgba(0, 212, 212, 0.6));
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+        }
+
+        .ai-message-bubble.social-mode::before {
+          background: linear-gradient(135deg, rgba(251, 113, 133, 0.6), rgba(251, 191, 36, 0.6));
+        }
+
+        /* User Messages - Stylized Sticky Notes */
+        .user-message {
+          align-self: flex-end;
+          max-width: 75%;
+          animation: message-appear 0.3s ease-out;
+        }
+
+        .sticky-note {
+          position: relative;
+          padding: 14px 18px;
+          background: linear-gradient(145deg, #2a2a3a, #1f1f2e);
+          border-radius: 2px 12px 12px 12px;
+          transform: rotate(0.8deg);
+          box-shadow:
+            4px 4px 12px rgba(0, 0, 0, 0.4),
+            -1px -1px 0 rgba(255, 255, 255, 0.05);
+          font-family: 'Space Grotesk', -apple-system, sans-serif;
+          font-size: 14px;
+          line-height: 1.5;
+          color: #e4e4eb;
+        }
+
+        /* Torn paper edge effect */
+        .sticky-note::before {
+          content: '';
+          position: absolute;
+          top: -3px;
+          left: 0;
+          right: 0;
+          height: 6px;
+          background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(255,255,255,0.08) 10%,
+            transparent 20%,
+            rgba(255,255,255,0.06) 35%,
+            transparent 50%,
+            rgba(255,255,255,0.1) 65%,
+            transparent 80%,
+            rgba(255,255,255,0.05) 90%,
+            transparent 100%
+          );
+          filter: blur(1px);
+        }
+
+        /* Pin/tape element */
+        .sticky-note::after {
+          content: '';
+          position: absolute;
+          top: -8px;
+          right: 16px;
+          width: 20px;
+          height: 10px;
+          background: linear-gradient(135deg, #00d4d4, #7c5fd1);
+          border-radius: 2px;
+          transform: rotate(-5deg);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .sticky-note.alternate {
+          transform: rotate(-0.6deg);
+          background: linear-gradient(145deg, #2d2a35, #221f2a);
+        }
+
+        .sticky-note.alternate::after {
+          right: auto;
+          left: 16px;
+          transform: rotate(5deg);
+          background: linear-gradient(135deg, #38bdf8, #2997d4);
+        }
+
+        @keyframes message-appear {
+          0% { opacity: 0; transform: translateY(10px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* AI Thinking State - Waveform/Audio Bars */
+        .ai-thinking {
+          display: flex;
+          gap: 12px;
+          align-items: flex-start;
+        }
+
+        .thinking-bars {
+          display: flex;
+          align-items: center;
+          gap: 3px;
+          height: 24px;
+          padding: 8px 16px;
+          background: rgba(0, 0, 0, 0.4);
+          border-radius: 12px;
+          border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+
+        .thinking-bar {
+          width: 3px;
+          border-radius: 2px;
+          background: linear-gradient(to top, #38bdf8, #00d4d4);
+          animation: thinking-wave 1s ease-in-out infinite;
+        }
+
+        .thinking-bars.social-mode {
+          border-color: rgba(251, 113, 133, 0.3);
+        }
+
+        .thinking-bars.social-mode .thinking-bar {
+          background: linear-gradient(to top, #fb7185, #fbbf24);
+        }
+
+        @keyframes thinking-wave {
+          0%, 100% { height: 8px; }
+          50% { height: 20px; }
+        }
+
+        .thinking-bar:nth-child(1) { animation-delay: 0s; }
+        .thinking-bar:nth-child(2) { animation-delay: 0.1s; }
+        .thinking-bar:nth-child(3) { animation-delay: 0.2s; }
+        .thinking-bar:nth-child(4) { animation-delay: 0.3s; }
+        .thinking-bar:nth-child(5) { animation-delay: 0.4s; }
+        .thinking-bar:nth-child(6) { animation-delay: 0.3s; }
+        .thinking-bar:nth-child(7) { animation-delay: 0.2s; }
+
+        /* Quick Action Chips */
+        .quick-actions {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          padding: 12px 16px;
+          border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .action-chip {
+          padding: 6px 14px;
+          border-radius: 16px;
+          font-size: 12px;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          background: rgba(255, 255, 255, 0.03);
+          color: rgba(255, 255, 255, 0.7);
+        }
+
+        .action-chip:hover {
+          background: rgba(0, 212, 212, 0.15);
+          border-color: rgba(0, 212, 212, 0.4);
+          color: #00d4d4;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0, 212, 212, 0.2);
+        }
+
+        .action-chip.social-mode:hover {
+          background: rgba(251, 113, 133, 0.15);
+          border-color: rgba(251, 113, 133, 0.4);
+          color: #fb7185;
+          box-shadow: 0 4px 12px rgba(251, 113, 133, 0.2);
+        }
+
+        /* Input Area */
+        .chat-input-area {
+          padding: 12px 16px 16px;
+          border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .chat-input-wrapper {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          background: rgba(0, 0, 0, 0.3);
+          border-radius: 12px;
+          padding: 8px 12px;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .chat-input-wrapper:focus-within {
+          border-color: rgba(56, 189, 248, 0.4);
+          box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.1);
+        }
+
+        .chat-input-wrapper.social-mode:focus-within {
+          border-color: rgba(251, 113, 133, 0.4);
+          box-shadow: 0 0 0 3px rgba(251, 113, 133, 0.1);
+        }
+
+        .chat-input {
+          flex: 1;
+          background: transparent;
+          border: none;
+          outline: none;
+          font-size: 14px;
+          color: #e4e4eb;
+        }
+
+        .chat-input::placeholder {
+          color: rgba(255, 255, 255, 0.35);
+        }
+
+        .chat-btn {
+          width: 32px;
+          height: 32px;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          border: none;
+          background: transparent;
+          color: rgba(255, 255, 255, 0.5);
+        }
+
+        .chat-btn:hover {
+          background: rgba(255, 255, 255, 0.08);
+          color: rgba(255, 255, 255, 0.9);
+        }
+
+        .chat-btn-send {
+          background: linear-gradient(135deg, #38bdf8, #00d4d4);
+          color: white;
+        }
+
+        .chat-btn-send:hover {
+          opacity: 0.9;
+          transform: scale(1.05);
+        }
+
+        .chat-btn-send.social-mode {
+          background: linear-gradient(135deg, #fb7185, #fbbf24);
+        }
+
+        /* Header controls */
+        .chat-header-controls {
+          display: flex;
+          gap: 6px;
+        }
+
+        .control-btn {
+          width: 28px;
+          height: 28px;
+          border-radius: 6px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          border: none;
+          background: rgba(255, 255, 255, 0.05);
+          color: rgba(255, 255, 255, 0.5);
+        }
+
+        .control-btn:hover {
+          background: rgba(255, 255, 255, 0.1);
+          color: rgba(255, 255, 255, 0.9);
+        }
+
+        .control-btn.close:hover {
+          background: rgba(251, 113, 133, 0.2);
+          color: #fb7185;
+        }
+
+        /* Rich text styling in AI messages */
+        .ai-message-bubble strong {
+          color: #00d4d4;
+          font-weight: 600;
+        }
+
+        .ai-message-bubble.social-mode strong {
+          color: #fb7185;
+        }
+
+        .ai-message-bubble code {
+          background: rgba(0, 212, 212, 0.15);
+          padding: 2px 6px;
+          border-radius: 4px;
+          font-size: 13px;
+          color: #00d4d4;
+        }
+
+        .ai-message-bubble ul {
+          margin: 8px 0 0 0;
+          padding-left: 16px;
+        }
+
+        .ai-message-bubble li {
+          margin: 4px 0;
+          color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Expand/collapse animation */
+        @keyframes panel-expand {
+          from { max-height: 56px; opacity: 0.8; }
+          to { max-height: 600px; opacity: 1; }
+        }
+
+        @keyframes panel-collapse {
+          from { max-height: 600px; opacity: 1; }
+          to { max-height: 56px; opacity: 0.8; }
+        }
+
+        .ai-chat-container.expanding {
+          animation: panel-expand 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .ai-chat-container.collapsing {
+          animation: panel-collapse 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        /* Tab switch animation */
+        @keyframes tab-switch {
+          0% { opacity: 0.5; transform: translateX(-5px); }
+          100% { opacity: 1; transform: translateX(0); }
+        }
+
+        .chat-messages.switching {
+          animation: tab-switch 0.3s ease-out;
+        }
+
+        /* ===== Text Animation Effects (Vanish + Deletion) ===== */
+
+        /* Input with animation support */
+        .vanish-input-wrapper {
+          position: relative;
+          display: flex;
+          align-items: center;
+          width: 100%;
+        }
+
+        .vanish-input-wrapper input {
+          caret-color: #00d4d4;
+        }
+
+        /* Ghost container for vanish/deletion effects */
+        .char-ghost-container {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          pointer-events: none;
+          overflow: visible;
+          z-index: 10;
+        }
+
+        /* Individual character ghost for deletion */
+        .char-ghost {
+          position: absolute;
+          font-size: 14px;
+          color: rgba(0, 212, 212, 0.9);
+          pointer-events: none;
+          animation: char-dissolve 300ms ease-out forwards;
+          text-shadow: 0 0 8px rgba(0, 212, 212, 0.5);
+        }
+
+        @keyframes char-dissolve {
+          0% {
+            opacity: 0.9;
+            transform: translateY(0) scale(1);
+          }
+          100% {
+            opacity: 0;
+            transform: translateY(-18px) scale(0.6);
+          }
+        }
+
+        /* Vanish effect on submit - particle stream right-to-left */
+        .char-vanish {
+          position: absolute;
+          font-size: 14px;
+          color: #e4e4eb;
+          pointer-events: none;
+          animation: char-fade var(--fade-duration, 150ms) ease-out forwards;
+          animation-delay: var(--fade-delay, 0ms);
+        }
+
+        @keyframes char-fade {
+          0% {
+            opacity: 1;
+            transform: translateY(-50%) scale(1);
+          }
+          100% {
+            opacity: 0;
+            transform: translateY(-50%) scale(0.8);
+          }
+        }
+
+        /* Particle dots that flow right-to-left */
+        .vanish-particle {
+          position: absolute;
+          width: var(--particle-size, 4px);
+          height: var(--particle-size, 4px);
+          border-radius: 50%;
+          background: var(--particle-color, #00d4d4);
+          pointer-events: none;
+          opacity: 0;
+          animation: particle-flow var(--particle-duration, 700ms) cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+          animation-delay: var(--particle-delay, 0ms);
+          box-shadow: 0 0 6px var(--particle-color, #00d4d4);
+        }
+
+        @keyframes particle-flow {
+          0% {
+            opacity: 0;
+            transform: translate(0, 0) scale(0.5);
+          }
+          15% {
+            opacity: 1;
+            transform: translate(calc(var(--flow-x, -20px) * 0.1), var(--flow-y-start, 0px)) scale(1);
+          }
+          85% {
+            opacity: 0.6;
+          }
+          100% {
+            opacity: 0;
+            transform: translate(var(--flow-x, -60px), var(--flow-y-end, 0px)) scale(0.3);
+          }
+        }
+
+        /* Rotating placeholder animation */
+        .placeholder-rotate {
+          position: absolute;
+          left: 12px;
+          top: 50%;
+          transform: translateY(-50%);
+          pointer-events: none;
+          color: rgba(255, 255, 255, 0.35);
+          font-size: 14px;
+          overflow: hidden;
+          white-space: nowrap;
+        }
+
+        .placeholder-text {
+          display: inline-block;
+          animation: placeholder-type 4s steps(30) infinite;
+        }
+
+        @keyframes placeholder-type {
+          0%, 90% {
+            max-width: 100%;
+            opacity: 1;
+          }
+          95%, 100% {
+            max-width: 0;
+            opacity: 0;
+          }
+        }
+
+        /* Social mode variants */
+        .char-ghost.social-mode {
+          color: rgba(251, 113, 133, 0.9);
+          text-shadow: 0 0 8px rgba(251, 113, 133, 0.5);
+        }
+
+        .char-vanish.social-mode {
+          color: #fb7185;
+        }
+
+        .vanish-particle.social-mode {
+          --particle-color: #fb7185;
+        }
+      </style>
+
+      <p class="text-sm text-creator-muted uppercase tracking-wider mb-4">AI Assistant Panel with Mode Switching</p>
+      <p class="text-creator-muted mb-6">Interactive chat component with General (cyan) and Social Media (pink/orange) modes. Click tabs to switch conversations, toggle minimize, and see the thinking state animation.</p>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-6">
+
+        <!-- Interactive AI Chat Demo -->
+        <div>
+          <p class="text-xs text-creator-sky font-medium mb-3">Interactive Demo</p>
+          <div class="ai-chat-container" id="ai-chat-demo">
+            <!-- Header -->
+            <div class="flex items-center justify-between p-3 border-b border-white/5">
+              <div class="chat-mode-tabs">
+                <button class="chat-mode-tab active-general" data-mode="general" id="tab-general">General</button>
+                <button class="chat-mode-tab" data-mode="social" id="tab-social">Social Media</button>
+              </div>
+              <div class="chat-header-controls">
+                <button class="control-btn" id="minimize-btn" title="Minimize">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/></svg>
+                </button>
+                <button class="control-btn close" title="Close">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Chat Messages - General Mode -->
+            <div class="chat-messages" id="messages-general">
+              <!-- AI Message -->
+              <div class="ai-message">
+                <div class="ai-avatar general-mode">
+                  <div class="ai-avatar-cube"></div>
+                </div>
+                <div class="ai-message-bubble">
+                  <p class="text-sm text-white/90">Hey! I'm your <strong>content assistant</strong>. I can help you with:</p>
+                  <ul class="text-sm text-white/70">
+                    <li>Script ideas and outlines</li>
+                    <li>Title and thumbnail concepts</li>
+                    <li>SEO optimization tips</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- User Message -->
+              <div class="user-message">
+                <div class="sticky-note">
+                  I need help coming up with a hook for my video about productivity apps
+                </div>
+              </div>
+
+              <!-- AI Response -->
+              <div class="ai-message">
+                <div class="ai-avatar general-mode">
+                  <div class="ai-avatar-cube"></div>
+                </div>
+                <div class="ai-message-bubble">
+                  <p class="text-sm text-white/90">Here's a hook that creates instant curiosity:</p>
+                  <p class="text-sm text-white/80 mt-2 italic">"I deleted 47 apps from my phone last week... and somehow became <strong>twice as productive</strong>. Here's the 3 apps that survived."</p>
+                </div>
+              </div>
+
+              <!-- User Message Alternate -->
+              <div class="user-message">
+                <div class="sticky-note alternate">
+                  That's perfect! What about the thumbnail?
+                </div>
+              </div>
+
+              <!-- AI Thinking State -->
+              <div class="ai-thinking" id="thinking-general">
+                <div class="ai-avatar general-mode">
+                  <div class="ai-avatar-cube"></div>
+                </div>
+                <div class="thinking-bars">
+                  <div class="thinking-bar"></div>
+                  <div class="thinking-bar"></div>
+                  <div class="thinking-bar"></div>
+                  <div class="thinking-bar"></div>
+                  <div class="thinking-bar"></div>
+                  <div class="thinking-bar"></div>
+                  <div class="thinking-bar"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Chat Messages - Social Mode (hidden by default) -->
+            <div class="chat-messages" id="messages-social" style="display: none;">
+              <!-- AI Message -->
+              <div class="ai-message">
+                <div class="ai-avatar social-mode">
+                  <div class="ai-avatar-cube"></div>
+                </div>
+                <div class="ai-message-bubble social-mode">
+                  <p class="text-sm text-white/90">I'm your <strong>Social Media Assistant</strong>! Let me help you:</p>
+                  <ul class="text-sm text-white/70">
+                    <li>Craft engaging captions</li>
+                    <li>Plan carousel content</li>
+                    <li>Optimize posting times</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- User Message -->
+              <div class="user-message">
+                <div class="sticky-note">
+                  I need a caption for my new reel about morning routines
+                </div>
+              </div>
+
+              <!-- AI Response -->
+              <div class="ai-message">
+                <div class="ai-avatar social-mode">
+                  <div class="ai-avatar-cube"></div>
+                </div>
+                <div class="ai-message-bubble social-mode">
+                  <p class="text-sm text-white/90">Here's a caption that drives engagement:</p>
+                  <p class="text-sm text-white/80 mt-2">"5am club? More like <strong>whenever-I-wake-up club</strong>. Here's my realistic morning routine that actually works.</p>
+                  <p class="text-sm text-white/60 mt-2">Save this for tomorrow morning!</p>
+                </div>
+              </div>
+
+              <!-- AI Thinking State -->
+              <div class="ai-thinking" id="thinking-social" style="display: none;">
+                <div class="ai-avatar social-mode">
+                  <div class="ai-avatar-cube"></div>
+                </div>
+                <div class="thinking-bars social-mode">
+                  <div class="thinking-bar"></div>
+                  <div class="thinking-bar"></div>
+                  <div class="thinking-bar"></div>
+                  <div class="thinking-bar"></div>
+                  <div class="thinking-bar"></div>
+                  <div class="thinking-bar"></div>
+                  <div class="thinking-bar"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions" id="quick-actions">
+              <button class="action-chip">Hook ideas</button>
+              <button class="action-chip">Title options</button>
+              <button class="action-chip">Script outline</button>
+              <button class="action-chip">Thumbnail concepts</button>
+            </div>
+
+            <!-- Input Area with Vanish Animation -->
+            <div class="chat-input-area">
+              <div class="chat-input-wrapper" id="input-wrapper">
+                <button class="chat-btn" title="Attach file">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
+                </button>
+                <div class="vanish-input-wrapper" id="vanish-wrapper">
+                  <div class="char-ghost-container" id="ghost-container"></div>
+                  <input type="text" class="chat-input" placeholder="Ask me anything about your content..." id="chat-input">
+                </div>
+                <button class="chat-btn chat-btn-send" id="send-btn" title="Send message">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Component Breakdown -->
+        <div class="space-y-4">
+          <p class="text-xs text-creator-coral font-medium mb-3">Component Anatomy</p>
+
+          <!-- Avatar Demo -->
+          <div class="relative shine-effect backdrop-blur-xl bg-gradient-to-br from-creator-cyan/20 via-creator-cyan/10 to-creator-surface/50 border border-creator-cyan/20 shadow-lg shadow-creator-cyan/5 rounded-xl p-4">
+            <p class="text-sm font-medium mb-3">AI Avatar - Geometric Pulse</p>
+            <div class="flex items-center gap-6">
+              <div class="flex items-center gap-3">
+                <div class="ai-avatar general-mode">
+                  <div class="ai-avatar-cube"></div>
+                </div>
+                <span class="text-xs text-creator-muted">General Mode (Cyan)</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="ai-avatar social-mode">
+                  <div class="ai-avatar-cube"></div>
+                </div>
+                <span class="text-xs text-creator-muted">Social Mode (Pink/Orange)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sticky Note Demo -->
+          <div class="relative shine-effect backdrop-blur-xl bg-gradient-to-br from-creator-cyan/20 via-creator-cyan/10 to-creator-surface/50 border border-creator-cyan/20 shadow-lg shadow-creator-cyan/5 rounded-xl p-4">
+            <p class="text-sm font-medium mb-3">User Messages - Stylized Sticky Notes</p>
+            <div class="flex flex-col gap-4">
+              <div class="sticky-note max-w-xs">
+                Standard note with tape element
+              </div>
+              <div class="sticky-note alternate max-w-xs">
+                Alternate rotation variant
+              </div>
+            </div>
+            <p class="text-xs text-creator-muted mt-3">Features: torn edge effect, tape pin, subtle rotation, glassmorphism-compatible dark theme</p>
+          </div>
+
+          <!-- Thinking State Demo -->
+          <div class="relative shine-effect backdrop-blur-xl bg-gradient-to-br from-creator-cyan/20 via-creator-cyan/10 to-creator-surface/50 border border-creator-cyan/20 shadow-lg shadow-creator-cyan/5 rounded-xl p-4">
+            <p class="text-sm font-medium mb-3">AI Thinking - Waveform Animation</p>
+            <div class="flex items-center gap-6">
+              <div class="thinking-bars">
+                <div class="thinking-bar"></div>
+                <div class="thinking-bar"></div>
+                <div class="thinking-bar"></div>
+                <div class="thinking-bar"></div>
+                <div class="thinking-bar"></div>
+                <div class="thinking-bar"></div>
+                <div class="thinking-bar"></div>
+              </div>
+              <div class="thinking-bars social-mode">
+                <div class="thinking-bar"></div>
+                <div class="thinking-bar"></div>
+                <div class="thinking-bar"></div>
+                <div class="thinking-bar"></div>
+                <div class="thinking-bar"></div>
+                <div class="thinking-bar"></div>
+                <div class="thinking-bar"></div>
+              </div>
+            </div>
+            <p class="text-xs text-creator-muted mt-3">Audio visualizer style, matches the WaveVisualizer pattern from Section 13</p>
+          </div>
+
+          <!-- Quick Actions Demo -->
+          <div class="relative shine-effect backdrop-blur-xl bg-gradient-to-br from-creator-cyan/20 via-creator-cyan/10 to-creator-surface/50 border border-creator-cyan/20 shadow-lg shadow-creator-cyan/5 rounded-xl p-4">
+            <p class="text-sm font-medium mb-3">Quick Action Chips</p>
+            <div class="flex flex-wrap gap-2">
+              <button class="action-chip">Hook ideas</button>
+              <button class="action-chip">Title options</button>
+              <button class="action-chip social-mode">Caption ideas</button>
+              <button class="action-chip social-mode">Hashtag sets</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Technical Notes -->
+      <div class="relative shine-effect backdrop-blur-xl bg-gradient-to-br from-creator-cyan/20 via-creator-cyan/10 to-creator-surface/50 border border-creator-cyan/20 shadow-lg shadow-creator-cyan/5 rounded-xl p-4">
+        <p class="text-sm text-creator-muted mb-2">Implementation Stack</p>
+        <div class="flex flex-wrap gap-3 text-xs">
+          <span class="px-2 py-1 rounded bg-creator-sky/20 text-creator-sky border border-creator-sky/30">Glassmorphism Container</span>
+          <span class="px-2 py-1 rounded bg-creator-cyan/20 text-creator-cyan border border-creator-cyan/30">Gradient Border Glow</span>
+          <span class="px-2 py-1 rounded bg-creator-coral/20 text-creator-coral border border-creator-coral/30">Mode-Specific Colors</span>
+          <span class="px-2 py-1 rounded bg-creator-mint/20 text-creator-mint border border-creator-mint/30">Waveform Thinking</span>
+          <span class="px-2 py-1 rounded bg-creator-amber/20 text-creator-amber border border-creator-amber/30">Stylized Sticky Notes</span>
+          <span class="px-2 py-1 rounded bg-white/10 text-white/70 border border-white/20">Panel Expand/Collapse</span>
+        </div>
+        <p class="text-xs text-creator-muted mt-3">Components: <code class="text-creator-cyan">ChatPanel.tsx</code> + <code class="text-creator-cyan">AIAvatar.tsx</code> + <code class="text-creator-cyan">StickyNote.tsx</code> + <code class="text-creator-cyan">ThinkingIndicator.tsx</code></p>
+      </div>
+    </section>
+
+</div>

@@ -1,0 +1,1372 @@
+<div class="section-22-buttons">
+    <!-- Section 22: Buttons -->
+    <section>
+      <h2 class="font-display text-2xl font-semibold mb-6 flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-creator-cyan/20 flex items-center justify-center text-creator-cyan">22</span>
+        Buttons
+      </h2>
+
+      <style>
+        /* ===== Section 22: Button Component Variants ===== */
+
+        .btn-showcase {
+          background: rgba(255, 255, 255, 0.03);
+          backdrop-filter: blur(24px);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 16px;
+          padding: 32px;
+        }
+
+        .btn-row {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 16px;
+          align-items: center;
+          margin-bottom: 24px;
+        }
+
+        .btn-row:last-child {
+          margin-bottom: 0;
+        }
+
+        .btn-label {
+          min-width: 120px;
+          font-size: 12px;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          color: #71717a;
+        }
+
+        /* ========================================
+           HYBRID GLASS-ARCADE BUTTONS
+           Frosted glass + tactile depth
+           ======================================== */
+
+        /* Base button styles */
+        .btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          padding: 12px 24px;
+          border-radius: 12px;
+          font-size: 14px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.15s ease;
+          position: relative;
+          transform: translateY(0);
+        }
+
+        /* Primary Button - Cyan Frosted Glass */
+        .btn-primary {
+          color: #fff;
+          background: linear-gradient(
+            180deg,
+            rgba(0, 212, 212, 0.6) 0%,
+            rgba(139, 92, 246, 0.5) 100%
+          );
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          border: 1px solid rgba(255, 255, 255, 0.18);
+          box-shadow:
+            0 4px 0 rgba(109, 40, 217, 0.5),
+            0 6px 20px rgba(139, 92, 246, 0.25),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-primary::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 50%;
+          background: linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.25) 0%,
+            rgba(255, 255, 255, 0) 100%
+          );
+          border-radius: 12px 12px 0 0;
+          pointer-events: none;
+        }
+
+        .btn-primary:hover {
+          background: linear-gradient(
+            180deg,
+            rgba(0, 212, 212, 0.75) 0%,
+            rgba(139, 92, 246, 0.65) 100%
+          );
+          box-shadow:
+            0 4px 0 rgba(109, 40, 217, 0.5),
+            0 8px 30px rgba(139, 92, 246, 0.45),
+            0 0 20px rgba(0, 212, 212, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.35);
+        }
+
+        .btn-primary:active {
+          transform: translateY(3px);
+          box-shadow:
+            0 1px 0 rgba(109, 40, 217, 0.5),
+            0 2px 10px rgba(139, 92, 246, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        /* Secondary Button - Coral Frosted Glass */
+        .btn-secondary {
+          color: #fff;
+          background: linear-gradient(
+            180deg,
+            rgba(255, 107, 107, 0.55) 0%,
+            rgba(220, 80, 80, 0.45) 100%
+          );
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          box-shadow:
+            0 4px 0 rgba(180, 50, 50, 0.45),
+            0 6px 20px rgba(255, 107, 107, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.28);
+        }
+
+        .btn-secondary::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 50%;
+          background: linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.22) 0%,
+            rgba(255, 255, 255, 0) 100%
+          );
+          border-radius: 12px 12px 0 0;
+          pointer-events: none;
+        }
+
+        .btn-secondary:hover {
+          background: linear-gradient(
+            180deg,
+            rgba(255, 107, 107, 0.7) 0%,
+            rgba(220, 80, 80, 0.6) 100%
+          );
+          box-shadow:
+            0 4px 0 rgba(180, 50, 50, 0.45),
+            0 8px 30px rgba(255, 107, 107, 0.4),
+            0 0 20px rgba(255, 107, 107, 0.35),
+            inset 0 1px 0 rgba(255, 255, 255, 0.32);
+        }
+
+        .btn-secondary:active {
+          transform: translateY(3px);
+          box-shadow:
+            0 1px 0 rgba(180, 50, 50, 0.45),
+            0 2px 10px rgba(255, 107, 107, 0.25),
+            inset 0 1px 0 rgba(255, 255, 255, 0.18);
+        }
+
+        /* Ghost Button - Subtle Glass */
+        .btn-ghost {
+          background: rgba(161, 161, 170, 0.08);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          border: 1px solid rgba(228, 228, 235, 0.12);
+          color: #e4e4eb;
+          box-shadow:
+            0 3px 6px rgba(0, 0, 0, 0.25),
+            inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        }
+
+        .btn-ghost:hover {
+          background: rgba(161, 161, 170, 0.14);
+          border-color: rgba(228, 228, 235, 0.2);
+          box-shadow:
+            0 3px 8px rgba(0, 0, 0, 0.3),
+            0 0 20px rgba(161, 161, 170, 0.15),
+            inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        }
+
+        .btn-ghost:active {
+          transform: translateY(2px);
+          background: rgba(161, 161, 170, 0.18);
+          box-shadow:
+            0 1px 2px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        }
+
+        /* Danger Button - Frosted Glass with Intensity */
+        .btn-danger {
+          background: linear-gradient(
+            180deg,
+            rgba(251, 113, 133, 0.25) 0%,
+            rgba(244, 63, 94, 0.35) 100%
+          );
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          border: 1px solid rgba(251, 113, 133, 0.3);
+          color: #fff;
+          box-shadow:
+            0 4px 8px rgba(225, 29, 72, 0.3),
+            0 0 24px rgba(244, 63, 94, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.15);
+          animation: danger-glow 2s ease-in-out infinite;
+        }
+
+        .btn-danger:hover {
+          background: linear-gradient(
+            180deg,
+            rgba(251, 113, 133, 0.35) 0%,
+            rgba(244, 63, 94, 0.45) 100%
+          );
+          border-color: rgba(251, 113, 133, 0.5);
+          box-shadow:
+            0 4px 12px rgba(225, 29, 72, 0.4),
+            0 0 32px rgba(244, 63, 94, 0.35),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+          animation: danger-glow-intense 1.5s ease-in-out infinite;
+        }
+
+        .btn-danger:active {
+          transform: translateY(2px);
+          background: linear-gradient(
+            180deg,
+            rgba(244, 63, 94, 0.4) 0%,
+            rgba(225, 29, 72, 0.5) 100%
+          );
+          box-shadow:
+            0 1px 4px rgba(225, 29, 72, 0.4),
+            0 0 16px rgba(244, 63, 94, 0.25),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+          animation: none;
+        }
+
+        @keyframes danger-glow {
+          0%, 100% {
+            box-shadow:
+              0 4px 8px rgba(225, 29, 72, 0.3),
+              0 0 24px rgba(244, 63, 94, 0.2),
+              inset 0 1px 0 rgba(255, 255, 255, 0.15);
+          }
+          50% {
+            box-shadow:
+              0 4px 10px rgba(225, 29, 72, 0.35),
+              0 0 32px rgba(244, 63, 94, 0.3),
+              inset 0 1px 0 rgba(255, 255, 255, 0.15);
+          }
+        }
+
+        @keyframes danger-glow-intense {
+          0%, 100% {
+            box-shadow:
+              0 4px 12px rgba(225, 29, 72, 0.4),
+              0 0 32px rgba(244, 63, 94, 0.35),
+              inset 0 1px 0 rgba(255, 255, 255, 0.2);
+          }
+          50% {
+            box-shadow:
+              0 4px 16px rgba(225, 29, 72, 0.5),
+              0 0 44px rgba(244, 63, 94, 0.45),
+              inset 0 1px 0 rgba(255, 255, 255, 0.2);
+          }
+        }
+
+        /* Glow Button - Glass with Rainbow Ring */
+        .btn-glow {
+          color: #fff;
+          background: rgba(26, 26, 34, 0.7);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          border: none;
+          overflow: hidden;
+          box-shadow:
+            0 3px 0 rgba(0, 0, 0, 0.4),
+            0 6px 20px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+          z-index: 1;
+        }
+
+        .btn-glow::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 50%;
+          background: linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.15) 0%,
+            rgba(255, 255, 255, 0.05) 50%,
+            transparent 100%
+          );
+          border-radius: 12px 12px 0 0;
+          pointer-events: none;
+          z-index: 2;
+        }
+
+        .btn-glow::after {
+          content: '';
+          position: absolute;
+          top: -2px;
+          left: -2px;
+          right: -2px;
+          bottom: -2px;
+          background: linear-gradient(
+            90deg,
+            #00d4d4,
+            #ff6b6b,
+            #fbbf24,
+            #34d399,
+            #00d4d4
+          );
+          background-size: 300% 100%;
+          border-radius: 14px;
+          z-index: -1;
+          animation: rainbow-shift 4s linear infinite;
+          filter: blur(4px);
+          opacity: 0.8;
+        }
+
+        .btn-glow:hover {
+          box-shadow:
+            0 3px 0 rgba(0, 0, 0, 0.4),
+            0 8px 24px rgba(0, 0, 0, 0.35),
+            inset 0 1px 0 rgba(255, 255, 255, 0.12);
+        }
+
+        .btn-glow:hover::after {
+          filter: blur(6px);
+          opacity: 1;
+        }
+
+        .btn-glow:active {
+          transform: translateY(3px);
+          box-shadow:
+            0 0 0 rgba(0, 0, 0, 0.4),
+            0 2px 10px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes rainbow-shift {
+          0% { background-position: 0% 50%; }
+          100% { background-position: 300% 50%; }
+        }
+
+        /* Radio Button Group - 3D Arcade Style */
+        .radio-group {
+          display: flex;
+          gap: 24px;
+        }
+
+        .radio-container {
+          position: relative;
+        }
+
+        .radio-button {
+          position: relative;
+          width: 72px;
+          height: 72px;
+          cursor: pointer;
+          display: block;
+        }
+
+        .radio-input-element {
+          display: none;
+        }
+
+        /* Outer bezel ring */
+        .radio-button::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: 50%;
+          background: linear-gradient(145deg, #2a2a35 0%, #1a1a22 50%, #0d0d12 100%);
+          box-shadow:
+            0 4px 8px rgba(0, 0, 0, 0.5),
+            inset 0 2px 4px rgba(255, 255, 255, 0.05),
+            inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Inner dome area */
+        .radio-button::after {
+          content: '';
+          position: absolute;
+          inset: 8px;
+          border-radius: 50%;
+          background: linear-gradient(145deg, #3a3a48 0%, #28282f 100%);
+          box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.4);
+          transition: all 0.2s ease;
+        }
+
+        /* Icon container */
+        .radio-icon-element {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 28px;
+          height: 28px;
+          z-index: 2;
+          opacity: 0.4;
+          transition: opacity 0.2s ease;
+        }
+
+        .radio-icon-element circle,
+        .radio-icon-element path {
+          fill: none;
+          stroke: currentColor;
+          stroke-width: 2.5;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+        }
+
+        /* Glossy highlight */
+        .radio-highlight {
+          position: absolute;
+          top: 12px;
+          left: 16px;
+          width: 20px;
+          height: 8px;
+          background: linear-gradient(180deg, rgba(255,255,255,0.25) 0%, transparent 100%);
+          border-radius: 50%;
+          z-index: 3;
+          transform: rotate(-30deg);
+          pointer-events: none;
+        }
+
+        /* Pulsing glow underneath */
+        .glow {
+          position: absolute;
+          bottom: -8px;
+          left: 50%;
+          transform: translateX(-50%) perspective(100px) rotateX(60deg);
+          width: 60px;
+          height: 20px;
+          border-radius: 50%;
+          opacity: 0;
+          filter: blur(8px);
+          transition: opacity 0.3s ease;
+          pointer-events: none;
+        }
+
+        /* Yes variant - Blue/Cyan */
+        .radio-container:not(.danger) .radio-icon-element {
+          color: #60a5fa;
+        }
+
+        .radio-container:not(.danger) .glow {
+          background: #3b82f6;
+        }
+
+        .radio-container:not(.danger).active .radio-button::after {
+          background: linear-gradient(145deg, #4f8bff 0%, #2563eb 50%, #1d4ed8 100%);
+          box-shadow:
+            inset 0 4px 12px rgba(255, 255, 255, 0.2),
+            inset 0 -4px 8px rgba(0, 0, 0, 0.3),
+            0 0 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .radio-container:not(.danger).active .radio-icon-element {
+          opacity: 1;
+          color: rgba(255, 255, 255, 0.9);
+        }
+
+        .radio-container:not(.danger).active .glow {
+          opacity: 1;
+          animation: arcade-pulse 2s ease-in-out infinite;
+        }
+
+        /* No variant - Red/Rose */
+        .radio-container.danger .radio-icon-element {
+          color: #f87171;
+        }
+
+        .radio-container.danger .glow {
+          background: #ef4444;
+        }
+
+        .radio-container.danger.active .radio-button::after {
+          background: linear-gradient(145deg, #ff6b6b 0%, #ef4444 50%, #dc2626 100%);
+          box-shadow:
+            inset 0 4px 12px rgba(255, 255, 255, 0.2),
+            inset 0 -4px 8px rgba(0, 0, 0, 0.3),
+            0 0 20px rgba(239, 68, 68, 0.4);
+        }
+
+        .radio-container.danger.active .radio-icon-element {
+          opacity: 1;
+          color: rgba(255, 255, 255, 0.9);
+        }
+
+        .radio-container.danger.active .glow {
+          opacity: 1;
+          animation: arcade-pulse-red 2s ease-in-out infinite;
+        }
+
+        /* Hover states */
+        .radio-container:not(.active):hover .radio-button::after {
+          background: linear-gradient(145deg, #454555 0%, #32323a 100%);
+        }
+
+        .radio-container:not(.active):hover .radio-icon-element {
+          opacity: 0.7;
+        }
+
+        /* Press effect */
+        .radio-button:active::after {
+          transform: scale(0.95);
+        }
+
+        @keyframes arcade-pulse {
+          0%, 100% {
+            transform: translateX(-50%) perspective(100px) rotateX(60deg) scale(0.8);
+            opacity: 0.5;
+          }
+          50% {
+            transform: translateX(-50%) perspective(100px) rotateX(60deg) scale(1.1);
+            opacity: 0.8;
+          }
+        }
+
+        @keyframes arcade-pulse-red {
+          0%, 100% {
+            transform: translateX(-50%) perspective(100px) rotateX(60deg) scale(0.8);
+            opacity: 0.5;
+          }
+          50% {
+            transform: translateX(-50%) perspective(100px) rotateX(60deg) scale(1.1);
+            opacity: 0.8;
+          }
+        }
+
+        /* Icon Button - Glass Arcade Hybrid */
+        .btn-icon {
+          position: relative;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 44px;
+          height: 44px;
+          padding: 0;
+          color: #00d4d4;
+          background: rgba(26, 26, 34, 0.6);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          border: 1px solid rgba(0, 212, 212, 0.2);
+          border-radius: 10px;
+          cursor: pointer;
+          transform: translateY(0);
+          box-shadow:
+            0 3px 0 rgba(0, 0, 0, 0.3),
+            0 4px 12px rgba(0, 0, 0, 0.2),
+            inset 0 0 20px rgba(0, 212, 212, 0.05);
+          transition:
+            transform 0.1s ease,
+            box-shadow 0.2s ease,
+            border-color 0.2s ease,
+            background 0.2s ease;
+        }
+
+        /* Glass highlight streak */
+        .btn-icon::before {
+          content: '';
+          position: absolute;
+          top: 2px;
+          left: 6px;
+          right: 6px;
+          height: 12px;
+          background: linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.2) 0%,
+            rgba(255, 255, 255, 0.05) 100%
+          );
+          border-radius: 6px 6px 20px 20px;
+          pointer-events: none;
+        }
+
+        .btn-icon:hover {
+          background: rgba(0, 212, 212, 0.15);
+          border-color: rgba(0, 212, 212, 0.4);
+          box-shadow:
+            0 3px 0 rgba(0, 0, 0, 0.3),
+            0 4px 16px rgba(0, 212, 212, 0.3),
+            0 0 30px rgba(0, 212, 212, 0.15),
+            inset 0 0 20px rgba(0, 212, 212, 0.1);
+        }
+
+        .btn-icon:active {
+          transform: translateY(3px);
+          box-shadow:
+            0 0 0 rgba(0, 0, 0, 0.3),
+            0 1px 8px rgba(0, 212, 212, 0.2),
+            inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-icon svg {
+          width: 20px;
+          height: 20px;
+          position: relative;
+          z-index: 1;
+        }
+
+        /* Icon button color variants */
+        .btn-icon.icon-coral {
+          color: #ff6b6b;
+          border-color: rgba(255, 107, 107, 0.2);
+          box-shadow:
+            0 3px 0 rgba(0, 0, 0, 0.3),
+            0 4px 12px rgba(0, 0, 0, 0.2),
+            inset 0 0 20px rgba(255, 107, 107, 0.05);
+        }
+
+        .btn-icon.icon-coral:hover {
+          background: rgba(255, 107, 107, 0.15);
+          border-color: rgba(255, 107, 107, 0.4);
+          box-shadow:
+            0 3px 0 rgba(0, 0, 0, 0.3),
+            0 4px 16px rgba(255, 107, 107, 0.3),
+            0 0 30px rgba(255, 107, 107, 0.15),
+            inset 0 0 20px rgba(255, 107, 107, 0.1);
+        }
+
+        .btn-icon.icon-coral:active {
+          transform: translateY(3px);
+          box-shadow:
+            0 0 0 rgba(0, 0, 0, 0.3),
+            0 1px 8px rgba(255, 107, 107, 0.2),
+            inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-icon.icon-mint {
+          color: #34d399;
+          border-color: rgba(52, 211, 153, 0.2);
+          box-shadow:
+            0 3px 0 rgba(0, 0, 0, 0.3),
+            0 4px 12px rgba(0, 0, 0, 0.2),
+            inset 0 0 20px rgba(52, 211, 153, 0.05);
+        }
+
+        .btn-icon.icon-mint:hover {
+          background: rgba(52, 211, 153, 0.15);
+          border-color: rgba(52, 211, 153, 0.4);
+          box-shadow:
+            0 3px 0 rgba(0, 0, 0, 0.3),
+            0 4px 16px rgba(52, 211, 153, 0.3),
+            0 0 30px rgba(52, 211, 153, 0.15),
+            inset 0 0 20px rgba(52, 211, 153, 0.1);
+        }
+
+        .btn-icon.icon-mint:active {
+          transform: translateY(3px);
+          box-shadow:
+            0 0 0 rgba(0, 0, 0, 0.3),
+            0 1px 8px rgba(52, 211, 153, 0.2),
+            inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-icon.icon-amber {
+          color: #fbbf24;
+          border-color: rgba(251, 191, 36, 0.2);
+          box-shadow:
+            0 3px 0 rgba(0, 0, 0, 0.3),
+            0 4px 12px rgba(0, 0, 0, 0.2),
+            inset 0 0 20px rgba(251, 191, 36, 0.05);
+        }
+
+        .btn-icon.icon-amber:hover {
+          background: rgba(251, 191, 36, 0.15);
+          border-color: rgba(251, 191, 36, 0.4);
+          box-shadow:
+            0 3px 0 rgba(0, 0, 0, 0.3),
+            0 4px 16px rgba(251, 191, 36, 0.3),
+            0 0 30px rgba(251, 191, 36, 0.15),
+            inset 0 0 20px rgba(251, 191, 36, 0.1);
+        }
+
+        .btn-icon.icon-amber:active {
+          transform: translateY(3px);
+          box-shadow:
+            0 0 0 rgba(0, 0, 0, 0.3),
+            0 1px 8px rgba(251, 191, 36, 0.2),
+            inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Loading Button - Spinner animation */
+        .btn-loading {
+          pointer-events: none;
+          opacity: 0.8;
+        }
+
+        .btn-loading .btn-text {
+          opacity: 0;
+        }
+
+        .btn-loading .btn-spinner {
+          position: absolute;
+          width: 20px;
+          height: 20px;
+          border: 2px solid rgba(255, 255, 255, 0.3);
+          border-top-color: white;
+          border-radius: 50%;
+          animation: btn-spin 0.8s linear infinite;
+        }
+
+        @keyframes btn-spin {
+          to { transform: rotate(360deg); }
+        }
+
+        /* Size variants */
+        .btn-sm {
+          padding: 8px 16px;
+          font-size: 13px;
+          border-radius: 8px;
+        }
+
+        .btn-lg {
+          padding: 16px 32px;
+          font-size: 16px;
+          border-radius: 14px;
+        }
+
+        /* Focus state - accessibility */
+        .btn:focus-visible {
+          outline: 2px solid rgba(0, 212, 212, 0.6);
+          outline-offset: 2px;
+        }
+
+        .btn-secondary:focus-visible {
+          outline-color: rgba(255, 107, 107, 0.6);
+        }
+
+        .btn-danger:focus-visible {
+          outline-color: rgba(244, 63, 94, 0.6);
+        }
+
+        .btn-glow:focus-visible {
+          outline-color: rgba(167, 139, 250, 0.6);
+        }
+
+        .btn-icon:focus-visible {
+          outline: 2px solid currentColor;
+          outline-offset: 2px;
+        }
+
+        /* Disabled state */
+        .btn:disabled,
+        .btn.disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+          pointer-events: none;
+        }
+      </style>
+
+      <p class="text-sm text-creator-muted uppercase tracking-wider mb-4">Button Component Library</p>
+      <p class="text-creator-muted mb-6">Interactive button variants with glassmorphism styling, glow effects, and smooth animations. Click to see active states.</p>
+
+      <div class="btn-showcase">
+        <!-- Primary Buttons -->
+        <div class="btn-row">
+          <span class="btn-label">Primary</span>
+          <button class="btn btn-primary btn-sm">Small</button>
+          <button class="btn btn-primary">Default</button>
+          <button class="btn btn-primary btn-lg">Large</button>
+          <button class="btn btn-primary" disabled>Disabled</button>
+        </div>
+
+        <!-- Secondary Buttons -->
+        <div class="btn-row">
+          <span class="btn-label">Secondary</span>
+          <button class="btn btn-secondary btn-sm">Cancel</button>
+          <button class="btn btn-secondary">View More</button>
+          <button class="btn btn-secondary btn-lg">Learn More</button>
+        </div>
+
+        <!-- Ghost Buttons -->
+        <div class="btn-row">
+          <span class="btn-label">Ghost</span>
+          <button class="btn btn-ghost btn-sm">Skip</button>
+          <button class="btn btn-ghost">Maybe Later</button>
+          <button class="btn btn-ghost btn-lg">Not Now</button>
+        </div>
+
+        <!-- Danger Buttons -->
+        <div class="btn-row">
+          <span class="btn-label">Danger</span>
+          <button class="btn btn-danger btn-sm">Remove</button>
+          <button class="btn btn-danger">Delete</button>
+          <button class="btn btn-danger btn-lg">Delete Project</button>
+        </div>
+
+        <!-- Glow Buttons -->
+        <div class="btn-row">
+          <span class="btn-label">Glow</span>
+          <button class="btn btn-glow btn-sm">Upgrade</button>
+          <button class="btn btn-glow">Try AI Features</button>
+          <button class="btn btn-glow btn-lg">Get Started</button>
+        </div>
+
+        <!-- Radio Button Group - 3D Arcade Style -->
+        <div class="btn-row">
+          <span class="btn-label">Arcade Radio</span>
+          <div class="radio-group" id="radio-demo">
+            <div class="radio-container active" data-value="yes">
+              <label class="radio-button">
+                <input type="radio" name="demo-radio" value="yes" class="radio-input-element" checked>
+                <svg class="radio-icon-element" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="8"></circle>
+                </svg>
+                <div class="radio-highlight"></div>
+                <div class="glow"></div>
+              </label>
+            </div>
+            <div class="radio-container danger" data-value="no">
+              <label class="radio-button">
+                <input type="radio" name="demo-radio" value="no" class="radio-input-element">
+                <svg class="radio-icon-element" viewBox="0 0 24 24">
+                  <path d="M6 18 18 6M6 6l12 12"></path>
+                </svg>
+                <div class="radio-highlight"></div>
+                <div class="glow"></div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Icon Buttons -->
+        <div class="btn-row">
+          <span class="btn-label">Icon Buttons</span>
+          <button class="btn-icon" title="Play">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </button>
+          <button class="btn-icon icon-coral" title="Delete">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+            </svg>
+          </button>
+          <button class="btn-icon icon-mint" title="Save">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+            </svg>
+          </button>
+          <button class="btn-icon icon-amber" title="Star">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/>
+            </svg>
+          </button>
+          <button class="btn-icon" title="Settings">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Loading State -->
+        <div class="btn-row">
+          <span class="btn-label">Loading</span>
+          <button class="btn btn-primary btn-loading" id="btn-loading-demo">
+            <span class="btn-spinner"></span>
+            <span class="btn-text">Saving...</span>
+          </button>
+          <button class="btn btn-secondary" id="btn-trigger-loading">Click to Load</button>
+        </div>
+
+        <!-- With Icons -->
+        <div class="btn-row">
+          <span class="btn-label">With Icons</span>
+          <button class="btn btn-primary">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+            Create New
+          </button>
+          <button class="btn btn-ghost">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+            </svg>
+            Export
+          </button>
+          <button class="btn btn-glow">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+            Boost with AI
+          </button>
+        </div>
+      </div>
+
+      <!-- Technical Notes -->
+      <div class="relative shine-effect backdrop-blur-xl bg-gradient-to-br from-creator-cyan/20 via-creator-cyan/10 to-creator-surface/50 border border-creator-cyan/20 shadow-lg shadow-creator-cyan/5 rounded-xl p-4 mt-6">
+        <p class="text-sm text-creator-muted mb-2">Implementation Stack</p>
+        <div class="flex flex-wrap gap-3 text-xs">
+          <span class="px-2 py-1 rounded bg-creator-cyan/20 text-creator-cyan border border-creator-cyan/30">CSS Variables</span>
+          <span class="px-2 py-1 rounded bg-creator-coral/20 text-creator-coral border border-creator-coral/30">Cubic Bezier</span>
+          <span class="px-2 py-1 rounded bg-creator-amber/20 text-creator-amber border border-creator-amber/30">Box Shadows</span>
+          <span class="px-2 py-1 rounded bg-creator-sky/20 text-creator-sky border border-creator-sky/30">Pseudo Elements</span>
+          <span class="px-2 py-1 rounded bg-creator-mint/20 text-creator-mint border border-creator-mint/30">Keyframes</span>
+        </div>
+        <p class="text-xs text-creator-muted mt-3">Inspired by: Radio button glow component. Adapted with glassmorphism theme and multiple variants.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Edge Detection Script for Flowing Sidebar -->
+  <script>
+    (function() {
+      const navItems = document.querySelectorAll('[data-edge-detect]');
+
+      navItems.forEach(item => {
+        item.addEventListener('mouseenter', (e) => {
+          const rect = item.getBoundingClientRect();
+          const y = e.clientY - rect.top;
+          const midpoint = rect.height / 2;
+
+          // Remove previous edge classes
+          item.classList.remove('from-top', 'from-bottom');
+
+          // Add class based on entry edge
+          if (y < midpoint) {
+            item.classList.add('from-top');
+          } else {
+            item.classList.add('from-bottom');
+          }
+        });
+
+        item.addEventListener('mouseleave', () => {
+          // Let CSS handle the exit animation
+          setTimeout(() => {
+            item.classList.remove('from-top', 'from-bottom');
+          }, 250);
+        });
+      });
+    })();
+  </script>
+
+  <!-- 3D Tilt Effect Script -->
+  <script>
+    (function() {
+      const card = document.getElementById('tilt-card');
+      if (!card) return;
+
+      const maxTilt = 15; // Maximum tilt angle in degrees
+      const shadowIntensity = 30; // Maximum shadow offset in pixels
+
+      function handleMouseMove(e) {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const halfWidth = rect.width / 2;
+        const halfHeight = rect.height / 2;
+
+        // Calculate rotation angles based on cursor position
+        const rotateY = ((x - centerX) / halfWidth) * maxTilt;
+        const rotateX = ((centerY - y) / halfHeight) * maxTilt;
+
+        // Calculate shadow offset (opposite to tilt direction for realistic lighting)
+        const shadowX = -rotateY * (shadowIntensity / maxTilt);
+        const shadowY = rotateX * (shadowIntensity / maxTilt);
+
+        // Apply the transform and dynamic shadow
+        card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+        card.style.boxShadow = `${shadowX}px ${shadowY}px 30px rgba(0, 212, 212, 0.15), 0 10px 40px rgba(0, 0, 0, 0.3)`;
+      }
+
+      function handleMouseLeave() {
+        // Reset to original state with smooth transition
+        card.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+        card.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.2)';
+      }
+
+      function handleMouseEnter() {
+        // Ensure smooth transitions are active
+        card.style.transition = 'transform 0.15s ease-out, box-shadow 0.15s ease-out';
+      }
+
+      // Add event listeners
+      card.addEventListener('mouseenter', handleMouseEnter);
+      card.addEventListener('mousemove', handleMouseMove);
+      card.addEventListener('mouseleave', handleMouseLeave);
+
+      // Set initial shadow
+      card.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.2)';
+    })();
+  </script>
+
+  <!-- Progress Counter Animation -->
+  <script>
+    (function() {
+      const counters = document.querySelectorAll('.progress-counter');
+      counters.forEach(counter => {
+        const target = parseInt(counter.dataset.target) || 80;
+        const duration = 2000;
+        const startTime = performance.now();
+
+        function animate(currentTime) {
+          const elapsed = currentTime - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          // Ease out cubic
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const current = Math.round(eased * target);
+          counter.textContent = current + '%';
+
+          if (progress < 1) {
+            requestAnimationFrame(animate);
+          }
+        }
+        requestAnimationFrame(animate);
+      });
+    })();
+  </script>
+
+  <!-- Accordion Section Toggle -->
+  <script>
+    (function() {
+      // Find all sections with h2 headers
+      const sections = document.querySelectorAll('main > section');
+
+      sections.forEach((section, index) => {
+        const h2 = section.querySelector('h2');
+        if (!h2) return;
+
+        // Add chevron icon to header
+        const chevron = document.createElement('span');
+        chevron.className = 'chevron ml-auto text-creator-muted';
+        chevron.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>';
+        h2.appendChild(chevron);
+        h2.classList.add('section-header');
+
+        // Wrap content after h2 in a container
+        const content = document.createElement('div');
+        content.className = 'section-content';
+
+        // Move all siblings after h2 into the content wrapper
+        while (h2.nextSibling) {
+          content.appendChild(h2.nextSibling);
+        }
+        section.appendChild(content);
+
+        // Open first section by default
+        if (index === 0) {
+          h2.classList.add('active');
+          content.classList.add('open');
+        }
+
+        // Click handler
+        h2.addEventListener('click', () => {
+          const isOpen = content.classList.contains('open');
+
+          // Close all sections
+          sections.forEach(s => {
+            const sContent = s.querySelector('.section-content');
+            const sHeader = s.querySelector('.section-header');
+            if (sContent) sContent.classList.remove('open');
+            if (sHeader) sHeader.classList.remove('active');
+          });
+
+          // Open clicked section (if it was closed)
+          if (!isOpen) {
+            content.classList.add('open');
+            h2.classList.add('active');
+          }
+        });
+      });
+
+      // Add section count indicator
+      const mainEl = document.querySelector('main');
+      if (mainEl && sections.length > 0) {
+        const indicator = document.createElement('div');
+        indicator.className = 'fixed bottom-6 right-6 bg-creator-card/90 backdrop-blur-lg rounded-full px-4 py-2 text-sm text-creator-muted border border-creator-border shadow-lg z-50';
+        indicator.innerHTML = '<span class="text-creator-cyan font-medium">' + sections.length + '</span> sections';
+        document.body.appendChild(indicator);
+      }
+    })();
+  </script>
+
+  <!-- AI Chat Component Interactive Script (with Vanish + Deletion Effects) -->
+  <script>
+    (function() {
+      const chatContainer = document.getElementById('ai-chat-demo');
+      const tabGeneral = document.getElementById('tab-general');
+      const tabSocial = document.getElementById('tab-social');
+      const messagesGeneral = document.getElementById('messages-general');
+      const messagesSocial = document.getElementById('messages-social');
+      const quickActions = document.getElementById('quick-actions');
+      const inputWrapper = document.getElementById('input-wrapper');
+      const sendBtn = document.getElementById('send-btn');
+      const minimizeBtn = document.getElementById('minimize-btn');
+      const chatInput = document.getElementById('chat-input');
+      const ghostContainer = document.getElementById('ghost-container');
+      const vanishWrapper = document.getElementById('vanish-wrapper');
+
+      if (!chatContainer) return;
+
+      let currentMode = 'general';
+      let isMinimized = false;
+      let previousValue = '';
+
+      // ===== Text Animation: Single-letter deletion effect =====
+      function getCharPosition(input, charIndex) {
+        // Create a temporary span to measure character position
+        const span = document.createElement('span');
+        span.style.cssText = 'position:absolute;visibility:hidden;font:inherit;white-space:pre;';
+        span.textContent = input.value.substring(0, charIndex);
+        input.parentElement.appendChild(span);
+        const width = span.offsetWidth;
+        span.remove();
+        return width + 12; // 12px padding offset
+      }
+
+      function spawnDeletionGhost(char, xPos) {
+        if (!ghostContainer || !char || char === ' ') return;
+
+        const modeClass = currentMode === 'social' ? ' social-mode' : '';
+
+        // Character ghost (floats up, slightly slower)
+        const ghost = document.createElement('span');
+        ghost.className = 'char-ghost' + modeClass;
+        ghost.textContent = char;
+        ghost.style.left = xPos + 'px';
+        ghost.style.top = '50%';
+        ghost.style.transform = 'translateY(-50%)';
+        ghostContainer.appendChild(ghost);
+        setTimeout(() => ghost.remove(), 300);
+
+        // Spawn 2-3 particles flowing left
+        const particleCount = 2 + Math.floor(Math.random() * 2);
+        for (let p = 0; p < particleCount; p++) {
+          const particle = document.createElement('span');
+          particle.className = 'vanish-particle' + modeClass;
+          particle.style.left = (xPos + 4) + 'px';
+          particle.style.top = '50%';
+
+          const flowX = -30 - Math.random() * 35; // Slightly longer flow
+          const flowYEnd = (Math.random() - 0.5) * 18;
+
+          particle.style.setProperty('--particle-size', (2 + Math.random() * 2) + 'px');
+          particle.style.setProperty('--flow-x', flowX + 'px');
+          particle.style.setProperty('--flow-y-start', '0px');
+          particle.style.setProperty('--flow-y-end', flowYEnd + 'px');
+          particle.style.setProperty('--particle-duration', (550 + Math.random() * 200) + 'ms');
+          particle.style.setProperty('--particle-delay', (p * 50) + 'ms');
+
+          ghostContainer.appendChild(particle);
+          setTimeout(() => particle.remove(), 850);
+        }
+      }
+
+      // Track input changes for deletion detection
+      chatInput.addEventListener('input', (e) => {
+        const current = e.target.value;
+        const prev = previousValue;
+
+        // Detect single character deletion (backspace)
+        if (prev.length - current.length === 1) {
+          // Find which character was deleted
+          let deleteIndex = 0;
+          for (let i = 0; i < current.length; i++) {
+            if (current[i] !== prev[i]) {
+              deleteIndex = i;
+              break;
+            } else if (i === current.length - 1) {
+              deleteIndex = current.length;
+            }
+          }
+
+          const deletedChar = prev[deleteIndex];
+          const xPos = getCharPosition(chatInput, deleteIndex);
+          spawnDeletionGhost(deletedChar, xPos);
+        }
+
+        previousValue = current;
+      });
+
+      // ===== Text Animation: Vanish effect on submit (particle flow right-to-left) =====
+      function triggerVanishEffect(text) {
+        if (!ghostContainer || !text) return;
+
+        const chars = text.split('');
+        const totalChars = chars.filter(c => c !== ' ').length;
+        const socialMode = currentMode === 'social';
+        const modeClass = socialMode ? ' social-mode' : '';
+
+        // Process characters right-to-left (reverse index for delay)
+        chars.forEach((char, i) => {
+          if (char === ' ') return;
+
+          const xPos = getCharPosition(chatInput, i);
+          const reverseIndex = totalChars - 1 - i; // Right-to-left delay
+
+          // Fade the character (slightly slower)
+          const charEl = document.createElement('span');
+          charEl.className = 'char-vanish' + modeClass;
+          charEl.textContent = char;
+          charEl.style.left = xPos + 'px';
+          charEl.style.top = '50%';
+          charEl.style.setProperty('--fade-delay', (reverseIndex * 40) + 'ms');
+          charEl.style.setProperty('--fade-duration', '180ms');
+          ghostContainer.appendChild(charEl);
+
+          // Spawn 3-5 particles per character
+          const particleCount = 3 + Math.floor(Math.random() * 3);
+          for (let p = 0; p < particleCount; p++) {
+            const particle = document.createElement('span');
+            particle.className = 'vanish-particle' + modeClass;
+
+            // Position at character center
+            particle.style.left = (xPos + 4) + 'px';
+            particle.style.top = '50%';
+
+            // Flow direction: always left, with slight vertical variance
+            const flowX = -50 - Math.random() * 60; // -50 to -110px (leftward, longer trail)
+            const flowYStart = (Math.random() - 0.5) * 8;
+            const flowYEnd = (Math.random() - 0.5) * 20;
+
+            // Particle properties (slower)
+            const size = 2 + Math.random() * 3;
+            const duration = 800 + Math.random() * 300; // 800-1100ms
+            const delay = (reverseIndex * 40) + (p * 35); // Slower stagger
+
+            particle.style.setProperty('--particle-size', size + 'px');
+            particle.style.setProperty('--flow-x', flowX + 'px');
+            particle.style.setProperty('--flow-y-start', flowYStart + 'px');
+            particle.style.setProperty('--flow-y-end', flowYEnd + 'px');
+            particle.style.setProperty('--particle-duration', duration + 'ms');
+            particle.style.setProperty('--particle-delay', delay + 'ms');
+
+            ghostContainer.appendChild(particle);
+          }
+        });
+
+        // Clear all elements after animation completes
+        setTimeout(() => {
+          ghostContainer.querySelectorAll('.char-vanish, .vanish-particle').forEach(el => el.remove());
+        }, 1800);
+      }
+
+      // Mode switching
+      function switchMode(mode) {
+        currentMode = mode;
+
+        // Update tabs
+        tabGeneral.classList.remove('active-general', 'active-social');
+        tabSocial.classList.remove('active-general', 'active-social');
+
+        if (mode === 'general') {
+          tabGeneral.classList.add('active-general');
+          messagesGeneral.style.display = 'flex';
+          messagesSocial.style.display = 'none';
+          messagesGeneral.classList.add('switching');
+          setTimeout(() => messagesGeneral.classList.remove('switching'), 300);
+
+          // Update quick actions for general mode
+          quickActions.innerHTML = `
+            <button class="action-chip">Hook ideas</button>
+            <button class="action-chip">Title options</button>
+            <button class="action-chip">Script outline</button>
+            <button class="action-chip">Thumbnail concepts</button>
+          `;
+
+          // Update input and send button
+          inputWrapper.classList.remove('social-mode');
+          sendBtn.classList.remove('social-mode');
+          chatInput.placeholder = 'Ask me anything about your content...';
+
+        } else {
+          tabSocial.classList.add('active-social');
+          messagesGeneral.style.display = 'none';
+          messagesSocial.style.display = 'flex';
+          messagesSocial.classList.add('switching');
+          setTimeout(() => messagesSocial.classList.remove('switching'), 300);
+
+          // Update quick actions for social mode
+          quickActions.innerHTML = `
+            <button class="action-chip social-mode">Caption ideas</button>
+            <button class="action-chip social-mode">Hashtag sets</button>
+            <button class="action-chip social-mode">Posting times</button>
+            <button class="action-chip social-mode">Carousel layout</button>
+          `;
+
+          // Update input and send button
+          inputWrapper.classList.add('social-mode');
+          sendBtn.classList.add('social-mode');
+          chatInput.placeholder = 'Ask about social media strategy...';
+        }
+      }
+
+      tabGeneral.addEventListener('click', () => switchMode('general'));
+      tabSocial.addEventListener('click', () => switchMode('social'));
+
+      // Minimize/expand functionality
+      minimizeBtn.addEventListener('click', () => {
+        isMinimized = !isMinimized;
+
+        if (isMinimized) {
+          chatContainer.classList.add('collapsing');
+          chatContainer.classList.remove('expanding');
+          setTimeout(() => {
+            chatContainer.classList.add('minimized');
+            chatContainer.classList.remove('collapsing');
+          }, 400);
+        } else {
+          chatContainer.classList.remove('minimized');
+          chatContainer.classList.add('expanding');
+          setTimeout(() => {
+            chatContainer.classList.remove('expanding');
+          }, 400);
+        }
+      });
+
+      // Quick action chip clicks (just for demo visual feedback)
+      quickActions.addEventListener('click', (e) => {
+        if (e.target.classList.contains('action-chip')) {
+          // Visual feedback
+          e.target.style.transform = 'scale(0.95)';
+          setTimeout(() => {
+            e.target.style.transform = '';
+          }, 150);
+        }
+      });
+
+      // Send button click with vanish effect
+      sendBtn.addEventListener('click', () => {
+        const text = chatInput.value.trim();
+        if (text) {
+          // Trigger vanish animation
+          triggerVanishEffect(text);
+
+          // Clear input after a tiny delay so vanish can read position
+          setTimeout(() => {
+            chatInput.value = '';
+            previousValue = '';
+          }, 10);
+
+          // Flash thinking indicator
+          const thinkingEl = currentMode === 'general'
+            ? document.getElementById('thinking-general')
+            : document.getElementById('thinking-social');
+          if (thinkingEl) {
+            thinkingEl.style.display = 'flex';
+            setTimeout(() => {
+              thinkingEl.style.display = '';
+            }, 2000);
+          }
+        }
+      });
+
+      // Enter key to send
+      chatInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          sendBtn.click();
+        }
+      });
+    })();
+  </script>
+
+</div>

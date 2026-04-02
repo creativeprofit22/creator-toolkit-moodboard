@@ -1,0 +1,158 @@
+<div class="section-05-preview-window">
+    <!-- Section 5: Preview Window -->
+    <section>
+      <h2 class="font-display text-2xl font-semibold mb-6 flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-creator-amber/20 flex items-center justify-center text-creator-amber">5</span>
+        Preview Window
+      </h2>
+
+      <style>
+        /* Canvas/notebook style preview */
+        .preview-canvas {
+          background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+          backdrop-filter: blur(20px);
+          position: relative;
+        }
+        .preview-canvas::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background:
+            radial-gradient(circle at 20% 20%, rgba(0, 212, 212, 0.08) 0%, transparent 50%),
+            radial-gradient(circle at 80% 80%, rgba(251, 191, 36, 0.06) 0%, transparent 50%);
+          pointer-events: none;
+        }
+
+        /* Decorative corner accents */
+        .corner-accent {
+          position: absolute;
+          width: 24px;
+          height: 24px;
+          opacity: 0.4;
+          transition: opacity 0.3s;
+        }
+        .preview-canvas:hover .corner-accent {
+          opacity: 0.7;
+        }
+        .corner-tl { top: 8px; left: 8px; }
+        .corner-tr { top: 8px; right: 8px; transform: rotate(90deg); }
+        .corner-bl { bottom: 8px; left: 8px; transform: rotate(-90deg); }
+        .corner-br { bottom: 8px; right: 8px; transform: rotate(180deg); }
+
+        /* Creative timestamp pill */
+        .timestamp-pill {
+          background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(0, 212, 212, 0.2));
+          padding: 2px 10px;
+          border-radius: 9999px;
+          font-size: 0.75rem;
+          font-weight: 500;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Transcript line hover effect */
+        .transcript-line {
+          padding: 12px 16px;
+          border-radius: 12px;
+          transition: all 0.2s ease;
+          cursor: pointer;
+        }
+        .transcript-line:hover {
+          background: rgba(255, 255, 255, 0.03);
+        }
+
+        /* Creative loading dots */
+        .loading-dots {
+          display: flex;
+          gap: 4px;
+          align-items: center;
+        }
+        .loading-dot {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, #00d4d4, #f472b6);
+          animation: dot-bounce 1.4s ease-in-out infinite;
+        }
+        .loading-dot:nth-child(1) { animation-delay: 0s; }
+        .loading-dot:nth-child(2) { animation-delay: 0.2s; }
+        .loading-dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes dot-bounce {
+          0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+          40% { transform: scale(1); opacity: 1; }
+        }
+      </style>
+
+      <p class="text-sm text-creator-muted uppercase tracking-wider mb-4">Transcript/Content Viewer</p>
+
+      <div class="preview-canvas rounded-2xl border border-white/10 overflow-hidden max-w-2xl" style="box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);">
+        <!-- Decorative corners -->
+        <svg class="corner-accent corner-tl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 8V3h5M3 3l6 6" class="text-creator-cyan"/>
+        </svg>
+        <svg class="corner-accent corner-tr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 8V3h5M3 3l6 6" class="text-creator-amber"/>
+        </svg>
+        <svg class="corner-accent corner-bl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 8V3h5M3 3l6 6" class="text-creator-sky"/>
+        </svg>
+        <svg class="corner-accent corner-br" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 8V3h5M3 3l6 6" class="text-creator-mint"/>
+        </svg>
+
+        <!-- Header -->
+        <div class="relative px-5 py-4 border-b border-white/5">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-creator-amber/30 to-creator-coral/20 flex items-center justify-center">
+                <svg class="w-4 h-4 text-creator-amber" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-medium text-sm">My Latest Video</h4>
+                <span class="text-xs text-creator-muted">Transcript</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs px-2 py-1 rounded-full bg-creator-mint/20 text-creator-mint border border-creator-mint/20">Auto-synced</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Transcript content -->
+        <div class="p-4 space-y-1 relative z-10">
+          <div class="transcript-line flex items-start gap-4">
+            <span class="timestamp-pill text-creator-sky shrink-0">00:00</span>
+            <p class="text-sm leading-relaxed pt-0.5">Hey everyone, welcome back to the channel. Today we're going to talk about something that I get asked about all the time...</p>
+          </div>
+          <div class="transcript-line flex items-start gap-4">
+            <span class="timestamp-pill text-creator-cyan shrink-0">00:15</span>
+            <p class="text-sm leading-relaxed pt-0.5">And that's how to actually grow on YouTube in 2024 without burning out.</p>
+          </div>
+          <div class="transcript-line flex items-start gap-4 opacity-50">
+            <span class="timestamp-pill text-creator-coral shrink-0">00:28</span>
+            <p class="text-sm leading-relaxed pt-0.5 flex items-center gap-3">
+              <span class="loading-dots">
+                <span class="loading-dot"></span>
+                <span class="loading-dot"></span>
+                <span class="loading-dot"></span>
+              </span>
+              <span class="text-creator-muted italic">Transcribing...</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Footer with playback hint -->
+        <div class="px-5 py-3 border-t border-white/5 flex items-center justify-between">
+          <span class="text-xs text-creator-muted">Click timestamp to jump</span>
+          <div class="flex items-center gap-2 text-xs text-creator-muted">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728"/>
+            </svg>
+            <span>AI-powered</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+</div>

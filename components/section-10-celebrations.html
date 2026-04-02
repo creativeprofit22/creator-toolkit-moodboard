@@ -1,0 +1,127 @@
+<div class="section-10-celebrations">
+    <!-- Section 10: Celebrations & Milestones -->
+    <section>
+      <h2 class="font-display text-2xl font-semibold mb-6 flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-creator-amber/20 flex items-center justify-center text-creator-amber">10</span>
+        Celebrations & Milestones
+      </h2>
+
+      <style>
+        /* Confetti animation */
+        @keyframes confetti-fall {
+          0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+          100% { transform: translateY(150px) rotate(720deg); opacity: 0; }
+        }
+
+        .confetti-piece {
+          position: absolute;
+          width: 10px;
+          height: 10px;
+          top: 0;
+        }
+
+        .confetti-1 { left: 10%; animation: confetti-fall 2s ease-out forwards; background: #ff6b6b; animation-delay: 0s; }
+        .confetti-2 { left: 25%; animation: confetti-fall 2.2s ease-out forwards; background: #fbbf24; animation-delay: 0.1s; }
+        .confetti-3 { left: 40%; animation: confetti-fall 1.8s ease-out forwards; background: #00d4d4; animation-delay: 0.2s; }
+        .confetti-4 { left: 55%; animation: confetti-fall 2.1s ease-out forwards; background: #34d399; animation-delay: 0.15s; }
+        .confetti-5 { left: 70%; animation: confetti-fall 1.9s ease-out forwards; background: #38bdf8; animation-delay: 0.25s; }
+        .confetti-6 { left: 85%; animation: confetti-fall 2s ease-out forwards; background: #fb7185; animation-delay: 0.05s; }
+
+        /* Badge unlock animation */
+        @keyframes badge-unlock {
+          0% { transform: scale(0) rotate(-180deg); opacity: 0; }
+          50% { transform: scale(1.2) rotate(10deg); }
+          100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        .badge-unlock {
+          animation: badge-unlock 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        /* Counter tick animation */
+        @keyframes counter-tick {
+          0% { transform: translateY(0); }
+          50% { transform: translateY(-4px); }
+          100% { transform: translateY(0); }
+        }
+
+        .counter-tick {
+          animation: counter-tick 0.3s ease-out;
+        }
+      </style>
+
+      <p class="text-sm text-creator-muted uppercase tracking-wider mb-4">Subscriber Milestones & Achievement Rewards</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+        <!-- Milestone Card: 1K -->
+        <div class="milestone-card relative bg-gradient-to-br from-creator-cyan/20 to-creator-coral/10 rounded-xl p-6 border border-creator-cyan/30 overflow-hidden group hover:border-creator-cyan/60 transition-colors">
+          <!-- Confetti container -->
+          <div class="confetti-container absolute inset-0 pointer-events-none overflow-hidden opacity-0 group-hover:opacity-100">
+            <div class="confetti-piece confetti-1 rounded-sm"></div>
+            <div class="confetti-piece confetti-2 rounded-full"></div>
+            <div class="confetti-piece confetti-3 rounded-sm"></div>
+            <div class="confetti-piece confetti-4 rounded-full"></div>
+            <div class="confetti-piece confetti-5 rounded-sm"></div>
+            <div class="confetti-piece confetti-6 rounded-full"></div>
+          </div>
+
+          <div class="relative z-10">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-creator-cyan to-creator-coral flex items-center justify-center mb-4 shadow-lg shadow-creator-cyan/30">
+              <span class="text-2xl">🎉</span>
+            </div>
+            <div class="font-display text-4xl font-bold mb-1 bg-gradient-to-r from-creator-cyan to-creator-coral bg-clip-text text-transparent">1K</div>
+            <p class="text-sm text-creator-muted">Subscribers reached!</p>
+            <p class="text-xs text-creator-cyan mt-2">Silver Play Button unlocked</p>
+          </div>
+        </div>
+
+        <!-- Milestone Card: 10K -->
+        <div class="milestone-card relative bg-gradient-to-br from-creator-amber/20 to-creator-coral/10 rounded-xl p-6 border border-creator-amber/30 overflow-hidden">
+          <div class="w-16 h-16 rounded-full bg-gradient-to-br from-creator-amber to-creator-coral flex items-center justify-center mb-4 shadow-lg shadow-creator-amber/30">
+            <span class="text-2xl">⭐</span>
+          </div>
+          <div class="font-display text-4xl font-bold mb-1 bg-gradient-to-r from-creator-amber to-creator-coral bg-clip-text text-transparent">10K</div>
+          <p class="text-sm text-creator-muted">Next milestone</p>
+          <div class="mt-3">
+            <div class="flex items-center justify-between text-xs mb-1">
+              <span class="text-creator-muted">Progress</span>
+              <span class="text-creator-amber">8,456 / 10,000</span>
+            </div>
+            <div class="h-2 bg-creator-border rounded-full overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-creator-amber to-creator-coral w-[84%] rounded-full"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Achievement Badges -->
+        <div class="relative rounded-xl p-6 overflow-hidden shine-effect backdrop-blur-xl bg-gradient-to-br from-creator-cyan/20 via-creator-cyan/10 to-creator-surface/50 border border-creator-cyan/20 shadow-lg shadow-creator-cyan/5">
+          <p class="text-sm font-medium mb-4">Unlocked Badges</p>
+          <div class="flex flex-wrap gap-3">
+            <div class="badge-unlock w-12 h-12 rounded-full bg-gradient-to-br from-creator-mint to-creator-sky flex items-center justify-center shadow-lg shadow-creator-mint/30" title="First Video">
+              <span class="text-xl">🎬</span>
+            </div>
+            <div class="badge-unlock w-12 h-12 rounded-full bg-gradient-to-br from-creator-coral to-creator-amber flex items-center justify-center shadow-lg shadow-creator-coral/30" style="animation-delay: 0.1s" title="100 Subs">
+              <span class="text-xl">💯</span>
+            </div>
+            <div class="badge-unlock w-12 h-12 rounded-full bg-gradient-to-br from-creator-cyan to-creator-sky flex items-center justify-center shadow-lg shadow-creator-cyan/30" style="animation-delay: 0.2s" title="Viral Hit">
+              <span class="text-xl">🔥</span>
+            </div>
+            <div class="w-12 h-12 rounded-full bg-creator-border/50 border-2 border-dashed border-creator-muted flex items-center justify-center opacity-50" title="Locked">
+              <span class="text-xl">🔒</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative rounded-xl p-4 overflow-hidden shine-effect backdrop-blur-xl bg-gradient-to-br from-creator-cyan/20 via-creator-cyan/10 to-creator-surface/50 border border-creator-cyan/20 shadow-lg shadow-creator-cyan/5">
+        <p class="text-sm text-creator-muted mb-2">Animation Types</p>
+        <div class="flex flex-wrap gap-3 text-xs">
+          <span class="px-2 py-1 rounded bg-creator-cyan/20 text-creator-cyan border border-creator-cyan/30">Confetti Fall</span>
+          <span class="px-2 py-1 rounded bg-creator-amber/20 text-creator-amber border border-creator-amber/30">Badge Bounce</span>
+          <span class="px-2 py-1 rounded bg-creator-mint/20 text-creator-mint border border-creator-mint/30">Counter Tick</span>
+          <span class="px-2 py-1 rounded bg-creator-coral/20 text-creator-coral border border-creator-coral/30">Progress Fill</span>
+        </div>
+      </div>
+    </section>
+
+</div>

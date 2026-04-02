@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creator Toolkit - UI Mood Board</title>
+
+  <!-- External Dependencies -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            // Core palette
+            'creator-bg': '#121218',
+            'creator-surface': '#1a1a24',
+            'creator-card': '#22222e',
+            'creator-border': '#2d2d3a',
+            // Accent colors
+            'creator-coral': '#ff6b6b',
+            'creator-amber': '#fbbf24',
+            'creator-mint': '#34d399',
+            'creator-sky': '#38bdf8',
+            'creator-cyan': '#00d4d4',
+            'creator-rose': '#fb7185',
+            // Text
+            'creator-text': '#e4e4eb',
+            'creator-muted': '#71717a',
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+  <!-- React for Section 26 -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+  <!-- Component Library Styles -->
+  <link rel="stylesheet" href="./styles/base.css">
+
+  <style>
+    /* Page-level styles */
+    .component-section {
+      margin-bottom: 2rem;
+    }
+
+    .loading-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+      background: var(--creator-surface);
+      border-radius: 1rem;
+      color: var(--creator-muted);
+    }
+
+    .loading-placeholder::after {
+      content: 'Loading component...';
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+  </style>
+</head>
+<body class="min-h-screen" style="background: var(--creator-bg); color: var(--creator-text);">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-50 backdrop-blur-md border-b" style="background: rgba(18, 18, 24, 0.8); border-color: var(--creator-border);">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+        <h1 class="text-2xl font-display font-bold gradient-text-animated">Creator Toolkit</h1>
+        <span class="text-sm" style="color: var(--creator-muted);">UI Component Library</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-6 py-8">
+
+    <!-- Section 1: Color Palette -->
+    <section id="section-01" class="component-section">
+      <h2 class="text-xl font-display font-semibold flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg flex items-center justify-center text-sm" style="background: rgba(167, 139, 250, 0.2); color: var(--creator-cyan);">1</span>
+        Color Palette
+      </h2>
+      <div data-component="section-01-color-palette.html"></div>
+    </section>
+
+    <!-- Section 2: Typography -->
+    <section id="section-02" class="component-section">
+      <h2 class="text-xl font-display font-semibold flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg flex items-center justify-center text-sm" style="background: rgba(167, 139, 250, 0.2); color: var(--creator-cyan);">2</span>
+        Typography
+      </h2>
+      <div data-component="section-02-typography.html"></div>
+    </section>
+
+    <!-- Section 3: Component Patterns -->
+    <section id="section-03" class="component-section">
+      <h2 class="text-xl font-display font-semibold flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg flex items-center justify-center text-sm" style="background: rgba(167, 139, 250, 0.2); color: var(--creator-cyan);">3</span>
+        Component Patterns
+      </h2>
+      <div data-component="section-03-component-patterns.html"></div>
+    </section>
+
+    <!-- Section 4: Comparison Layout -->
+    <section id="section-04" class="component-section">
+      <h2 class="text-xl font-display font-semibold flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg flex items-center justify-center text-sm" style="background: rgba(167, 139, 250, 0.2); color: var(--creator-cyan);">4</span>
+        Comparison Layout
+      </h2>
+      <div data-component="section-04-comparison-layout.html"></div>
+    </section>
+
+    <!-- Section 5: Preview Window -->
+    <section id="section-05" class="component-section">
+      <h2 class="text-xl font-display font-semibold flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg flex items-center justify-center text-sm" style="background: rgba(167, 139, 250, 0.2); color: var(--creator-cyan);">5</span>
+        Preview Window
+      </h2>
+      <div data-component="section-05-preview-window.html"></div>
+    </section>
+
+    <!-- Section 6: Pipeline Flow -->
+    <section id="section-06" class="component-section">
+      <h2 class="text-xl font-display font-semibold flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg flex items-center justify-center text-sm" style="background: rgba(167, 139, 250, 0.2); color: var(--creator-cyan);">6</span>
+        Content Pipeline Flow
+      </h2>
+      <div data-component="section-06-pipeline-flow.html"></div>
+    </section>
+
+    <!-- Section 8: Kanban Board -->
+    <section id="section-08" class="component-section">
+      <h2 class="text-xl font-display font-semibold flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg flex items-center justify-center text-sm" style="background: rgba(167, 139, 250, 0.2); color: var(--creator-cyan);">8</span>
+        Kanban Board
+      </h2>
+      <div data-component="section-08-kanban-board.html"></div>
+    </section>
+
+    <!-- Section 9: Content Calendar -->
+    <section id="section-09" class="component-section">
+      <h2 class="text-xl font-display font-semibold flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg flex items-center justify-center text-sm" style="background: rgba(167, 139, 250, 0.2); color: var(--creator-cyan);">9</span>
+        Content Calendar
+      </h2>
+      <div data-component="section-09-content-calendar.html"></div>
+    </section>
+
+    <!-- Section 10: Celebrations -->
+    <section id="section-10" class="component-section">
+      <h2 class="text-xl font-display font-semibold flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg flex items-center justify-center text-sm" style="background: rgba(167, 139, 250, 0.2); color: var(--creator-cyan);">10</span>
+        Celebrations & Milestones
+      </h2>
+      <div data-component="section-10-celebrations.html"></div>
+    </section>
+
+    <!-- Section 11: Live Engagement -->
+    <section id="section-11" class="component-section">
+      <h2 class="text-xl font-display font-semibold flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg flex items-center justify-center text-sm" style="background: rgba(167, 139, 250, 0.2); color: var(--creator-cyan);">11</span>
+        Live Engagement
+      </h2>
+      <div data-component="section-11-live-engagement.html"></div>
+    </section>
+
+    <!-- Section 13: Glassmorphism Cards -->
+    <section id="section-13" class="component-section">
+      <h2 class="text-xl font-display font-semibold flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg flex items-center justify-center text-sm" style="background: rgba(167, 139, 250, 0.2); color: var(--creator-cyan);">13</span>
+        Glassmorphism Cards
+      </h2>
+      <div data-component="section-13-glassmorphism.html"></div>
+    </section>
+
+    <!-- Section 15: Cursor Effects -->
+    <section id="section-15" class="component-section">
+      <h2 class="text-xl font-display font-semibold flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg flex items-center justify-center text-sm" style="background: rgba(167, 139, 250, 0.2); color: var(--creator-cyan);">15</span>
+        Interactive Cursor Effects
+      </h2>
+      <div data-component="section-15-cursor-effects.html"></div>
+    </section>
+
+    <!-- Section 16: Design Principles -->
+    <section id="section-16" class="component-section">
+      <h2 class="text-xl font-display font-semibold flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg flex items-center justify-center text-sm" style="background: rgba(167, 139, 250, 0.2); color: var(--creator-cyan);">16</span>
+        Design Principles
+      </h2>
+      <div data-component="section-16-design-principles.html"></div>
+    </section>
+
+    <!-- Section 17: Sidebar Navigation -->
+    <section id="section-17" class="component-section">
+      <h2 class="text-xl font-display font-semibold flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg flex items-center justify-center text-sm" style="background: rgba(167, 139, 250, 0.2); color: var(--creator-cyan);">17</span>
+        Flowing Sidebar Navigation
+      </h2>
+      <div data-component="section-17-sidebar-nav.html"></div>
+    </section>
+
+    <!-- Section 18: AI Chat -->
+    <section id="section-18" class="component-section">
+      <h2 class="text-xl font-display font-semibold flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg flex items-center justify-center text-sm" style="background: rgba(167, 139, 250, 0.2); color: var(--creator-cyan);">18</span>
+        AI Chat Component
+      </h2>
+      <div data-component="section-18-ai-chat.html"></div>
+    </section>
+
+    <!-- Section 19: Data Visualization -->
+    <section id="section-19" class="component-section">
+      <h2 class="text-xl font-display font-semibold flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg flex items-center justify-center text-sm" style="background: rgba(167, 139, 250, 0.2); color: var(--creator-cyan);">19</span>
+        Data Visualization with ECharts
+      </h2>
+      <div data-component="section-19-echarts.html"></div>
+    </section>
+
+    <!-- Section 20: Dashboard Components -->
+    <section id="section-20" class="component-section">
+      <h2 class="text-xl font-display font-semibold flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg flex items-center justify-center text-sm" style="background: rgba(167, 139, 250, 0.2); color: var(--creator-cyan);">20</span>
+        Dashboard Components
+      </h2>
+      <div data-component="section-20-dashboard.html"></div>
+    </section>
+
+    <!-- Section 21: Text Animation -->
+    <section id="section-21" class="component-section">
+      <h2 class="text-xl font-display font-semibold flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg flex items-center justify-center text-sm" style="background: rgba(167, 139, 250, 0.2); color: var(--creator-cyan);">21</span>
+        Text Animation
+      </h2>
+      <div data-component="section-21-text-animation.html"></div>
+    </section>
+
+    <!-- Section 22: Buttons -->
+    <section id="section-22" class="component-section">
+      <h2 class="text-xl font-display font-semibold flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg flex items-center justify-center text-sm" style="background: rgba(167, 139, 250, 0.2); color: var(--creator-cyan);">22</span>
+        Buttons
+      </h2>
+      <div data-component="section-22-buttons.html"></div>
+    </section>
+
+    <!-- Section 23: Dropdown Menus -->
+    <section id="section-23" class="component-section">
+      <h2 class="text-xl font-display font-semibold flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg flex items-center justify-center text-sm" style="background: rgba(52, 211, 153, 0.2); color: var(--creator-mint);">23</span>
+        Dropdown Menus
+      </h2>
+      <div data-component="section-23-dropdowns.html"></div>
+    </section>
+
+    <!-- Section 24: Date Pickers -->
+    <section id="section-24" class="component-section">
+      <h2 class="text-xl font-display font-semibold flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg flex items-center justify-center text-sm" style="background: rgba(251, 191, 36, 0.2); color: var(--creator-amber);">24</span>
+        Date Pickers
+      </h2>
+      <div data-component="section-24-date-pickers.html"></div>
+    </section>
+
+    <!-- Section 25: Search & Input Fields -->
+    <section id="section-25" class="component-section">
+      <h2 class="text-xl font-display font-semibold flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg flex items-center justify-center text-sm" style="background: rgba(56, 189, 248, 0.2); color: var(--creator-sky);">25</span>
+        Search &amp; Input Fields
+      </h2>
+      <div data-component="section-25-search-inputs.html"></div>
+    </section>
+
+    <!-- Section 26: Social Media Preview Mockups -->
+    <section id="section-26" class="component-section">
+      <h2 class="text-xl font-display font-semibold flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg flex items-center justify-center text-sm" style="background: rgba(56, 189, 248, 0.2); color: var(--creator-sky);">26</span>
+        Social Media Preview Mockups
+      </h2>
+      <div data-component="section-26-social-previews.html"></div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t py-8 mt-12" style="border-color: var(--creator-border);">
+    <div class="max-w-7xl mx-auto px-6 text-center" style="color: var(--creator-muted);">
+      <p>Creator Toolkit Component Library</p>
+      <p class="text-sm mt-2">23 Components | Modular Architecture</p>
+    </div>
+  </footer>
+
+  <!-- Component Loader Script -->
+  <script>
+    /**
+     * Component Loader
+     * Dynamically loads HTML components from separate files
+     */
+    (function() {
+      const COMPONENT_PATH = './components/';
+
+      // Load a single component
+      async function loadComponent(placeholder) {
+        const componentFile = placeholder.dataset.component;
+        if (!componentFile) return;
+
+        try {
+          const response = await fetch(COMPONENT_PATH + componentFile);
+          if (!response.ok) throw new Error(`Failed to load ${componentFile}`);
+
+          const html = await response.text();
+          placeholder.outerHTML = html;
+        } catch (error) {
+          console.error(`Error loading component: ${componentFile}`, error);
+          placeholder.innerHTML = `<p style="color: var(--creator-coral);">Failed to load component</p>`;
+        }
+      }
+
+      // Load all components on page load
+      async function loadAllComponents() {
+        const placeholders = document.querySelectorAll('[data-component]');
+        await Promise.all([...placeholders].map(loadComponent));
+
+        // Initialize scripts after all components are loaded
+        initializeScripts();
+      }
+
+      // Load and initialize JavaScript modules
+      function initializeScripts() {
+        const scripts = [
+          './scripts/interactions.js',
+          './scripts/accordion.js',
+          './scripts/ai-chat.js',
+          './scripts/text-animation.js',
+          './scripts/echarts-init.js',
+          './scripts/buttons.js',
+          './scripts/dropdowns.js',
+          './scripts/date-pickers.js',
+          './scripts/search-inputs.js',
+          './scripts/social-previews.js'
+        ];
+
+        scripts.forEach(src => {
+          const script = document.createElement('script');
+          script.src = src;
+          document.body.appendChild(script);
+        });
+      }
+
+      // Start loading when DOM is ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadAllComponents);
+      } else {
+        loadAllComponents();
+      }
+    })();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,421 @@
+/* Creator Toolkit - Base Styles */
+/* Extracted from moodboard.html */
+
+/* Import variables */
+@import './variables.css';
+
+/* ===== Base Typography ===== */
+body {
+  font-family: var(--font-body, 'Inter', sans-serif);
+}
+
+.font-display {
+  font-family: var(--font-display, 'Space Grotesk', sans-serif);
+}
+
+/* ===== Animation Keyframes ===== */
+
+/* Animation 1: Shimmer effect for pipeline stage cards */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Animation 2: Subtle glow pulse for status badges */
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+  50% {
+    box-shadow: 0 0 8px 2px currentColor;
+  }
+}
+
+/* Animation 3: Animated gradient backgrounds */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Animation 4: Subtle floating effect for feature card */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* Pop effect for interactive elements */
+@keyframes pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Subtle bounce for attention */
+@keyframes subtle-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+/* Gradient text animation */
+@keyframes gradient-text-flow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Sidebar sweep animations */
+@keyframes sweepFromTop {
+  from { transform: translateY(-101%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes sweepFromBottom {
+  from { transform: translateY(101%); }
+  to { transform: translateY(0); }
+}
+
+/* Icon pulse animations */
+@keyframes pulseLeft {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1.1); }
+}
+
+@keyframes pulseRight {
+  0%, 40% { transform: scale(1); }
+  70% { transform: scale(1.3); }
+  100% { transform: scale(1.1); }
+}
+
+/* Icon spin animations */
+@keyframes spinCW {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(180deg); }
+}
+
+@keyframes spinCCW {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-180deg); }
+}
+
+/* ===== Utility Classes ===== */
+
+/* Pipeline Card - Shimmer effect on hover */
+.pipeline-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.pipeline-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.03) 25%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.03) 75%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.pipeline-card:hover::before {
+  opacity: 1;
+  animation: shimmer 1.5s ease-in-out;
+}
+
+/* Status Badge - Glow pulse */
+.status-badge {
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+/* Animated Gradient Background */
+.animated-gradient {
+  background-size: 200% 200%;
+  animation: gradientShift 6s ease infinite;
+}
+
+/* Floating Card */
+.floating-card {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Energetic hover effects */
+.hover-lift {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* Glow on hover */
+.hover-glow:hover {
+  box-shadow: 0 0 30px rgba(167, 139, 250, 0.3);
+}
+
+/* Pop on click */
+.pop-on-click:active {
+  animation: pop 0.2s ease-out;
+}
+
+/* Attention bounce */
+.attention-bounce {
+  animation: subtle-bounce 2s ease-in-out infinite;
+}
+
+/* Animated gradient text */
+.gradient-text-animated {
+  background: linear-gradient(90deg, #00d4d4, #ff6b6b, #fbbf24, #34d399, #00d4d4);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-text-flow 4s ease infinite;
+}
+
+/* Card shine effect */
+.shine-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine-effect::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(45deg) translateX(-100%);
+  transition: transform 0.6s ease;
+  pointer-events: none;
+}
+
+.shine-effect:hover::after {
+  transform: rotate(45deg) translateX(100%);
+}
+
+/* ===== Section / Accordion Styles ===== */
+
+.section-header {
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+  padding: 0.5rem;
+  margin: -0.5rem;
+  border-radius: 0.75rem;
+}
+
+.section-header:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.section-header .chevron {
+  transition: transform 0.3s ease;
+}
+
+.section-header.active .chevron {
+  transform: rotate(180deg);
+}
+
+.section-content {
+  max-height: 5000px;
+  overflow: visible;
+  opacity: 1;
+  transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease;
+  margin-top: 1.5rem;
+}
+
+.section-content.collapsed {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  margin-top: 0;
+}
+
+/* Pause animations in collapsed sections */
+.section-content.collapsed * {
+  animation-play-state: paused !important;
+}
+
+/* ===== Flowing Sidebar ===== */
+
+/* Base sidebar styles */
+.flowing-sidebar {
+  background: var(--sidebar-bg, #1a1a24);
+  border-radius: 12px;
+  overflow: hidden;
+  width: 280px;
+}
+
+.flowing-sidebar-header {
+  padding: 20px 16px;
+  border-bottom: 1px solid var(--sidebar-border, rgba(255, 255, 255, 0.06));
+}
+
+.flowing-nav-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  cursor: pointer;
+  overflow: hidden;
+  border-bottom: 1px solid var(--sidebar-item-border, rgba(255, 255, 255, 0.04));
+  transition: background 0.2s ease;
+}
+
+.flowing-nav-item:last-child {
+  border-bottom: none;
+}
+
+/* Icon containers */
+.flowing-icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.5);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.flowing-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.flowing-nav-text {
+  flex: 1;
+  padding: 0 12px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  transition: color 0.2s ease;
+}
+
+/* Edge-aware sweep overlay */
+.flowing-sweep {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, #00d4d4, #ff6b6b);
+  transform: translateY(101%);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.flowing-nav-item:hover .flowing-sweep {
+  transform: translateY(0);
+}
+
+.flowing-nav-item.from-top:hover .flowing-sweep {
+  animation: sweepFromTop 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.flowing-nav-item.from-bottom:hover .flowing-sweep {
+  animation: sweepFromBottom 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Hover content layer */
+.flowing-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.flowing-nav-item:hover .flowing-icon {
+  color: white;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4));
+}
+
+.flowing-nav-item:hover .flowing-nav-text {
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Animation Pattern 1: Mirror Rotate */
+.pattern-mirror-rotate:hover .flowing-icon.left {
+  transform: rotate(-15deg) scale(1.1);
+}
+
+.pattern-mirror-rotate:hover .flowing-icon.right {
+  transform: rotate(15deg) scale(1.1);
+}
+
+/* Animation Pattern 2: Converge */
+.pattern-converge:hover .flowing-icon.left {
+  transform: translateX(4px) scale(1.1);
+}
+
+.pattern-converge:hover .flowing-icon.right {
+  transform: translateX(-4px) scale(1.1);
+}
+
+/* Animation Pattern 3: Pulse Sequence */
+.pattern-pulse:hover .flowing-icon.left {
+  animation: pulseLeft 0.4s ease forwards;
+}
+
+.pattern-pulse:hover .flowing-icon.right {
+  animation: pulseRight 0.4s ease forwards;
+}
+
+/* Animation Pattern 4: Spin Opposite */
+.pattern-spin:hover .flowing-icon.left {
+  animation: spinCW 0.4s ease forwards;
+}
+
+.pattern-spin:hover .flowing-icon.right {
+  animation: spinCCW 0.4s ease forwards;
+}
+
+/* Active state */
+.flowing-nav-item.active {
+  background: rgba(167, 139, 250, 0.15);
+}
+
+.flowing-nav-item.active .flowing-icon {
+  color: #00d4d4;
+}
+
+.flowing-nav-item.active .flowing-nav-text {
+  color: #00d4d4;
+  font-weight: 500;
+}

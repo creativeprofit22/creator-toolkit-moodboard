@@ -1,0 +1,31 @@
+/* Creator Toolkit - CSS Custom Properties / Variables */
+/* Extracted from moodboard.html */
+
+:root {
+  /* Core palette */
+  --creator-bg: #121218;
+  --creator-surface: #1a1a24;
+  --creator-card: #22222e;
+  --creator-border: #2d2d3a;
+
+  /* Accent colors */
+  --creator-coral: #ff6b6b;
+  --creator-amber: #fbbf24;
+  --creator-mint: #34d399;
+  --creator-sky: #38bdf8;
+  --creator-violet: #00d4d4;
+  --creator-rose: #fb7185;
+
+  /* Text */
+  --creator-text: #e4e4eb;
+  --creator-muted: #71717a;
+
+  /* Typography */
+  --font-body: 'Inter', sans-serif;
+  --font-display: 'Space Grotesk', sans-serif;
+
+  /* Sidebar */
+  --sidebar-bg: #1a1a24;
+  --sidebar-border: rgba(255, 255, 255, 0.06);
+  --sidebar-item-border: rgba(255, 255, 255, 0.04);
+}

@@ -1,0 +1,196 @@
+<div class="section-04-comparison-layout">
+    <!-- Section 4: Comparison Layout -->
+    <section>
+      <h2 class="font-display text-2xl font-semibold mb-6 flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-creator-sky/20 flex items-center justify-center text-creator-sky">4</span>
+        Comparison Pattern
+      </h2>
+
+      <style>
+        /* Comparison card glassmorphism */
+        .compare-card {
+          background: rgba(255, 255, 255, 0.03);
+          backdrop-filter: blur(16px) saturate(150%);
+          -webkit-backdrop-filter: blur(16px) saturate(150%);
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .compare-card:hover {
+          transform: translateY(-4px) scale(1.01);
+        }
+
+        /* Thumbnail frame with animated gradient */
+        .thumb-frame {
+          position: relative;
+          border-radius: 0.5rem;
+          overflow: hidden;
+        }
+        .thumb-frame::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: 0.5rem;
+          padding: 2px;
+          background: linear-gradient(135deg, var(--frame-start), var(--frame-end), var(--frame-start));
+          background-size: 200% 200%;
+          animation: frame-shimmer 3s ease infinite;
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          opacity: 0.6;
+          transition: opacity 0.3s;
+        }
+        .compare-card:hover .thumb-frame::before {
+          opacity: 1;
+        }
+        @keyframes frame-shimmer {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+        }
+
+        /* VS badge */
+        .vs-badge {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          z-index: 20;
+          width: 48px;
+          height: 48px;
+          background: linear-gradient(135deg, #00d4d4, #f472b6);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 700;
+          font-size: 0.875rem;
+          color: white;
+          box-shadow: 0 0 20px rgba(0, 212, 212, 0.5), 0 0 40px rgba(244, 114, 182, 0.3);
+          animation: vs-pulse 2s ease-in-out infinite;
+        }
+        @keyframes vs-pulse {
+          0%, 100% { box-shadow: 0 0 20px rgba(0, 212, 212, 0.5), 0 0 40px rgba(244, 114, 182, 0.3); }
+          50% { box-shadow: 0 0 30px rgba(0, 212, 212, 0.7), 0 0 60px rgba(244, 114, 182, 0.5); }
+        }
+
+        /* Stats bar styling */
+        .stat-bar {
+          height: 4px;
+          border-radius: 2px;
+          background: rgba(255, 255, 255, 0.1);
+          overflow: hidden;
+        }
+        .stat-fill {
+          height: 100%;
+          border-radius: 2px;
+          transition: width 0.6s ease;
+        }
+      </style>
+
+      <p class="text-sm text-creator-muted uppercase tracking-wider mb-4">A/B Thumbnail Testing</p>
+
+      <div class="relative">
+        <!-- VS Badge -->
+        <div class="vs-badge hidden md:flex">VS</div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Version A Card -->
+          <div class="compare-card rounded-2xl border border-white/10 overflow-hidden group" style="box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);">
+            <!-- Header ribbon -->
+            <div class="relative bg-gradient-to-r from-creator-coral/20 to-creator-amber/10 px-5 py-3 border-b border-white/5">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-creator-coral animate-pulse"></span>
+                  <span class="text-sm font-semibold text-creator-coral">Version A</span>
+                </div>
+                <span class="text-xs px-2 py-1 rounded-full bg-white/5 text-creator-muted border border-white/10">Current</span>
+              </div>
+            </div>
+
+            <!-- Thumbnail frame -->
+            <div class="p-4">
+              <div class="thumb-frame" style="--frame-start: #ff6b6b; --frame-end: #fbbf24;">
+                <div class="aspect-video bg-gradient-to-br from-creator-coral/30 via-creator-amber/20 to-creator-coral/10 flex items-center justify-center">
+                  <svg class="w-12 h-12 text-white/20" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stats section -->
+            <div class="px-5 pb-5 space-y-3">
+              <div>
+                <div class="flex justify-between text-sm mb-1.5">
+                  <span class="text-creator-muted">Click-Through Rate</span>
+                  <span class="font-semibold">4.2%</span>
+                </div>
+                <div class="stat-bar">
+                  <div class="stat-fill bg-gradient-to-r from-creator-coral to-creator-amber" style="width: 42%;"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between text-sm mb-1.5">
+                  <span class="text-creator-muted">Impressions</span>
+                  <span class="font-semibold">12.4K</span>
+                </div>
+                <div class="stat-bar">
+                  <div class="stat-fill bg-gradient-to-r from-creator-coral/60 to-creator-amber/60" style="width: 75%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Version B Card -->
+          <div class="compare-card rounded-2xl border border-white/10 overflow-hidden group" style="box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);">
+            <!-- Header ribbon -->
+            <div class="relative bg-gradient-to-r from-creator-mint/20 to-creator-sky/10 px-5 py-3 border-b border-white/5">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-creator-mint animate-pulse"></span>
+                  <span class="text-sm font-semibold text-creator-mint">Version B</span>
+                </div>
+                <span class="text-xs px-2.5 py-1 rounded-full bg-creator-mint/20 text-creator-mint font-medium flex items-center gap-1">
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                  +18% CTR
+                </span>
+              </div>
+            </div>
+
+            <!-- Thumbnail frame -->
+            <div class="p-4">
+              <div class="thumb-frame" style="--frame-start: #34d399; --frame-end: #38bdf8;">
+                <div class="aspect-video bg-gradient-to-br from-creator-mint/30 via-creator-sky/20 to-creator-mint/10 flex items-center justify-center">
+                  <svg class="w-12 h-12 text-white/20" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stats section -->
+            <div class="px-5 pb-5 space-y-3">
+              <div>
+                <div class="flex justify-between text-sm mb-1.5">
+                  <span class="text-creator-muted">Click-Through Rate</span>
+                  <span class="font-semibold text-creator-mint">4.9%</span>
+                </div>
+                <div class="stat-bar">
+                  <div class="stat-fill bg-gradient-to-r from-creator-mint to-creator-sky" style="width: 49%;"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between text-sm mb-1.5">
+                  <span class="text-creator-muted">Impressions</span>
+                  <span class="font-semibold">11.8K</span>
+                </div>
+                <div class="stat-bar">
+                  <div class="stat-fill bg-gradient-to-r from-creator-mint/60 to-creator-sky/60" style="width: 71%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+</div>
